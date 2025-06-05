@@ -73,7 +73,6 @@
       div.innerHTML = `
         <strong>${car.name}</strong> — ${car.price} €<br>
         <img src="${car.image}" width="120"><br>
-        🔋 ${car.power || '-'} | 🔁 ${car.drive || '-'} | ⛽ ${car.fuel || '-'} | 📅 ${car.year || '-'}<br>
         <button onclick="editCar(${index})">✏️ Редагувати</button>
         <button onclick="deleteCar(${index})">❌ Видалити</button>
       `;
