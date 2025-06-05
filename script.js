@@ -43,10 +43,11 @@ async function renderCars() {
     }
 
     let index = parseInt(localStorage.getItem("selectedCarIndex")) || 0;
+
     const track = document.createElement("div");
     track.className = "car-showcase";
     track.id = "showcaseTrack";
-    track.style.transform = `translateX(-${index * 100}%)`; // встановити позицію
+    track.style.transform = `translateX(-${index * 100}%)`;
 
     cars.forEach((car, i) => {
         const card = document.createElement("div");
@@ -64,13 +65,56 @@ async function renderCars() {
                 localStorage.setItem("selectedCarIndex", i);
                 setTimeout(() => {
                     window.location.href = `models/${car.page}`;
-                }, 100); // дати браузеру час зберегти дані
+                }, 100);
             } else {
                 alert("Немає сторінки для цього авто");
             }
         });
         track.appendChild(card);
     });
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "car-showcase-wrapper";
+    wrapper.style.position = "relative";
+    wrapper.appendChild(track);
+
+    if (cars.length > 1) {
+        const prev = document.createElement("div");
+        prev.id = "prevCar";
+        prev.className = "carousel-arrow";
+        prev.innerHTML = "&#9664;";
+        prev.onclick = () => {
+            index = (index - 1 + cars.length) % cars.length;
+            localStorage.setItem("selectedCarIndex", index);
+            track.style.transform = `translateX(-${index * 100}%)`;
+        };
+
+        const next = document.createElement("div");
+        next.id = "nextCar";
+        next.className = "carousel-arrow";
+        next.innerHTML = "&#9654;";
+        next.onclick = () => {
+            index = (index + 1) % cars.length;
+            localStorage.setItem("selectedCarIndex", index);
+            track.style.transform = `translateX(-${index * 100}%)`;
+        };
+
+        wrapper.appendChild(prev);
+        wrapper.appendChild(next);
+    }
+
+    carContainer.innerHTML = "";
+    carContainer.appendChild(wrapper);
+
+    // ❗ Очистити лише якщо не повернулись із моделі
+    // (можеш сам вирішити, чи хочеш це залишати або прибрати повністю)
+    setTimeout(() => {
+        if (!document.referrer.includes("models/")) {
+            localStorage.removeItem("selectedCarIndex");
+        }
+    }, 5000);
+}
+
 
     const wrapper = document.createElement("div");
     wrapper.className = "car-showcase-wrapper";
