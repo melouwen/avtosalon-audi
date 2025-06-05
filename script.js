@@ -6,37 +6,6 @@ function scrollToSection(id) {
 }
 
 
-function cycleVideos() {
-    const videos = document.querySelectorAll('.bg-video');
-    let currentIndex = 0;
-
-    if (videos.length === 0) return;
-
-    // Ініціалізація: активуємо перше відео
-    videos.forEach((video, i) => {
-        video.classList.remove('active');
-        video.currentTime = 0;
-    });
-    videos[0].classList.add('active');
-
-    setInterval(() => {
-        // Скидаємо активне відео
-        videos[currentIndex].classList.remove('active');
-
-        // Переходимо до наступного
-        currentIndex = (currentIndex + 1) % videos.length;
-
-        // Скидаємо час і вмикаємо нове відео
-        videos[currentIndex].classList.add('active');
-        videos[currentIndex].currentTime = 0;
-    }, 5000); // кожні 8 секунд
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    renderCars();   // 🚘 каталоги
-    cycleVideos();  // 🎞️ автозміна відео
-});
-
 // Рендер авто-каталогу
 async function renderCars() {
     const carContainer = document.getElementById("carContainer");
