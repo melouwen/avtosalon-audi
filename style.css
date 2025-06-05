@@ -1,0 +1,569 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #000, #111);
+    color: #fff;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.lead {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+ul.features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+    line-height: 1.6;
+}
+
+ul.features li {
+    background: rgba(255,255,255,0.05);
+    padding: 8px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.about-image {
+    flex: 1;
+    max-width: 600px;
+    width: 100%;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+    object-fit: cover;
+    display: block;
+}
+
+.catalog-link {
+    color: #f00;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.catalog-link:hover {
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+nav button {
+    margin-left: 20px;
+    padding: 10px 20px;
+    border: none;
+    background: #fff;
+    color: #000;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+}
+
+nav button:hover {
+    background: crimson;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.section {
+    min-height: 100vh;
+    padding: 120px 20px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    scroll-margin-top: 100px;
+    margin-bottom: 0px;
+}
+
+.section.active-section {
+    animation: sectionFadeIn 1s ease-out;
+}
+
+@keyframes sectionFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.home {
+    position: relative;
+    background: url('https://cdn.pixabay.com/photo/2017/07/31/11/22/audi-2568485_1280.jpg') no-repeat center center / cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.home .overlay {
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    padding: 100px 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home .content {
+    max-width: 800px;
+    color: #fff;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.improved-about {
+    background: linear-gradient(to bottom right, #111, #1b1b1b);
+    padding: 100px 40px;
+}
+
+.about-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1100px;
+    margin: auto;
+    align-items: center;
+}
+
+@media(min-width: 900px) {
+    .about-grid {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .about-image {
+        max-width: 500px;
+    }
+
+    .about-text {
+        padding-right: 30px;
+    }
+}
+
+.section-title {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.features-list {
+    margin: 30px 0;
+    display: grid;
+    gap: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.04);
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateX(8px);
+    background: rgba(255,255,255,0.07);
+}
+
+.icon {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.contact-info {
+    margin-top: 30px;
+    color: #ccc;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1s; }
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.catalog {
+    background: #0f0f0f;
+}
+
+.content {
+    max-width: 900px;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+.cars {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.car-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    width: 250px;
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
+}
+
+.car-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.car-card ul {
+    text-align: left;
+    padding-left: 15px;
+    list-style: none;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+.car-card ul li {
+    margin: 4px 0;
+}
+
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.bg-video.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+
+.cta-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fancy-btn {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 1px;
+}
+
+.fancy-btn:hover {
+    background: #e5e5e5;
+    transform: scale(1.05);
+}
+
+.fancy-btn.alt {
+    background: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.fancy-btn.alt:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#secret-admin-access {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    z-index: 9999;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.home .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 30px 40px;
+    display: inline-block;
+    margin: 40px auto;
+    max-width: 600px;
+}
+
+.car-showcase-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.05);
+    position: relative;
+    margin-top: 40px;
+}
+
+.car-showcase {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.car-showcase-card {
+    flex: 0 0 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.04);
+}
+
+.car-showcase-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+    border-radius: 20px;
+}
+
+.car-showcase-card:hover img {
+    transform: scale(1.03);
+}
+
+.car-title-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 20px 30px;
+    font-size: 1.6rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+/* Navigation Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 2rem;
+    padding: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+#prevCar { left: 20px; }
+#nextCar { right: 20px; }
+
+.carousel-arrow:hover {
+    background: crimson;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Modal */
+#carDetailsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(10, 10, 10, 0.9);
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+    padding: 40px;
+}
+
+#carDetailsContent {
+    background: #121212;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    color: #f1f1f1;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media(min-width: 768px) {
+    .modal-body {
+        flex-direction: row;
+        gap: 30px;
+    }
+}
+
+.modal-image img {
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.08);
+}
+
+.modal-info h2 {
+    margin: 0 0 10px;
+}
+
+.modal-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-info li {
+    margin: 6px 0;
+}
+
+.modal-info button {
+    margin-top: 20px;
+    background: crimson;
+    border: none;
+    padding: 12px 26px;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal-info button:hover {
+    background: #ff4040;
+}
+
+.catalog .section-title,
+.car-title-overlay,
+.catalog p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.car-flex-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    font-size: 1.4rem;
+}
+
+.car-flex-title .left {
+    text-align: left;
+    flex: 1;
+}
+
+.car-flex-title .right {
+    text-align: right;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 1.2rem;
+    opacity: 0.85;
+}

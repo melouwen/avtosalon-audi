@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audi Autohouse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="carDetailsModal">
+    <div id="carDetailsContent">
+        <!-- динамічно наповнюється -->
+    </div>
+</div>
+<header>
+    <div class="logo">Audi</div>
+    <nav>
+        <button onclick="scrollToSection('home')">Головна</button>
+        <button onclick="scrollToSection('about')">Про нас</button>
+        <button onclick="scrollToSection('catalog')">Каталог</button>
+    </nav>
+</header>
+
+<section id="home" class="section home enhanced-home">
+    <div class="video-container">
+        <video class="bg-video active" autoplay muted loop playsinline>
+            <source src="media/bg1.mp4" type="video/mp4">
+        </video>
+        <video class="bg-video" autoplay muted loop playsinline>
+            <source src="media/bg2.mp4" type="video/mp4">
+        </video>
+        <video class="bg-video" autoplay muted loop playsinline>
+            <source src="media/bg3.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="overlay gradient-overlay">
+        <div class="content animated-content">
+            <h1>Ласкаво просимо до <span class="highlight">Audi</span></h1>
+            <p class="lead glow">Технології. Дизайн. Інженерія.</p>
+            <p>Обирайте краще – відчуйте майбутнє за кермом вже сьогодні.</p>
+            <div class="cta-buttons">
+                <button class="fancy-btn" onclick="scrollToSection('catalog')">Дивитись моделі</button>
+                <button class="fancy-btn alt" onclick="scrollToSection('about')">Детальніше</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section about improved-about">
+    <div class="about-grid">
+        <div class="about-text">
+            <h2 class="section-title">Про нас</h2>
+            <p class="fade-in">Ми — офіційний автосалон Audi в Україні з понад 10-річним досвідом.</p>
+            <p class="fade-in delay-1">Ми пропонуємо не просто авто — а стиль життя, динаміку, впевненість та інновації.</p>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="icon">🚗</span>
+                    <p>Оригінальні моделі Audi 2023–2025</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🛠️</span>
+                    <p>Офіційне сервісне обслуговування</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">👨‍💼</span>
+                    <p>Професійні автоконсультанти</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">💳</span>
+                    <p>Гнучке фінансування і лізинг</p>
+                </div>
+            </div>
+
+            <p class="contact-info fade-in delay-2">
+                📍 м.Черкаси, вул. вул. Надпільна, 226<br>
+                📞 +38 (096) 826-78-87<br>
+                📧 myhalenko.d@chpt.edu.ua
+            </p>
+        </div>
+
+        <div class="about-image fade-in delay-1">
+            <img src="salon.jpg" alt="Салон Audi">
+        </div>
+    </div>
+</section>
+
+<div id="secret-admin-access"></div>
+
+<section id="catalog" class="section catalog">
+    <div class="content">
+        <h2>Каталог</h2>
+        <p>Оберіть модель, яка вам підходить.</p>
+        <div id="carContainer" class="cars"></div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

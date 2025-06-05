@@ -1,0 +1,24 @@
+{
+  "name": "avtosalon-vizutka",
+  "version": "1.0.0",
+  "main": "cars.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melouwen/avtosalon-vizutka.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melouwen/avtosalon-vizutka/issues"
+  },
+  "homepage": "https://github.com/melouwen/avtosalon-vizutka#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

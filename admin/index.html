@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Вхід</title>
+  <link rel="stylesheet" href="admin.css">
+
+  <script>
+    const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+    if (isMobile) {
+      window.location.href = "mobile-blocked.html";
+    }
+  </script>
+
+</head>
+<body>
+<div class="topbar">
+  <span>Адмін-панель</span>
+  <div class="topbar-links">
+    <a href="../index.html">Повернутися на сайт</a>
+  </div>
+</div>
+<div class="login-box">
+  <div class="login-left">
+    <h2>Вхід до адмін-панелі</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Логін" required>
+      <input type="password" id="password" placeholder="Пароль" required>
+      <button type="submit">Увійти</button>
+      <p id="error" class="error-message"></p>
+    </form>
+  </div>
+  <div class="login-right">
+    <img src="media/bg.jpg" alt="car">
+  </div>
+</div>
+
+<script>
+  const ADMIN_USER = "admin";
+  const ADMIN_PASS = "1234";
+
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const error = document.getElementById("error");
+
+    if (username === ADMIN_USER && password === ADMIN_PASS) {
+      localStorage.setItem("isAdmin", "true");
+      window.location.href = "./dashboard.html";
+    } else {
+      error.textContent = "Неправильний логін або пароль";
+    }
+  });
+</script>
+</body>
+</html>

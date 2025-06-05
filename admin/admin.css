@@ -1,0 +1,201 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: #f0f2f5;
+    color: #333;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+}
+
+.topbar span {
+    font-weight: bold;
+}
+
+.topbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.topbar-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.topbar-links a:hover {
+    background-color: #e7f1ff;
+    color: #0056b3;
+}
+
+.dashboard-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-form h2 {
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+    font-size: 1rem;
+}
+
+form button {
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+
+.car-list {
+    margin-top: 30px;
+}
+
+.car-list-item {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.04);
+}
+
+.car-list-item img {
+    max-width: 100px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.car-list-item button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 10px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.car-list-item button:first-of-type {
+    background: #ffc107;
+    color: #000;
+}
+
+.car-list-item button:last-of-type {
+    background: #dc3545;
+    color: white;
+}
+
+.video-section {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+    background: #fff;
+}
+
+.video-section video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    border: none;
+}
+
+
+.login-box {
+    display: flex;
+    max-width: 900px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.login-left,
+.login-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-left {
+    padding: 40px;
+}
+
+.login-left h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.login-left input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background: #fafafa;
+}
+
+.login-left button {
+    width: 106.5%;
+    padding: 12px;
+    margin-top: 12px;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.login-left button:hover {
+    background: #0056b3;
+}
+
+.login-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
