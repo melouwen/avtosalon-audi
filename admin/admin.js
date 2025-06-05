@@ -145,10 +145,15 @@ function logout() {
     window.location.href = '../index.html';
 }
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
-    setTimeout(() => {
-        loader.classList.add("fade-out");
-        setTimeout(() => loader.remove(), 800);
-    }, 900);
+
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            if (loader) {
+                loader.classList.add("fade-out");
+                setTimeout(() => loader.remove(), 800);
+            }
+        }, 900);
+    });
 });
