@@ -686,72 +686,115 @@ html {
     to   { transform: scale(1); opacity: 1; }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
+    /* Header — логотип і кнопки по центру */
     header {
         flex-direction: column;
-        padding: 10px 20px;
+        align-items: center;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 24px;
+        text-align: center;
     }
 
     nav {
+        margin-top: 12px;
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 10px;
-        margin-top: 10px;
+        width: 100%;
     }
 
     nav button {
-        width: 100%;
-        padding: 10px;
+        width: 80%;
+        max-width: 300px;
+        padding: 12px;
         font-size: 1rem;
+        border-radius: 8px;
     }
 
-    .about-image {
-        display: none; /* приховуємо фото в "Про нас" */
-    }
-
+    /* Home section — зменшуємо розміри контенту */
     .home .overlay {
         padding: 40px 20px;
     }
 
-    .audi-slide-text h2 {
+    .home .content h1 {
         font-size: 1.8rem;
+    }
+
+    .home .content p.lead {
+        font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .fancy-btn,
+    .fancy-btn.alt {
+        width: 80%;
+        max-width: 300px;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    /* Секція "Про нас" — сховати зображення */
+    .about-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .about-image {
+        display: none;
+    }
+
+    .about-text {
+        padding: 0 10px;
+    }
+
+    /* Слайди */
+    .audi-slide-text h2 {
+        font-size: 1.6rem;
     }
 
     .audi-slide-text p {
         font-size: 1rem;
     }
 
-    .car-flex-title {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
+    /* Карточки авто */
+    .car-showcase-card {
+        height: 250px;
+        aspect-ratio: auto;
+    }
+
+    .car-title-overlay {
+        font-size: 1.2rem;
         padding: 15px;
     }
 
-    .car-showcase-card {
-        aspect-ratio: auto;
-        height: 300px;
-    }
-
-    .car-showcase-card img {
-        height: 100%;
-    }
-
-    .cta-buttons {
+    .car-flex-title {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 12px 15px;
     }
 
-    .fancy-btn, .fancy-btn.alt {
-        width: 100%;
-        text-align: center;
+    .car-flex-title .left,
+    .car-flex-title .right {
+        font-size: 1rem;
     }
 
-    .bg-video {
-        display: none; /* вимикаємо відеофон на мобільних */
-    }
-
-    .video-container {
-        display: none;
+    .carousel-arrow {
+        font-size: 1.5rem;
+        padding: 10px;
     }
 }
+
 
