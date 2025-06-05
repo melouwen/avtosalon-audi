@@ -145,3 +145,12 @@ function logout() {
     window.location.href = '../index.html';
 }
 
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        const loader = document.getElementById("loader");
+        if (loader) {
+            loader.classList.add("fade-out");
+            setTimeout(() => loader.remove(), 700); // Видалити після анімації
+        }
+    }, 1000);
+});
