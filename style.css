@@ -111,7 +111,7 @@ nav button:hover {
 }
 
 .section {
-    scroll-margin-top: 60px; /* підлаштуй до висоти твого хедера */
+    scroll-margin-top: 60px;
 }
 
 
@@ -445,7 +445,6 @@ html {
     text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-/* Navigation Arrows */
 .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -469,7 +468,6 @@ html {
     transform: translateY(-50%) scale(1.1);
 }
 
-/* Modal */
 #carDetailsModal {
     position: fixed;
     top: 0;
@@ -628,7 +626,7 @@ html {
     height: 100%;
     background: url('media/wallpapersden.com_topography-abstract-black-texture_1920x1080.jpg') center center / cover no-repeat;
     z-index: 0;
-    opacity: 0.15; /* регулюй прозорість на смак */
+    opacity: 0.15;
 }
 
 #catalog .content {
