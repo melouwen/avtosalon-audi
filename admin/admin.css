@@ -1,141 +1,152 @@
+/* Core styles */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
     margin: 0;
-    background: #f0f2f5;
-    color: #333;
+    padding: 0;
+    background: #f4f6f9;
+    color: #1f2d3d;
+    line-height: 1.5;
 }
 
+a {
+    text-decoration: none;
+    color: #2563eb;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #1e40af;
+}
+
+/* Topbar */
 .topbar {
+    background: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
-    padding: 15px 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .topbar span {
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.25rem;
 }
 
 .topbar-links {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .topbar-links a {
-    color: #007bff;
-    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
     font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background 0.2s, color 0.2s;
+    background: #f3f4f6;
 }
 
 .topbar-links a:hover {
-    background-color: #e7f1ff;
-    color: #0056b3;
+    background: #e0e7ff;
 }
 
+/* Dashboard layout */
 .dashboard-wrapper {
-    max-width: 900px;
-    margin: 40px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.06);
+    max-width: 960px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .dashboard-form h2 {
-    margin-bottom: 25px;
+    font-size: 1.5rem;
     font-weight: 600;
-    font-size: 22px;
+    margin-bottom: 1.5rem;
 }
 
-form input,
-form textarea {
+form select,
+form input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: #fafafa;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
     font-size: 1rem;
+    background: #f9fafb;
 }
 
 form button {
-    width: 100%;
-    padding: 14px;
-    background: #007bff;
-    color: white;
+    background: #2563eb;
+    color: #fff;
+    padding: 0.75rem;
+    font-weight: 600;
     border: none;
-    font-weight: bold;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
     transition: background 0.3s ease;
 }
 
 form button:hover {
-    background: #0056b3;
+    background: #1e40af;
 }
 
+/* Car list section */
 .car-list {
-    margin-top: 30px;
+    margin-top: 2rem;
 }
 
 .car-list-item {
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.04);
+    background: #f9fafb;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 .car-list-item img {
-    max-width: 100px;
-    margin: 10px 0;
-    border-radius: 5px;
+    max-width: 120px;
+    margin-top: 0.5rem;
+    border-radius: 6px;
 }
 
 .car-list-item button {
-    padding: 8px 12px;
-    border: none;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 6px;
-    margin-top: 10px;
-    margin-right: 8px;
+    border: none;
+    font-weight: 500;
     cursor: pointer;
+    font-size: 0.9rem;
 }
 
 .car-list-item button:first-of-type {
-    background: #ffc107;
-    color: #000;
+    background: #fbbf24;
+    color: #1f2937;
 }
 
 .car-list-item button:last-of-type {
-    background: #dc3545;
-    color: white;
+    background: #ef4444;
+    color: #fff;
 }
 
+/* Video section */
 .video-section {
-    max-width: 900px;
-    margin: 40px auto 80px;
-    border-radius: 16px;
+    margin: 4rem auto;
+    max-width: 960px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
     background: #fff;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
 }
 
 .video-section video {
     width: 100%;
-    height: auto;
     display: block;
+    aspect-ratio: 16/9;
     object-fit: cover;
-    aspect-ratio: 16 / 9;
-    border: none;
 }
-
 
 .login-box {
     display: flex;
@@ -200,6 +211,7 @@ form button:hover {
     display: block;
 }
 
+/* Loader */
 .loader-wrapper {
     position: fixed;
     inset: 0;
@@ -210,7 +222,7 @@ form button:hover {
     align-items: center;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 .loader-wrapper.fade-out {
@@ -224,9 +236,8 @@ form button:hover {
 }
 
 .loader-content img {
-    width: 140px;
-    margin-bottom: 20px;
-    animation: glow 2s infinite ease-in-out;
+    width: 120px;
+    animation: glow 1.8s ease-in-out infinite;
 }
 
 .loader-ring {
@@ -235,8 +246,8 @@ form button:hover {
     border: 6px solid rgba(255, 255, 255, 0.2);
     border-top: 6px solid #fff;
     border-radius: 50%;
-    margin: 0 auto;
     animation: spin 1s linear infinite;
+    margin: 0 auto;
 }
 
 @keyframes spin {
@@ -247,12 +258,12 @@ form button:hover {
 
 @keyframes fadeIn {
     from {
-        transform: scale(0.95);
         opacity: 0;
+        transform: scale(0.95);
     }
     to {
-        transform: scale(1);
         opacity: 1;
+        transform: scale(1);
     }
 }
 
