@@ -409,12 +409,15 @@ html {
 
 .car-showcase-card {
     flex: 0 0 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
+    max-width: 1000px;
+    margin: 0 auto;
     overflow: hidden;
     position: relative;
     border-radius: 20px;
     box-shadow: 0 0 25px rgba(255,255,255,0.04);
 }
+
 
 .car-showcase-card img {
     width: 100%;
@@ -447,26 +450,20 @@ html {
 
 /* Navigation Arrows */
 .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.6);
-    color: white;
-    font-size: 2rem;
-    padding: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
+    background: white;
+    color: black;
+    font-weight: bold;
+    transition: transform 0.2s ease;
 }
 
 #prevCar { left: 20px; }
 #nextCar { right: 20px; }
 
 .carousel-arrow:hover {
-    background: crimson;
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.05);
+    background: white; /* не змінюємо */
+    color: black;       /* не змінюємо */
+    box-shadow: 0 0 10px rgba(255,255,255,0.2); /* легкий ефект */
 }
 
 /* Modal */
@@ -587,7 +584,7 @@ html {
 
 .audi-slide-overlay {
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
     width: 100%;
     height: 100%;
     display: flex;
