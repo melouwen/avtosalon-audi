@@ -43,11 +43,10 @@ async function renderCars() {
     }
 
     let index = parseInt(localStorage.getItem("selectedCarIndex")) || 0;
-
     const track = document.createElement("div");
     track.className = "car-showcase";
     track.id = "showcaseTrack";
-    track.style.transform = `translateX(-${index * 100}%)`;
+    track.style.transform = `translateX(-${index * 100}%)`; // встановити позицію
 
     cars.forEach((car, i) => {
         const card = document.createElement("div");
@@ -101,6 +100,7 @@ async function renderCars() {
 
     carContainer.innerHTML = "";
     carContainer.appendChild(wrapper);
+    localStorage.removeItem("selectedCarIndex"); // очищення
 
     // Очистити після відновлення положення
     localStorage.removeItem("selectedCarIndex");
