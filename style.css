@@ -448,22 +448,24 @@ html {
     text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-/* Navigation Arrows */
 .carousel-arrow {
     background: white;
     color: black;
-    font-weight: bold;
+    border: none;
+    padding: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
     transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#prevCar { left: 20px; }
-#nextCar { right: 20px; }
-
 .carousel-arrow:hover {
-    transform: translateY(-50%) scale(1.05);
-    background: white; /* не змінюємо */
-    color: black;       /* не змінюємо */
-    box-shadow: 0 0 10px rgba(255,255,255,0.2); /* легкий ефект */
+    transform: scale(1.05);
+    background: white;
 }
 
 /* Modal */

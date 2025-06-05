@@ -85,7 +85,7 @@ async function renderCars() {
         const prev = document.createElement("div");
         prev.id = "prevCar";
         prev.className = "carousel-arrow";
-        prev.innerHTML = "&#9664;";
+        prev.innerHTML = `<img src="media/icons/right.png" style="transform: rotate(180deg); width: 24px; height: 24px;" alt="Назад">`;
         prev.onclick = () => {
             index = (index - 1 + cars.length) % cars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
@@ -94,7 +94,7 @@ async function renderCars() {
         const next = document.createElement("div");
         next.id = "nextCar";
         next.className = "carousel-arrow";
-        next.innerHTML = "&#9654;";
+        next.innerHTML = `<img src="media/icons/right.png" style="width: 24px; height: 24px;" alt="Вперед">`;
         next.onclick = () => {
             index = (index + 1) % cars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
