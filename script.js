@@ -36,6 +36,8 @@ async function renderCars() {
 
     const res = await fetch("/api/cars");
     const cars = await res.json();
+    shuffleArray(cars);
+
 
     if (cars.length === 0) {
         carContainer.innerHTML = "<p>Каталог порожній.</p>";
@@ -120,3 +122,10 @@ window.addEventListener("load", () => {
         }, 700);
     }
 });
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
