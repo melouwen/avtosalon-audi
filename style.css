@@ -110,6 +110,11 @@ nav button:hover {
     animation: sectionFadeIn 1s ease-out;
 }
 
+.section {
+    scroll-margin-top: 60px; /* підлаштуй до висоти твого хедера */
+}
+
+
 @keyframes sectionFadeIn {
     0% {
         opacity: 0;
