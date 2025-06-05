@@ -62,7 +62,9 @@ async function renderCars() {
         card.addEventListener("click", () => {
             if (car.page) {
                 localStorage.setItem("selectedCarIndex", i);
-                window.location.href = `models/${car.page}`;
+                setTimeout(() => {
+                    window.location.href = `models/${car.page}`;
+                }, 100); // дати браузеру час зберегти дані
             } else {
                 alert("Немає сторінки для цього авто");
             }
@@ -100,7 +102,6 @@ async function renderCars() {
 
     carContainer.innerHTML = "";
     carContainer.appendChild(wrapper);
-    localStorage.removeItem("selectedCarIndex"); // очищення
 
     // Очистити після відновлення положення
     localStorage.removeItem("selectedCarIndex");
