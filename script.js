@@ -117,11 +117,9 @@ document.getElementById("secret-admin-access")?.addEventListener("click", () => 
 renderCars();
 
 window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
     setTimeout(() => {
-        const loader = document.getElementById("loader");
-        if (loader) {
-            loader.classList.add("fade-out");
-            setTimeout(() => loader.remove(), 700); // Видалити після анімації
-        }
-    }, 1000);
+        loader.classList.add("fade-out");
+        setTimeout(() => loader.remove(), 700);
+    }, 700);
 });
