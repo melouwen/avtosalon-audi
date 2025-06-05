@@ -18,14 +18,11 @@ function cycleVideos() {
     videos[0].classList.add('active');
 
     setInterval(() => {
-
         videos[currentIndex].classList.remove('active');
-
         currentIndex = (currentIndex + 1) % videos.length;
-
         videos[currentIndex].classList.add('active');
         videos[currentIndex].currentTime = 0;
-    }, 5000); // кожні 8 секунд
+    }, 5000);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -45,24 +42,27 @@ async function renderCars() {
         return;
     }
 
-    let index = 0;
+    let index = parseInt(localStorage.getItem("selectedCarIndex")) || 0;
+
     const track = document.createElement("div");
     track.className = "car-showcase";
     track.id = "showcaseTrack";
+    track.style.transform = `translateX(-${index * 100}%)`;
 
     cars.forEach((car, i) => {
         const card = document.createElement("div");
         card.className = "car-showcase-card";
         card.dataset.index = i;
         card.innerHTML = `
-      <img src="${car.image}" alt="${car.name}">
-      <div class="car-title-overlay car-flex-title">
-        <span class="left">${car.name}</span>
-        <span class="right">${car.price ? car.price + ' €' : ''}</span>
-      </div>
-    `;
+            <img src="${car.image}" alt="${car.name}">
+            <div class="car-title-overlay car-flex-title">
+                <span class="left">${car.name}</span>
+                <span class="right">${car.price ? car.price + ' €' : ''}</span>
+            </div>
+        `;
         card.addEventListener("click", () => {
             if (car.page) {
+                localStorage.setItem("selectedCarIndex", i);
                 window.location.href = `models/${car.page}`;
             } else {
                 alert("Немає сторінки для цього авто");
@@ -101,6 +101,9 @@ async function renderCars() {
 
     carContainer.innerHTML = "";
     carContainer.appendChild(wrapper);
+
+    // Очистити після відновлення положення
+    localStorage.removeItem("selectedCarIndex");
 }
 
 document.getElementById("secret-admin-access")?.addEventListener("click", () => {
@@ -111,8 +114,10 @@ renderCars();
 
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
-    setTimeout(() => {
-        loader.classList.add("fade-out");
-        setTimeout(() => loader.remove(), 700);
-    }, 700);
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add("fade-out");
+            setTimeout(() => loader.remove(), 700);
+        }, 700);
+    }
 });
