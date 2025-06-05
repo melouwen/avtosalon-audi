@@ -28,7 +28,7 @@ function cycleVideos() {
         // Скидаємо час і вмикаємо нове відео
         videos[currentIndex].classList.add('active');
         videos[currentIndex].currentTime = 0;
-    }, 5000); // кожні 8 секунд
+    }, 85000); // кожні 8 секунд
 }
 
 window.addEventListener('DOMContentLoaded', () => {

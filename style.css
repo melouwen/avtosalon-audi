@@ -250,13 +250,12 @@ nav button:hover {
 }
 
 .car-card {
-    width: 400px;           /* ← це задає ширину картки */
-    height: 300px;          /* ← це задає висоту картки */
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    background: #fff;
-    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    width: 250px;
 }
 
 .car-card:hover {
@@ -266,8 +265,8 @@ nav button:hover {
 
 .car-card img {
     width: 100%;
-    height: 100%;            /* або 100% – якщо повністю займати картку */
-    object-fit: cover;      /* обрізати зображення красиво */
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 .car-card ul {
@@ -617,24 +616,22 @@ html {
 
 #catalog {
     position: relative;
-    width: 100%;
-    min-height: 100vh;
     overflow: hidden;
+    z-index: 1;
 }
 
-.catalog-background {
+.catalog-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: url('https://i.pinimg.com/736x/8e/a7/82/8ea782fcfb83ffe60d7b5a17350186d3.jpg') center center / cover no-repeat;
-    opacity: 0.15;
-    z-index: 1;
+    z-index: 0;
+    opacity: 0.15; /* регулюй прозорість на смак */
 }
 
-.catalog-content {
+#catalog .content {
     position: relative;
     z-index: 2;
-    padding: 60px 20px;
 }
