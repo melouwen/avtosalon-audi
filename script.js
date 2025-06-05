@@ -28,7 +28,7 @@ function cycleVideos() {
         // Скидаємо час і вмикаємо нове відео
         videos[currentIndex].classList.add('active');
         videos[currentIndex].currentTime = 0;
-    }, 85000); // кожні 8 секунд
+    }, 5000); // кожні 8 секунд
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -115,3 +115,9 @@ document.getElementById("secret-admin-access")?.addEventListener("click", () => 
 });
 
 renderCars();
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+    }, 1000); // 1 секунда
+});
