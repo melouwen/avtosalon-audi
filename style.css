@@ -685,3 +685,73 @@ html {
     from { transform: scale(0.9); opacity: 0; }
     to   { transform: scale(1); opacity: 1; }
 }
+
+@media(max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    nav button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .about-image {
+        display: none; /* приховуємо фото в "Про нас" */
+    }
+
+    .home .overlay {
+        padding: 40px 20px;
+    }
+
+    .audi-slide-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .audi-slide-text p {
+        font-size: 1rem;
+    }
+
+    .car-flex-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 15px;
+    }
+
+    .car-showcase-card {
+        aspect-ratio: auto;
+        height: 300px;
+    }
+
+    .car-showcase-card img {
+        height: 100%;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .fancy-btn, .fancy-btn.alt {
+        width: 100%;
+        text-align: center;
+    }
+
+    .bg-video {
+        display: none; /* вимикаємо відеофон на мобільних */
+    }
+
+    .video-container {
+        display: none;
+    }
+}
+

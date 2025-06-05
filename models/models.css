@@ -145,3 +145,57 @@ header a:hover {
     margin-top: 30px;
     color: #555;
 }
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .header-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    header a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .container {
+        margin: 30px 15px;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .container h1 {
+        font-size: 1.6em;
+    }
+
+    .car-image {
+        max-height: 220px;
+        object-fit: cover;
+    }
+
+    .specs {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .spec {
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+
+    .description {
+        font-size: 0.95em;
+    }
+}
+
