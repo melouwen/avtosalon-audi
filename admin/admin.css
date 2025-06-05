@@ -202,18 +202,15 @@ form button:hover {
 
 .loader-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    inset: 0;
+    background-color: #000;
     z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
 .loader-wrapper.fade-out {
@@ -221,16 +218,49 @@ form button:hover {
     visibility: hidden;
 }
 
-.loader {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #000;
-    border-radius: 50%;
+.loader-content {
+    text-align: center;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.loader-content img {
+    width: 140px;
+    margin-bottom: 20px;
+    animation: glow 2s infinite ease-in-out;
+}
+
+.loader-ring {
     width: 60px;
     height: 60px;
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top: 6px solid #fff;
+    border-radius: 50%;
+    margin: 0 auto;
     animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px #ffffff44);
+    }
+    50% {
+        filter: drop-shadow(0 0 15px #ffffffaa);
+    }
 }

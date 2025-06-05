@@ -149,6 +149,6 @@ window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
     setTimeout(() => {
         loader.classList.add("fade-out");
-        setTimeout(() => loader.remove(), 700);
-    }, 600);
+        setTimeout(() => loader.remove(), 800);
+    }, 900);
 });
