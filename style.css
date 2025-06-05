@@ -687,18 +687,15 @@ html {
 }
 
 @media (max-width: 768px) {
-    /* Приховуємо навігаційні кнопки */
     nav {
         display: none;
     }
 
-    /* Центруємо логотип */
     .logo {
         font-size: 24px;
         text-align: center;
     }
 
-    /* Центруємо контент і зменшуємо розміри */
     .home .overlay {
         padding: 40px 20px;
     }
@@ -712,10 +709,9 @@ html {
     }
 
     .cta-buttons {
-        display: none; /* Прибираємо кнопки */
+        display: none;
     }
 
-    /* Про нас — приховуємо фото */
     .about-grid {
         flex-direction: column;
         align-items: center;
@@ -730,7 +726,6 @@ html {
         padding: 0 10px;
     }
 
-    /* Слайди */
     .audi-slide-text h2 {
         font-size: 1.6rem;
     }
@@ -739,7 +734,6 @@ html {
         font-size: 1rem;
     }
 
-    /* Картки авто */
     .car-showcase-card {
         height: 250px;
         aspect-ratio: auto;
@@ -767,7 +761,6 @@ html {
         padding: 10px;
     }
 
-    /* Виправляємо червоне підсвічування при натисканні */
     button,
     a {
         -webkit-tap-highlight-color: transparent;
