@@ -687,64 +687,35 @@ html {
 }
 
 @media (max-width: 768px) {
-    /* Header — логотип і кнопки по центру */
-    header {
-        flex-direction: column;
-        align-items: center;
-        padding: 15px 20px;
+    /* Приховуємо навігаційні кнопки */
+    nav {
+        display: none;
     }
 
+    /* Центруємо логотип */
     .logo {
         font-size: 24px;
         text-align: center;
     }
 
-    nav {
-        margin-top: 12px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
-
-    nav button {
-        width: 80%;
-        max-width: 300px;
-        padding: 12px;
-        font-size: 1rem;
-        border-radius: 8px;
-    }
-
-    /* Home section — зменшуємо розміри контенту */
+    /* Центруємо контент і зменшуємо розміри */
     .home .overlay {
         padding: 40px 20px;
     }
 
     .home .content h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .home .content p.lead {
-        font-size: 1.1rem;
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        gap: 12px;
-        width: 100%;
-        align-items: center;
-    }
-
-    .fancy-btn,
-    .fancy-btn.alt {
-        width: 80%;
-        max-width: 300px;
-        padding: 12px;
         font-size: 1rem;
     }
 
-    /* Секція "Про нас" — сховати зображення */
+    .cta-buttons {
+        display: none; /* Прибираємо кнопки */
+    }
+
+    /* Про нас — приховуємо фото */
     .about-grid {
         flex-direction: column;
         align-items: center;
@@ -768,7 +739,7 @@ html {
         font-size: 1rem;
     }
 
-    /* Карточки авто */
+    /* Картки авто */
     .car-showcase-card {
         height: 250px;
         aspect-ratio: auto;
@@ -795,6 +766,14 @@ html {
         font-size: 1.5rem;
         padding: 10px;
     }
+
+    /* Виправляємо червоне підсвічування при натисканні */
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+    }
 }
+
 
 

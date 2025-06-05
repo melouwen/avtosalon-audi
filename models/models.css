@@ -122,7 +122,6 @@ header a:hover {
 }
 
 .spec {
-    flex: 1 1 240px;
     background: #fdfdfd;
     padding: 20px;
     border-radius: 10px;
@@ -147,43 +146,53 @@ header a:hover {
 }
 
 @media (max-width: 768px) {
+    /* Хедер */
     header {
         flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 20px;
+        align-items: center;
+        padding: 10px 15px;
     }
 
     .logo {
         font-size: 20px;
+        text-align: center;
     }
 
     .header-right {
         flex-direction: column;
-        width: 100%;
         gap: 10px;
+        width: 100%;
         margin-top: 10px;
     }
 
     header a {
-        width: 100%;
+        width: 99%;
         text-align: center;
+        font-size: 0.95rem;
+        padding: 10px;
+        background: #f1f1f1;
+        box-sizing: border-box;
     }
 
+    /* Контейнер */
     .container {
-        margin: 30px 15px;
+        margin: 20px 10px;
         padding: 20px;
         border-radius: 12px;
     }
 
     .container h1 {
-        font-size: 1.6em;
+        font-size: 1.4rem;
     }
 
+    /* Фото авто */
     .car-image {
         max-height: 220px;
         object-fit: cover;
+        border-radius: 10px;
     }
 
+    /* Характеристики */
     .specs {
         flex-direction: column;
         gap: 15px;
@@ -194,8 +203,14 @@ header a:hover {
         font-size: 0.95rem;
     }
 
+    /* Опис */
     .description {
         font-size: 0.95em;
     }
-}
 
+    /* Виправлення tap-ефектів */
+    a, button {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+    }
+}
