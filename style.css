@@ -457,6 +457,17 @@ html {
     filter: brightness(1.5);
 }
 
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+#prevCar { left: 20px; }
+#nextCar { right: 20px; }
+
 
 #prevCar { left: 20px; }
 #nextCar { right: 20px; }
