@@ -81,7 +81,7 @@ async function renderCars() {
         const prev = document.createElement("div");
         prev.id = "prevCar";
         prev.className = "carousel-arrow";
-        prev.innerHTML = "&#9664;";
+        prev.innerHTML = `<img src="media/arrow-left.png" alt="Попередній" class="carousel-icon">`;
         prev.onclick = () => {
             index = (index - 1 + cars.length) % cars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
@@ -90,7 +90,7 @@ async function renderCars() {
         const next = document.createElement("div");
         next.id = "nextCar";
         next.className = "carousel-arrow";
-        next.innerHTML = "&#9654;";
+        next.innerHTML = `<img src="media/arrow-right.png" alt="Наступний" class="carousel-icon">`;
         next.onclick = () => {
             index = (index + 1) % cars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
@@ -99,6 +99,7 @@ async function renderCars() {
         wrapper.appendChild(prev);
         wrapper.appendChild(next);
     }
+
 
     carContainer.innerHTML = "";
     carContainer.appendChild(wrapper);

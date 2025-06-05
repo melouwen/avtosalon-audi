@@ -445,28 +445,21 @@ html {
     text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-.carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.6);
-    color: white;
-    font-size: 2rem;
-    padding: 14px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    transition: all 0.3s ease;
+.carousel-icon {
+    width: 40px;
+    height: auto;
+    pointer-events: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
+
+.carousel-arrow:hover .carousel-icon {
+    transform: scale(1.15);
+    filter: brightness(1.5);
+}
+
 
 #prevCar { left: 20px; }
 #nextCar { right: 20px; }
-
-.carousel-arrow:hover {
-    background: crimson;
-    transform: translateY(-50%) scale(1.1);
-}
 
 #carDetailsModal {
     position: fixed;
