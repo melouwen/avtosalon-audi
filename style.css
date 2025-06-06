@@ -928,12 +928,16 @@ html {
 }
 
 #filterOptions {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
     background: rgba(255, 255, 255, 0.05);
-    padding: 15px 20px;
+    padding: 0 20px;
     border-radius: 10px;
     border: 1px solid #444;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    animation: fadeIn 0.3s ease-in-out;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
 }
 
@@ -942,6 +946,13 @@ html {
     margin-bottom: 10px;
     color: #eee;
     font-size: 0.95rem;
+}
+
+#filterOptions.show {
+    max-height: 600px;
+    opacity: 1;
+    padding: 15px 20px;
+    transform: translateY(0);
 }
 
 #filterOptions input[type="checkbox"] {
@@ -995,4 +1006,14 @@ html {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.filters-wrapper {
+    text-align: center;
+    margin-top: 15px;
+}
+
+#filterToggle {
+    display: inline-block;
+    margin: 0 auto;
 }

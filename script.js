@@ -176,6 +176,9 @@ window.addEventListener("load", () => {
 const filterToggle = document.getElementById("filterToggle");
 if (filterToggle) {
     filterToggle.addEventListener("click", () => {
-        document.getElementById("filterOptions")?.classList.toggle("hidden");
+        const options = document.getElementById("filterOptions");
+        if (options) {
+            options.classList.toggle("hidden");
+        }
     });
 }
