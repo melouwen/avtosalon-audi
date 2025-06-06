@@ -1,26 +1,37 @@
-const session = require("express-session");
-
 require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const pool = require('./db');
-const { checkAdmin, createAdmin } = require('./auth'); // ✅ підключаємо обидві функції
+const session = require("express-session");
+const { checkAdmin } = require('./auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
+app.use(express.static(__dirname));
+
+// Сесії
 app.use(session({
-    secret: "084c998312d4d2ed225f2dd9359dea2e6b9b236e6972b78039bdfb80a69cfbd7", // заміни на свій
+    secret: process.env.SESSION_SECRET || "084c998312d4d2ed225f2dd9359dea2e6b9b236e6972b78039bdfb80a69cfbd7",
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        maxAge: 60 * 60 * 1000 // 1 година
-    }
+    cookie: { secure: false } // якщо HTTPS: true
 }));
-app.use(express.static(__dirname)); // фронтенд
 
-// =============== ✅ АВТОРИЗАЦІЯ =================
+// ================== АВТОРИЗАЦІЯ ==================
+
+// 🔐 Перевірка авторизації
+app.get("/check-auth", (req, res) => {
+    if (req.session && req.session.isAdmin) {
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(401);
+    }
+});
+
+// 🔐 Логін
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -28,6 +39,7 @@ app.post("/login", async (req, res) => {
         const isValid = await checkAdmin(username, password);
 
         if (isValid) {
+            req.session.isAdmin = true;
             res.status(200).json({ success: true });
         } else {
             res.status(401).json({ error: "Невірний логін або пароль" });
@@ -38,19 +50,16 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.get("/check-auth", (req, res) => {
-    if (req.session.isAdmin) {
-        res.status(200).json({ authenticated: true });
-    } else {
-        res.status(401).json({ error: "Not authenticated" });
-    }
+// 🚪 Вихід
+app.post("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.sendStatus(200);
+    });
 });
 
-// (Опціонально: створити адміна один раз)
-// createAdmin("admin", "1234"); // ⚠️ розкоментуй, якщо хочеш створити вручну
+// ================== API: МАШИНИ ==================
 
-// =============== 🚗 API: МАШИНИ =================
-
+// Отримати всі машини
 app.get("/api/cars", async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM cars ORDER BY name');
@@ -61,6 +70,7 @@ app.get("/api/cars", async (req, res) => {
     }
 });
 
+// Додати нову машину
 app.post("/api/cars", async (req, res) => {
     const { name, page, image, price } = req.body;
     const id = name.toLowerCase().replace(/\s+/g, '-');
@@ -80,14 +90,7 @@ app.post("/api/cars", async (req, res) => {
     }
 });
 
-app.post("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.clearCookie("connect.sid");
-        res.status(200).json({ message: "Logged out" });
-    });
-});
-
-
+// Оновити машину
 app.put("/api/cars/:id", async (req, res) => {
     const id = req.params.id;
     const { name, page, image, price } = req.body;
@@ -105,6 +108,7 @@ app.put("/api/cars/:id", async (req, res) => {
     }
 });
 
+// Видалити машину
 app.delete("/api/cars/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -117,7 +121,7 @@ app.delete("/api/cars/:id", async (req, res) => {
     }
 });
 
-// =============== 🔌 Перевірка БД =================
+// Перевірка з'єднання з БД
 pool.query('SELECT NOW()', (err, result) => {
     if (err) {
         console.error('❌ Не вдалося підключитись до БД:', err);
@@ -126,7 +130,7 @@ pool.query('SELECT NOW()', (err, result) => {
     }
 });
 
-// =============== 🚀 Запуск ========================
+// Запуск сервера
 app.listen(PORT, () => {
     console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
 });
