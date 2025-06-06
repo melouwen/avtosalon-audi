@@ -1,11 +1,14 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
 const session = require("express-session");
+const cors = require("cors");
+const path = require("path");
+const fs = require("fs");
+const db = require("./database.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -13,79 +16,106 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
     secret: "your-secret-key",
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // якщо HTTPS, то true
+    saveUninitialized: false,
 }));
 
-// Статика
-app.use(express.static(__dirname));
+// Статичні файли
+app.use(express.static("public")); // сайт
+app.use("/admin", express.static("admin")); // адмінка
 
-// Авторизаційна перевірка
-function isAuthenticated(req, res, next) {
-    if (req.session && req.session.isAdmin) {
-        next();
-    } else {
-        res.status(401).json({ error: "Неавторизовано" });
+// Завантаження машин
+const carsFile = path.join(__dirname, "cars.json");
+
+function loadCars() {
+    try {
+        return JSON.parse(fs.readFileSync(carsFile, "utf-8"));
+    } catch {
+        return [];
     }
 }
 
-// 🔐 Логін
+function saveCars(cars) {
+    fs.writeFileSync(carsFile, JSON.stringify(cars, null, 2));
+}
+
+// Перевірка чи залогінений
+function checkAuth(req, res, next) {
+    if (req.session.loggedIn) {
+        next();
+    } else {
+        res.status(401).json({ error: "Unauthorized" });
+    }
+}
+
+// 🔐 API: логін
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
-    if (username === "curateddd" && password === "19076") {
-        req.session.isAdmin = true;
-        res.json({ success: true });
-    } else {
-        res.status(401).json({ error: "Невірний логін або пароль" });
-    }
-});
 
-// 🔐 Вихід
-app.post("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.json({ success: true });
+    db.get("SELECT * FROM admins WHERE username = ? AND password = ?", [username, password], (err, row) => {
+        if (err) return res.status(500).json({ error: "Database error" });
+
+        if (row) {
+            req.session.loggedIn = true;
+            res.json({ success: true });
+        } else {
+            res.status(401).json({ error: "Invalid credentials" });
+        }
     });
 });
 
-// 📦 Доступ до JSON-файлу
-const carsFile = path.join(__dirname, "cars.json");
-
-// API тільки для авторизованих
-app.get("/api/cars", isAuthenticated, (req, res) => {
-    if (!fs.existsSync(carsFile)) fs.writeFileSync(carsFile, "[]");
-    const data = fs.readFileSync(carsFile, "utf8");
-    res.json(JSON.parse(data));
+// 🔒 Захищена сторінка dashboard
+app.get("/admin/dashboard.html", (req, res, next) => {
+    if (req.session.loggedIn) {
+        next();
+    } else {
+        res.redirect("/admin/index.html");
+    }
 });
 
-app.post("/api/cars", isAuthenticated, (req, res) => {
+// 🔐 API: список машин
+app.get("/api/cars", checkAuth, (req, res) => {
+    const cars = loadCars();
+    res.json(cars);
+});
+
+// 🔐 API: додати машину
+app.post("/api/cars", checkAuth, (req, res) => {
     const car = req.body;
-    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
-    data.push(car);
-    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
-    res.json({ message: "Машину додано" });
+    const cars = loadCars();
+    cars.push(car);
+    saveCars(cars);
+    res.json({ success: true });
 });
 
-app.put("/api/cars/:index", isAuthenticated, (req, res) => {
-    const index = +req.params.index;
-    const updatedCar = req.body;
-    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
-    if (index < 0 || index >= data.length) return res.status(404).json({ error: "Не знайдено" });
+// 🔐 API: редагувати
+app.put("/api/cars/:index", checkAuth, (req, res) => {
+    const index = parseInt(req.params.index);
+    const cars = loadCars();
 
-    data[index] = updatedCar;
-    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
-    res.json({ message: "Оновлено" });
+    if (index < 0 || index >= cars.length) {
+        return res.status(404).json({ error: "Car not found" });
+    }
+
+    cars[index] = req.body;
+    saveCars(cars);
+    res.json({ success: true });
 });
 
-app.delete("/api/cars/:index", isAuthenticated, (req, res) => {
-    const index = +req.params.index;
-    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
-    if (index < 0 || index >= data.length) return res.status(404).json({ error: "Не знайдено" });
+// 🔐 API: видалити
+app.delete("/api/cars/:index", checkAuth, (req, res) => {
+    const index = parseInt(req.params.index);
+    const cars = loadCars();
 
-    data.splice(index, 1);
-    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
-    res.json({ message: "Видалено" });
+    if (index < 0 || index >= cars.length) {
+        return res.status(404).json({ error: "Car not found" });
+    }
+
+    cars.splice(index, 1);
+    saveCars(cars);
+    res.json({ success: true });
 });
 
+// Запуск сервера
 app.listen(PORT, () => {
-    console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
+    console.log(`✅ Сервер працює: http://localhost:${PORT}`);
 });
