@@ -146,10 +146,14 @@
         <div class="filters-wrapper">
             <button id="filterToggle"><span id="filterArrow">⬇</span> Фільтри</button>
             <div id="filterOptions">
-            <label><input type="checkbox" value="A" class="car-filter"> A CLASS</label>
-                <label><input type="checkbox" value="Q" class="car-filter"> Q CLASS</label>
-                <label><input type="checkbox" value="RS" class="car-filter"> R CLASS</label>
+                <input type="checkbox" id="classA" value="A" class="car-filter" />
+                <label for="classA">A CLASS</label>
 
+                <input type="checkbox" id="classQ" value="Q" class="car-filter" />
+                <label for="classQ">Q CLASS</label>
+
+                <input type="checkbox" id="classRS" value="RS" class="car-filter" />
+                <label for="classRS">R CLASS</label>
                 <div style="margin-top: 12px;">
                     <label>Ціна від:
                         <input type="number" id="priceMin" min="0" placeholder="0 €">

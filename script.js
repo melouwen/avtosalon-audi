@@ -176,3 +176,14 @@ window.addEventListener("load", () => {
         }, 700);
     }
 });
+
+document.addEventListener("click", function (e) {
+    const filterWrapper = document.querySelector(".filters-wrapper");
+    const filterOptions = document.getElementById("filterOptions");
+    const filterArrow = document.getElementById("filterArrow");
+
+    if (!filterWrapper.contains(e.target)) {
+        filterOptions.classList.remove("show");
+        if (filterArrow) filterArrow.textContent = "⬇";
+    }
+});
