@@ -148,9 +148,17 @@
             <div id="filterOptions" class="hidden">
                 <label><input type="checkbox" value="A" class="car-filter"> A CLASS</label>
                 <label><input type="checkbox" value="Q" class="car-filter"> Q CLASS</label>
-                <label><input type="checkbox" value="RS" class="car-filter"> RS CLASS</label>
+                <label><input type="checkbox" value="RS" class="car-filter"> R CLASS</label>
+
+                <div style="margin-top: 12px;">
+                    <label>Ціна від: <input type="number" id="priceMin" min="0" placeholder="0 €" style="width: 80px;"></label>
+                    <label style="margin-left: 10px;">до: <input type="number" id="priceMax" min="0" placeholder="100000 €" style="width: 90px;"></label>
+                </div>
+
+                <button id="clearFilters" style="margin-top: 12px; background: crimson; color: white; padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer;">Очистити фільтри</button>
             </div>
         </div>
+
 
         <div id="carContainer" class="cars"></div>
     </div>

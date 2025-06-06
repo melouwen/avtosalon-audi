@@ -42,16 +42,17 @@ async function renderCars() {
     const selectedFilters = Array.from(document.querySelectorAll(".car-filter:checked"))
         .map(input => input.value);
 
-    let filteredCars;
+    const minPrice = parseInt(document.getElementById("priceMin")?.value) || 0;
+    const maxPrice = parseInt(document.getElementById("priceMax")?.value) || Infinity;
 
-    if (selectedFilters.length === 0) {
-        filteredCars = allCars;
-    } else {
+    let filteredCars = allCars;
+
+    if (selectedFilters.length > 0 || minPrice > 0 || maxPrice < Infinity) {
         filteredCars = allCars.filter(car => {
             const name = car.name.toUpperCase();
             const modelName = name.replace(/^AUDI\s+/i, "").trim();
 
-            return selectedFilters.some(filter => {
+            const matchClass = selectedFilters.length === 0 || selectedFilters.some(filter => {
                 if (filter === "RS") {
                     return modelName.startsWith("RS") || modelName.startsWith("R");
                 }
@@ -60,6 +61,11 @@ async function renderCars() {
                 }
                 return modelName.startsWith(filter);
             });
+
+            const carPrice = parseInt(car.price?.replace(/[^\d]/g, "") || "0");
+            const matchPrice = carPrice >= minPrice && carPrice <= maxPrice;
+
+            return matchClass && matchPrice;
         });
     }
 
@@ -145,8 +151,15 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.querySelectorAll(".car-filter").forEach(input => {
+    document.querySelectorAll(".car-filter, #priceMin, #priceMax").forEach(input => {
         input.addEventListener("change", renderCars);
+    });
+    
+    document.getElementById("clearFilters")?.addEventListener("click", () => {
+        document.querySelectorAll(".car-filter").forEach(cb => cb.checked = false);
+        document.getElementById("priceMin").value = "";
+        document.getElementById("priceMax").value = "";
+        renderCars();
     });
 });
 
