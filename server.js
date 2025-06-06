@@ -2,13 +2,14 @@ require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const pool = require('./db');
+const { checkAdmin } = require('./auth'); // ✅ Імпортуємо логіку перевірки адміна
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Статичні файли (frontend)
+// ====== Статичні файли (frontend) ======
 app.use(express.static(__dirname));
 
 // ====== АВТОРИЗАЦІЯ ======
@@ -16,24 +17,20 @@ app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const result = await pool.query(
-            'SELECT * FROM admins WHERE username = $1 AND password = $2',
-            [username, password]
-        );
+        const isValid = await checkAdmin(username, password);
 
-        if (result.rows.length > 0) {
+        if (isValid) {
             res.status(200).json({ success: true });
         } else {
             res.status(401).json({ error: "Невірний логін або пароль" });
         }
     } catch (err) {
         console.error("❌ Помилка при логіні:", err);
-        res.status(500).json({ error: "Помилка сервера" });
+        res.status(500).json({ error: "Server error" });
     }
 });
 
 // ====== API: МАШИНИ ======
-
 app.get("/api/cars", async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM cars ORDER BY name');
@@ -92,7 +89,7 @@ app.delete("/api/cars/:id", async (req, res) => {
     }
 });
 
-// Перевірка з'єднання з БД (на старті)
+// ====== Перевірка з'єднання з БД ======
 pool.query('SELECT NOW()', (err, result) => {
     if (err) {
         console.error('❌ Не вдалося підключитись до БД:', err);
@@ -101,6 +98,7 @@ pool.query('SELECT NOW()', (err, result) => {
     }
 });
 
+// ====== Запуск сервера ======
 app.listen(PORT, () => {
     console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
 });
