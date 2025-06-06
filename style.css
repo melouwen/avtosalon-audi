@@ -906,6 +906,7 @@ html {
     margin: 20px auto;
     text-align: left;
     max-width: 500px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #filterToggle {
@@ -917,6 +918,8 @@ html {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
 #filterToggle:hover {
@@ -925,27 +928,71 @@ html {
 }
 
 #filterOptions {
-    margin-top: 10px;
     background: rgba(255, 255, 255, 0.05);
     padding: 15px 20px;
     border-radius: 10px;
     border: 1px solid #444;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     animation: fadeIn 0.3s ease-in-out;
+    margin-top: 10px;
 }
 
 #filterOptions label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #eee;
     font-size: 0.95rem;
 }
 
 #filterOptions input[type="checkbox"] {
     margin-right: 8px;
+    transform: scale(1.1);
+    vertical-align: middle;
+}
+
+#filterOptions input[type="number"] {
+    padding: 6px 10px;
+    border: 1px solid #666;
+    border-radius: 6px;
+    background: #111;
+    color: #fff;
+    font-size: 0.9rem;
+    width: 100px;
+    margin-top: 6px;
+    margin-left: 5px;
+}
+
+#filterOptions div {
+    margin-top: 12px;
+}
+
+#clearFilters {
+    background: crimson;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+#clearFilters:hover {
+    background: #ff4040;
+}
+
+.hidden {
+    display: none;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

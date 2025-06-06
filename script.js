@@ -154,7 +154,7 @@ window.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".car-filter, #priceMin, #priceMax").forEach(input => {
         input.addEventListener("change", renderCars);
     });
-    
+
     document.getElementById("clearFilters")?.addEventListener("click", () => {
         document.querySelectorAll(".car-filter").forEach(cb => cb.checked = false);
         document.getElementById("priceMin").value = "";
@@ -172,3 +172,10 @@ window.addEventListener("load", () => {
         }, 700);
     }
 });
+
+const filterToggle = document.getElementById("filterToggle");
+if (filterToggle) {
+    filterToggle.addEventListener("click", () => {
+        document.getElementById("filterOptions")?.classList.toggle("hidden");
+    });
+}
