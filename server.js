@@ -20,8 +20,6 @@ app.use(session({
     cookie: { secure: false } // якщо HTTPS: true
 }));
 
-// ================== АВТОРИЗАЦІЯ ==================
-
 // 🔐 Перевірка авторизації
 app.get("/check-auth", (req, res) => {
     if (req.session && req.session.isAdmin) {
