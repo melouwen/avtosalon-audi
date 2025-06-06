@@ -146,12 +146,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const filterToggle = document.getElementById("filterToggle");
     const filterOptions = document.getElementById("filterOptions");
-    const filterArrow = document.getElementById("filterArrow");
 
-    if (filterToggle && filterOptions && filterArrow) {
+    if (filterToggle && filterOptions) {
         filterToggle.addEventListener("click", () => {
             filterOptions.classList.toggle("show");
-            filterArrow.textContent = filterOptions.classList.contains("show") ? "⬆" : "⬇";
         });
     }
 
