@@ -13,3 +13,5 @@ async function createAdmin(username, password) {
 }
 
 createAdmin("admin", "1234");
+// create-admin.js
+createAdmin("moder", "5678")

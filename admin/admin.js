@@ -1,3 +1,5 @@
+const session = require("express-session");
+
 // 🔐 Перевірка авторизації
 fetch("/check-auth").then(res => {
     if (!res.ok) {

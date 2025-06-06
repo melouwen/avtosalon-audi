@@ -1,3 +1,5 @@
+const session = require("express-session");
+
 require('dotenv').config();
 const express = require("express");
 const path = require("path");
@@ -8,6 +10,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(session({
+    secret: "084c998312d4d2ed225f2dd9359dea2e6b9b236e6972b78039bdfb80a69cfbd7", // заміни на свій
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60 * 60 * 1000 // 1 година
+    }
+}));
 app.use(express.static(__dirname)); // фронтенд
 
 // =============== ✅ АВТОРИЗАЦІЯ =================
@@ -25,6 +35,14 @@ app.post("/login", async (req, res) => {
     } catch (err) {
         console.error("❌ Помилка при логіні:", err);
         res.status(500).json({ error: "Server error" });
+    }
+});
+
+app.get("/check-auth", (req, res) => {
+    if (req.session.isAdmin) {
+        res.status(200).json({ authenticated: true });
+    } else {
+        res.status(401).json({ error: "Not authenticated" });
     }
 });
 
@@ -61,6 +79,14 @@ app.post("/api/cars", async (req, res) => {
         res.status(500).json({ error: "Помилка при збереженні" });
     }
 });
+
+app.post("/logout", (req, res) => {
+    req.session.destroy(() => {
+        res.clearCookie("connect.sid");
+        res.status(200).json({ message: "Logged out" });
+    });
+});
+
 
 app.put("/api/cars/:id", async (req, res) => {
     const id = req.params.id;
