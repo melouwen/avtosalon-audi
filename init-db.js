@@ -12,17 +12,16 @@ const createTableQuery = `
 async function init() {
     try {
         await pool.query(createTableQuery);
-        console.log('✅ Таблиця cars створена або вже існує.');
+        console.log('Таблиця cars створена або вже існує.');
 
-        // Очистити таблицю перед додаванням нових записів (необов’язково, але корисно для тестування)
         await pool.query('DELETE FROM cars');
 
         const carsData = JSON.parse(fs.readFileSync('./cars.json', 'utf8'));
 
         const insertPromises = carsData.map(car => {
-            const id = car.name.toLowerCase().replace(/\s+/g, '-'); // "Audi A5" → "audi-a5"
+            const id = car.name.toLowerCase().replace(/\s+/g, '-');
             const name = car.name;
-            const page = car.page; // "a5.html"
+            const page = car.page;
             const price = car.price;
             const image = car.image;
 
@@ -33,9 +32,9 @@ async function init() {
         });
 
         await Promise.all(insertPromises);
-        console.log('✅ Дані успішно додані до таблиці cars.');
+        console.log('Дані успішно додані до таблиці cars.');
     } catch (err) {
-        console.error('❌ Помилка при роботі з БД:', err);
+        console.error('Помилка при роботі з БД:', err);
     }
 }
 

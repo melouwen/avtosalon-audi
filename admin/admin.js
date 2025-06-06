@@ -1,19 +1,16 @@
 const session = require("express-session");
 
-// 🔐 Перевірка авторизації
 fetch("/check-auth").then(res => {
     if (!res.ok) {
         window.location.href = "index.html";
     }
 });
 
-// 📦 Глобальні змінні
 const carForm = document.getElementById("carForm");
 const carList = document.getElementById("carList");
 const editIndex = document.getElementById("editIndex");
 let cars = [];
 
-// 🚀 Завантаження машин
 async function loadCars() {
     try {
         const res = await fetch("/api/cars");
@@ -32,8 +29,8 @@ async function loadCars() {
             div.innerHTML = `
         <strong>${car.name}</strong> — ${car.price} €<br>
         <img src="${car.image}" width="120"><br>
-        <button onclick="editCar('${car.id}')">✏️ Редагувати</button>
-        <button onclick="deleteCar('${car.id}')">❌ Видалити</button>
+        <button onclick="editCar('${car.id}')">Редагувати</button>
+        <button onclick="deleteCar('${car.id}')">Видалити</button>
       `;
             carList.appendChild(div);
         });
@@ -42,7 +39,6 @@ async function loadCars() {
     }
 }
 
-// ✏️ Редагування машини
 window.editCar = function (id) {
     const car = cars.find(c => c.id === id);
     if (!car) return;
@@ -60,7 +56,6 @@ window.editCar = function (id) {
     editIndex.value = car.id;
 };
 
-// ❌ Видалення машини
 window.deleteCar = async function (id) {
     try {
         await fetch(`/api/cars/${id}`, { method: "DELETE" });
@@ -70,7 +65,6 @@ window.deleteCar = async function (id) {
     }
 };
 
-// ✅ Надсилання форми (додавання/оновлення)
 carForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -107,11 +101,9 @@ carForm.addEventListener("submit", async function (e) {
     }
 });
 
-// 🚪 Вихід з акаунту
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     await fetch("/logout", { method: "POST" });
     window.location.href = "index.html";
 });
 
-// ⏳ Початкове завантаження
 loadCars();

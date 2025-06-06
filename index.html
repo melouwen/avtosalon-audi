@@ -58,7 +58,6 @@
     </svg>
 </div>
 
-
 <section class="audi-fullscreen-slide" style="background-image: url('media/audi-tech.jpg');">
     <div class="audi-slide-overlay">
         <div class="audi-slide-text">
@@ -74,7 +73,6 @@
         <path d="M0,0 C480,100 960,0 1440,100 L1440,0 L0,0 Z" fill="#1c1c1c"></path>
     </svg>
 </div>
-
 
 <section id="about" class="section about improved-about">
     <div class="about-grid">
@@ -121,7 +119,6 @@
     </svg>
 </div>
 
-
 <section class="audi-fullscreen-slide" style="background-image: url('media/audi-performance.jpg');">
     <div class="audi-slide-overlay">
         <div class="audi-slide-text">
@@ -138,7 +135,6 @@
     </svg>
 </div>
 
-
 <div id="secret-admin-access"></div>
 
 <section id="catalog" class="section catalog">
@@ -146,6 +142,16 @@
     <div class="content">
         <h2>Каталог</h2>
         <p>Оберіть модель, яка вам підходить.</p>
+
+        <div class="filters">
+            <button id="filterToggle">Фільтри ⬇</button>
+            <div id="filterOptions" class="hidden">
+                <label><input type="checkbox" value="A" class="car-filter"> A CLASS</label>
+                <label><input type="checkbox" value="Q" class="car-filter"> Q CLASS</label>
+                <label><input type="checkbox" value="RS" class="car-filter"> RS CLASS</label>
+            </div>
+        </div>
+
         <div id="carContainer" class="cars"></div>
     </div>
 </section>
@@ -166,7 +172,7 @@
         </nav>
 
         <div class="footer-social">
-            <a href="hhttps://www.facebook.com/AudiUkraine/"><img src="media/icons/facebook.png" alt="Facebook"></a>
+            <a href="https://www.facebook.com/AudiUkraine/"><img src="media/icons/facebook.png" alt="Facebook"></a>
             <a href="https://www.instagram.com/audi/"><img src="media/icons/instagram.png" alt="Instagram"></a>
             <a href="https://www.youtube.com/audi"><img src="media/icons/youtube.png" alt="YouTube"></a>
         </div>

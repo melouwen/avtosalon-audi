@@ -1,4 +1,3 @@
-// create-admin.js
 const bcrypt = require('bcrypt');
 const pool = require('./db');
 
@@ -8,7 +7,7 @@ async function createAdmin(username, password) {
         'INSERT INTO admins (username, password) VALUES ($1, $2)',
         [username, hashedPassword]
     );
-    console.log(`✅ Адмін "${username}" доданий!`);
+    console.log(`Адмін "${username}" доданий!`);
     process.exit();
 }
 

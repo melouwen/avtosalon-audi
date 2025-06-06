@@ -114,7 +114,6 @@ nav button:hover {
     scroll-margin-top: 60px;
 }
 
-
 @keyframes sectionFadeIn {
     0% {
         opacity: 0;
@@ -901,4 +900,38 @@ html {
     display: block;
     width: 100%;
     height: 70px;
+}
+
+.filters {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #fff;
+}
+
+#filterToggle {
+    background: #222;
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#filterOptions {
+    background: rgba(255,255,255,0.05);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+#filterOptions label {
+    display: block;
+    margin: 6px 0;
+    font-size: 0.95rem;
+}
+
+.hidden {
+    display: none;
 }

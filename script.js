@@ -1,7 +1,6 @@
 function scrollToSection(id) {
     const section = document.getElementById(id);
     if (!section) return;
-
     section.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -11,7 +10,7 @@ function cycleVideos() {
 
     if (videos.length === 0) return;
 
-    videos.forEach((video, i) => {
+    videos.forEach((video) => {
         video.classList.remove('active');
         video.currentTime = 0;
     });
@@ -25,32 +24,51 @@ function cycleVideos() {
     }, 5000);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    renderCars();
-    cycleVideos();
-});
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 async function renderCars() {
     const carContainer = document.getElementById("carContainer");
     if (!carContainer) return;
 
     const res = await fetch("/api/cars");
-    const cars = await res.json();
-    shuffleArray(cars);
+    const allCars = await res.json();
+    shuffleArray(allCars);
+    
+    const selectedFilters = Array.from(document.querySelectorAll(".car-filter:checked"))
+        .map(input => input.value);
 
+    let filteredCars = allCars;
 
-    if (cars.length === 0) {
-        carContainer.innerHTML = "<p>Каталог порожній.</p>";
+    if (selectedFilters.length > 0) {
+        filteredCars = allCars.filter(car => {
+            const name = car.name.toUpperCase();
+            return selectedFilters.some(filter => {
+                if (filter === "RS") {
+                    return name.includes("RS") || name.includes("R");
+                }
+                return name.includes(filter);
+            });
+        });
+    }
+
+    if (filteredCars.length === 0) {
+        carContainer.innerHTML = "<p>Немає машин для вибраних фільтрів.</p>";
         return;
     }
 
     let index = parseInt(localStorage.getItem("selectedCarIndex")) || 0;
+
     const track = document.createElement("div");
     track.className = "car-showcase";
     track.id = "showcaseTrack";
     track.style.transform = `translateX(-${index * 100}%)`;
 
-    cars.forEach((car, i) => {
+    filteredCars.forEach((car, i) => {
         const card = document.createElement("div");
         card.className = "car-showcase-card";
         card.dataset.index = i;
@@ -77,13 +95,13 @@ async function renderCars() {
     wrapper.style.position = "relative";
     wrapper.appendChild(track);
 
-    if (cars.length > 1) {
+    if (filteredCars.length > 1) {
         const prev = document.createElement("div");
         prev.id = "prevCar";
         prev.className = "carousel-arrow";
         prev.innerHTML = `<img src="media/arrow-left.png" alt="Попередній" class="carousel-icon">`;
         prev.onclick = () => {
-            index = (index - 1 + cars.length) % cars.length;
+            index = (index - 1 + filteredCars.length) % filteredCars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
         };
 
@@ -92,7 +110,7 @@ async function renderCars() {
         next.className = "carousel-arrow";
         next.innerHTML = `<img src="media/arrow-right.png" alt="Наступний" class="carousel-icon">`;
         next.onclick = () => {
-            index = (index + 1) % cars.length;
+            index = (index + 1) % filteredCars.length;
             track.style.transform = `translateX(-${index * 100}%)`;
         };
 
@@ -100,11 +118,8 @@ async function renderCars() {
         wrapper.appendChild(next);
     }
 
-
     carContainer.innerHTML = "";
     carContainer.appendChild(wrapper);
-    localStorage.removeItem("selectedCarIndex");
-
     localStorage.removeItem("selectedCarIndex");
 }
 
@@ -112,7 +127,21 @@ document.getElementById("secret-admin-access")?.addEventListener("click", () => 
     window.location.href = "admin/index.html";
 });
 
-renderCars();
+window.addEventListener("DOMContentLoaded", () => {
+    renderCars();
+    cycleVideos();
+
+    const filterToggle = document.getElementById("filterToggle");
+    if (filterToggle) {
+        filterToggle.addEventListener("click", () => {
+            document.getElementById("filterOptions")?.classList.toggle("hidden");
+        });
+    }
+
+    document.querySelectorAll(".car-filter").forEach(input => {
+        input.addEventListener("change", renderCars);
+    });
+});
 
 window.addEventListener("load", () => {
     const loader = document.getElementById("loader");
@@ -123,10 +152,3 @@ window.addEventListener("load", () => {
         }, 700);
     }
 });
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
