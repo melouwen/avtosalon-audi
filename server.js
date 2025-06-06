@@ -12,16 +12,21 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// Сесії
+const session = require("express-session");
+
 app.use(session({
     secret: process.env.SESSION_SECRET || "084c998312d4d2ed225f2dd9359dea2e6b9b236e6972b78039bdfb80a69cfbd7",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false } // якщо HTTPS: true
+    cookie: {
+        secure: false, // true на продакшені з HTTPS
+        httpOnly: true,
+        sameSite: 'lax'
+    }
 }));
 
-// 🔐 Перевірка авторизації
-app.get("/check-auth", (req, res) => {
+
+app.get("/api/check-auth", (req, res) => {
     if (req.session && req.session.isAdmin) {
         res.sendStatus(200);
     } else {

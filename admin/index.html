@@ -52,8 +52,6 @@
       });
 
       if (res.ok) {
-        // Авторизовано — можеш зберегти щось в localStorage або просто перейти
-        localStorage.setItem("isAdmin", "true"); // не обов'язково, тільки для UI
         window.location.href = "dashboard.html";
       } else {
         error.textContent = "Невірний логін або пароль";
