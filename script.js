@@ -42,21 +42,26 @@ async function renderCars() {
     const selectedFilters = Array.from(document.querySelectorAll(".car-filter:checked"))
         .map(input => input.value);
 
-    let filteredCars = allCars;
+    let filteredCars;
 
-    return selectedFilters.some(filter => {
-        const modelName = name.replace(/^AUDI\s*/i, "").trim();
+    if (selectedFilters.length === 0) {
+        filteredCars = allCars;
+    } else {
+        filteredCars = allCars.filter(car => {
+            const name = car.name.toUpperCase();
+            const modelName = name.replace(/^AUDI\s+/i, "").trim();
 
-        if (filter === "RS") {
-            return modelName.startsWith("RS") || modelName.startsWith("R");
-        }
-
-        if (filter === "Q") {
-            return modelName.startsWith("Q") || modelName.startsWith("SQ");
-        }
-
-        return modelName.startsWith(filter);
-    });
+            return selectedFilters.some(filter => {
+                if (filter === "RS") {
+                    return modelName.startsWith("RS") || modelName.startsWith("R");
+                }
+                if (filter === "Q") {
+                    return modelName.startsWith("Q") || modelName.startsWith("SQ");
+                }
+                return modelName.startsWith(filter);
+            });
+        });
+    }
 
     if (filteredCars.length === 0) {
         carContainer.innerHTML = "<p>Немає машин для вибраних фільтрів.</p>";
