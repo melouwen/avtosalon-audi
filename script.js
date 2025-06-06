@@ -145,9 +145,13 @@ window.addEventListener("DOMContentLoaded", () => {
     cycleVideos();
 
     const filterToggle = document.getElementById("filterToggle");
-    if (filterToggle) {
+    const filterOptions = document.getElementById("filterOptions");
+    const filterArrow = document.getElementById("filterArrow");
+
+    if (filterToggle && filterOptions && filterArrow) {
         filterToggle.addEventListener("click", () => {
-            document.getElementById("filterOptions")?.classList.toggle("hidden");
+            filterOptions.classList.toggle("show");
+            filterArrow.textContent = filterOptions.classList.contains("show") ? "⬆" : "⬇";
         });
     }
 
@@ -172,13 +176,3 @@ window.addEventListener("load", () => {
         }, 700);
     }
 });
-
-const filterToggle = document.getElementById("filterToggle");
-if (filterToggle) {
-    filterToggle.addEventListener("click", () => {
-        const options = document.getElementById("filterOptions");
-        if (options) {
-            options.classList.toggle("hidden");
-        }
-    });
-}
