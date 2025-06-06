@@ -38,7 +38,8 @@ async function renderCars() {
     const res = await fetch("/api/cars");
     const allCars = await res.json();
     shuffleArray(allCars);
-    
+
+    // Зчитування активних фільтрів
     const selectedFilters = Array.from(document.querySelectorAll(".car-filter:checked"))
         .map(input => input.value);
 
@@ -46,12 +47,16 @@ async function renderCars() {
 
     if (selectedFilters.length > 0) {
         filteredCars = allCars.filter(car => {
-            const name = car.name.toUpperCase();
+            const name = car.name.toUpperCase().replace(/^AUDI\s*/i, "").trim();
+
             return selectedFilters.some(filter => {
                 if (filter === "RS") {
-                    return name.includes("RS") || name.includes("R");
+                    return name.startsWith("RS") || name.startsWith("R");
                 }
-                return name.includes(filter);
+                if (filter === "Q") {
+                    return name.startsWith("Q") || name.startsWith("SQ");
+                }
+                return name.startsWith(filter);
             });
         });
     }
@@ -131,6 +136,7 @@ window.addEventListener("DOMContentLoaded", () => {
     renderCars();
     cycleVideos();
 
+    // Кнопка "Фільтри"
     const filterToggle = document.getElementById("filterToggle");
     if (filterToggle) {
         filterToggle.addEventListener("click", () => {
@@ -138,17 +144,10 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Зміна фільтрів
     document.querySelectorAll(".car-filter").forEach(input => {
         input.addEventListener("change", renderCars);
     });
 });
 
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    if (loader) {
-        setTimeout(() => {
-            loader.classList.add("fade-out");
-            setTimeout(() => loader.remove(), 700);
-        }, 700);
-    }
-});
+window.addEventListener("

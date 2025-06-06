@@ -903,35 +903,49 @@ html {
 }
 
 .filters {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
     text-align: left;
-    color: #fff;
+    max-width: 500px;
 }
 
 #filterToggle {
-    background: #222;
+    background: #1c1c1c;
     color: #fff;
-    padding: 8px 20px;
-    border: none;
+    padding: 10px 20px;
     border-radius: 8px;
+    border: 1px solid #444;
     cursor: pointer;
     font-weight: bold;
-    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+#filterToggle:hover {
+    background: #333;
+    transform: scale(1.03);
 }
 
 #filterOptions {
-    background: rgba(255,255,255,0.05);
-    padding: 10px 15px;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
     border-radius: 10px;
+    border: 1px solid #444;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 #filterOptions label {
     display: block;
-    margin: 6px 0;
+    margin-bottom: 8px;
+    color: #eee;
     font-size: 0.95rem;
 }
 
-.hidden {
-    display: none;
+#filterOptions input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
