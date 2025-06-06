@@ -1,24 +1,19 @@
 document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Login failed");
-            return res.json();
-        })
-        .then(data => {
-            localStorage.setItem("isAdmin", "true");
-            window.location.href = "dashboard.html";
-        })
-        .catch(() => {
-            document.getElementById("error").textContent = "Невірний логін або пароль";
-        });
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const ADMIN_USER = "admin";
+    const ADMIN_PASS = "1234";
+
+    if (username === ADMIN_USER && password === ADMIN_PASS) {
+        localStorage.setItem("isAdmin", "true");
+        window.location.href = "dashboard.html";
+    } else {
+        document.getElementById("error").textContent = "Невірний логін або пароль";
+    }
+});
 
 if (window.location.pathname.includes("dashboard.html")) {
     const carForm = document.getElementById("carForm");

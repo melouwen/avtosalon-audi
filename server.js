@@ -1,89 +1,50 @@
 const express = require("express");
-const session = require("express-session");
-const cors = require("cors");
-const Database = require("better-sqlite3");
+const fs = require("fs");
 const path = require("path");
 
-const db = new Database("admin.db");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
 app.use(express.json());
-app.use(session({
-    secret: "supersecretkey",
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(express.static(__dirname));
 
-// Авторизація
-app.post("/login", (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        const row = db.prepare("SELECT * FROM admins WHERE username = ? AND password = ?").get(username, password);
-        if (!row) {
-            return res.status(401).json({ error: "Неправильний логін або пароль" });
-        }
-
-        req.session.isAdmin = true;
-        res.json({ success: true });
-    } catch (err) {
-        console.error("DB error:", err);
-        res.status(500).json({ error: "DB error" });
-    }
-});
-
-// Захист адмінки
-app.use("/admin/dashboard.html", (req, res, next) => {
-    if (req.session.isAdmin) {
-        next();
-    } else {
-        res.redirect("/admin/index.html");
-    }
-});
-
-// Статичні файли
-app.use(express.static("public"));
-app.use("/admin", express.static(path.join(__dirname, "admin")));
-
-// API машин
-let cars = [];
+const carsFile = path.join(__dirname, "cars.json");
 
 app.get("/api/cars", (req, res) => {
-    if (!req.session.isAdmin) return res.status(403).json({ error: "Unauthorized" });
-    res.json(cars);
+    if (!fs.existsSync(carsFile)) fs.writeFileSync(carsFile, "[]");
+    const data = fs.readFileSync(carsFile, "utf8");
+    res.json(JSON.parse(data));
 });
 
 app.post("/api/cars", (req, res) => {
-    if (!req.session.isAdmin) return res.status(403).json({ error: "Unauthorized" });
-    cars.push(req.body);
-    res.json({ success: true });
+    const car = req.body;
+    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
+    data.push(car);
+    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
+    res.json({ message: "Машину додано" });
 });
 
 app.put("/api/cars/:index", (req, res) => {
-    if (!req.session.isAdmin) return res.status(403).json({ error: "Unauthorized" });
-    const index = parseInt(req.params.index);
-    if (index >= 0 && index < cars.length) {
-        cars[index] = req.body;
-        res.json({ success: true });
-    } else {
-        res.status(404).json({ error: "Car not found" });
-    }
+    const index = +req.params.index;
+    const updatedCar = req.body;
+    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
+    if (index < 0 || index >= data.length) return res.status(404).json({ error: "Не знайдено" });
+
+    data[index] = updatedCar;
+    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
+    res.json({ message: "Оновлено" });
 });
 
 app.delete("/api/cars/:index", (req, res) => {
-    if (!req.session.isAdmin) return res.status(403).json({ error: "Unauthorized" });
-    const index = parseInt(req.params.index);
-    if (index >= 0 && index < cars.length) {
-        cars.splice(index, 1);
-        res.json({ success: true });
-    } else {
-        res.status(404).json({ error: "Car not found" });
-    }
+    const index = +req.params.index;
+    const data = JSON.parse(fs.readFileSync(carsFile, "utf8"));
+    if (index < 0 || index >= data.length) return res.status(404).json({ error: "Не знайдено" });
+
+    data.splice(index, 1);
+    fs.writeFileSync(carsFile, JSON.stringify(data, null, 2));
+    res.json({ message: "Видалено" });
 });
 
 app.listen(PORT, () => {
-    console.log(`Сервер запущено на http://localhost:${PORT}`);
+    console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
 });
