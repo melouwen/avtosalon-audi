@@ -903,9 +903,10 @@ html {
 }
 
 .filters-wrapper {
-    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
-    position: relative;
 }
 
 #filterToggle {
@@ -917,10 +918,8 @@ html {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
 }
 
 #filterToggle:hover {
