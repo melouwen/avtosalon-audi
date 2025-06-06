@@ -1,29 +1,24 @@
 {
   "name": "avtosalon-vizutka",
   "version": "1.0.0",
-  "main": "cars.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dependencies": {
-      "express": "^4.18.2",
-      "express-session": "^1.17.3",
-      "better-sqlite3": "^8.0.0",
-      "cors": "^2.8.5"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/melouwen/avtosalon-vizutka.git"
+    "build": "npm rebuild better-sqlite3 --build-from-source",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melouwen/avtosalon-vizutka.git"
+  },
   "bugs": {
     "url": "https://github.com/melouwen/avtosalon-vizutka/issues"
   },
   "homepage": "https://github.com/melouwen/avtosalon-vizutka#readme",
-  "description": "",
   "dependencies": {
     "better-sqlite3": "^11.10.0",
     "cors": "^2.8.5",
