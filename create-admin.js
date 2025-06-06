@@ -12,6 +12,4 @@ async function createAdmin(username, password) {
     process.exit();
 }
 
-createAdmin("admin", "1234");
-// create-admin.js
-createAdmin("moder", "5678")
+createAdmin("curateddd", "12345");
