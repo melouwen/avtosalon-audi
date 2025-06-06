@@ -919,7 +919,8 @@ html {
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 #filterToggle:hover {
@@ -950,7 +951,6 @@ html {
     transform: translateY(0);
 }
 
-/* Кастомні "pills" фільтри */
 #filterOptions input[type="checkbox"] {
     display: none;
 }
@@ -980,7 +980,6 @@ html {
     border-color: #007aff;
 }
 
-/* Інпут ціни */
 #filterOptions input[type="number"] {
     padding: 6px 10px;
     border: 1px solid #666;
@@ -993,7 +992,6 @@ html {
     margin-left: 5px;
 }
 
-/* Кнопка Очистити */
 #clearFilters {
     background: crimson;
     color: white;
@@ -1003,8 +1001,9 @@ html {
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease;
-    margin-top: 12px;
+    margin: 16px auto 0;
     display: block;
+    text-align: center;
 }
 
 #clearFilters:hover {
