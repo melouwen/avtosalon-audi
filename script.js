@@ -1,132 +1,90 @@
-function scrollToSection(id) {
-    const section = document.getElementById(id);
-    if (!section) return;
+require('dotenv').config();
+const express = require("express");
+const path = require("path");
+const pool = require('./db');
 
-    section.scrollIntoView({ behavior: 'smooth' });
-}
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-function cycleVideos() {
-    const videos = document.querySelectorAll('.bg-video');
-    let currentIndex = 0;
+app.use(express.json());
 
-    if (videos.length === 0) return;
+// ======= 🧩 ВАЖЛИВО: СТАТИЧНІ ПАПКИ =======
+app.use(express.static(__dirname)); // щоб працював index.html
+app.use('/models', express.static(path.join(__dirname, 'models'))); // сторінки моделей
+app.use('/media', express.static(path.join(__dirname, 'media'))); // картинки, відео, стилі, тощо
 
-    videos.forEach((video, i) => {
-        video.classList.remove('active');
-        video.currentTime = 0;
-    });
-    videos[0].classList.add('active');
+// ======= API для машин =======
 
-    setInterval(() => {
-        videos[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % videos.length;
-        videos[currentIndex].classList.add('active');
-        videos[currentIndex].currentTime = 0;
-    }, 5000);
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    renderCars();
-    cycleVideos();
-});
-
-async function renderCars() {
-    const carContainer = document.getElementById("carContainer");
-    if (!carContainer) return;
-
-    const res = await fetch("/api/cars");
-    const cars = await res.json();
-    shuffleArray(cars);
-
-
-    if (cars.length === 0) {
-        carContainer.innerHTML = "<p>Каталог порожній.</p>";
-        return;
-    }
-
-    let index = parseInt(localStorage.getItem("selectedCarIndex")) || 0;
-    const track = document.createElement("div");
-    track.className = "car-showcase";
-    track.id = "showcaseTrack";
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    cars.forEach((car, i) => {
-        const card = document.createElement("div");
-        card.className = "car-showcase-card";
-        card.dataset.index = i;
-        card.innerHTML = `
-            <img src="${car.image}" alt="${car.name}">
-            <div class="car-title-overlay car-flex-title">
-                <span class="left">${car.name}</span>
-                <span class="right">${car.price ? car.price + ' €' : ''}</span>
-            </div>
-        `;
-        card.addEventListener("click", () => {
-            if (car.page) {
-                localStorage.setItem("selectedCarIndex", i);
-                window.location.href = `models/${car.page}`;
-            } else {
-                alert("Немає сторінки для цього авто");
-            }
-        });
-        track.appendChild(card);
-    });
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "car-showcase-wrapper";
-    wrapper.style.position = "relative";
-    wrapper.appendChild(track);
-
-    if (cars.length > 1) {
-        const prev = document.createElement("div");
-        prev.id = "prevCar";
-        prev.className = "carousel-arrow";
-        prev.innerHTML = `<img src="media/arrow-left.png" alt="Попередній" class="carousel-icon">`;
-        prev.onclick = () => {
-            index = (index - 1 + cars.length) % cars.length;
-            track.style.transform = `translateX(-${index * 100}%)`;
-        };
-
-        const next = document.createElement("div");
-        next.id = "nextCar";
-        next.className = "carousel-arrow";
-        next.innerHTML = `<img src="media/arrow-right.png" alt="Наступний" class="carousel-icon">`;
-        next.onclick = () => {
-            index = (index + 1) % cars.length;
-            track.style.transform = `translateX(-${index * 100}%)`;
-        };
-
-        wrapper.appendChild(prev);
-        wrapper.appendChild(next);
-    }
-
-
-    carContainer.innerHTML = "";
-    carContainer.appendChild(wrapper);
-    localStorage.removeItem("selectedCarIndex");
-
-    localStorage.removeItem("selectedCarIndex");
-}
-
-document.getElementById("secret-admin-access")?.addEventListener("click", () => {
-    window.location.href = "admin/index.html";
-});
-
-renderCars();
-
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    if (loader) {
-        setTimeout(() => {
-            loader.classList.add("fade-out");
-            setTimeout(() => loader.remove(), 700);
-        }, 700);
+// Вивести всі машини
+app.get("/api/cars", async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM cars ORDER BY name');
+        res.json(result.rows);
+    } catch (err) {
+        console.error("❌ Не вдалося отримати машини:", err);
+        res.status(500).json({ error: "Server error" });
     }
 });
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+// Додати нову або оновити
+app.post("/api/cars", async (req, res) => {
+    const { name, page, image, price } = req.body;
+    const id = name.toLowerCase().replace(/\s+/g, '-');
+    const model = page.replace('.html', '');
+
+    try {
+        await pool.query(`
+      INSERT INTO cars (id, name, model, price, image, page)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      ON CONFLICT (id) DO UPDATE SET name=$2, model=$3, price=$4, image=$5, page=$6
+    `, [id, name, model, price, image, page]);
+        res.json({ message: "✅ Машина збережена" });
+    } catch (err) {
+        console.error("❌ Помилка при додаванні:", err);
+        res.status(500).json({ error: "Помилка при збереженні" });
     }
-}
+});
+
+// Оновити машину
+app.put("/api/cars/:id", async (req, res) => {
+    const id = req.params.id;
+    const { name, page, image, price } = req.body;
+    const model = page.replace('.html', '');
+
+    try {
+        await pool.query(`
+      UPDATE cars SET name=$1, model=$2, price=$3, image=$4, page=$5 WHERE id=$6
+    `, [name, model, price, image, page, id]);
+        res.json({ message: "✅ Машина оновлена" });
+    } catch (err) {
+        console.error("❌ Помилка при оновленні:", err);
+        res.status(500).json({ error: "Помилка оновлення" });
+    }
+});
+
+// Видалити машину
+app.delete("/api/cars/:id", async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await pool.query('DELETE FROM cars WHERE id=$1', [id]);
+        res.json({ message: "🗑️ Машина видалена" });
+    } catch (err) {
+        console.error("❌ Помилка при видаленні:", err);
+        res.status(500).json({ error: "Помилка видалення" });
+    }
+});
+
+// ======= Перевірка підключення до БД =======
+pool.query('SELECT NOW()', (err, result) => {
+    if (err) {
+        console.error('❌ Помилка зʼєднання з БД:', err);
+    } else {
+        console.log('✅ Підключено до БД:', result.rows[0]);
+    }
+});
+
+// ======= Запуск сервера =======
+app.listen(PORT, () => {
+    console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
+});
