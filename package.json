@@ -19,6 +19,7 @@
   "homepage": "https://github.com/melouwen/avtosalon-vizutka#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
   }
 }

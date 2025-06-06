@@ -49,14 +49,23 @@
 </div>
 
 <script>
-  if (localStorage.getItem("isAdmin") !== "true") {
-    window.location.href = "index.html";
+
+  async function loadCars() {
+    const res = await fetch("/api/cars");
+    if (res.status === 401) {
+      window.location.href = "index.html";
+      return;
+    }
+
+    const cars = await res.json();
+    // ... далі рендер
   }
 
   const carForm = document.getElementById("carForm");
   const carList = document.getElementById("carList");
   const editIndex = document.getElementById("editIndex");
 
+  // Завантажити всі машини з сервера
   async function loadCars() {
     const res = await fetch("/api/cars");
     const cars = await res.json();
@@ -80,6 +89,7 @@
     });
   }
 
+  // Заповнити форму для редагування
   async function editCar(index) {
     const res = await fetch("/api/cars");
     const cars = await res.json();
@@ -98,11 +108,13 @@
     editIndex.value = index;
   }
 
+  // Видалення машини
   async function deleteCar(index) {
     await fetch(`/api/cars/${index}`, { method: "DELETE" });
     loadCars();
   }
 
+  // Додати або оновити авто
   carForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -133,11 +145,12 @@
     loadCars();
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("isAdmin");
+  document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await fetch("/logout", { method: "POST" });
     window.location.href = "index.html";
   });
 
+  // Старт
   loadCars();
 </script>
 </body>
