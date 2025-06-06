@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -47,4 +48,15 @@ app.delete("/api/cars/:index", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
+});
+
+const pool = require('./db');
+
+// Проверка соединения
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('Ошибка подключения к БД:', err);
+    } else {
+        console.log('Подключение к БД успешно:', res.rows[0]);
+    }
 });
