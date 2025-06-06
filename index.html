@@ -143,32 +143,35 @@
         <h2>Каталог</h2>
         <p>Оберіть модель, яка вам підходить.</p>
 
-        <div class="filters-wrapper">
-            <button id="filterToggle">Фільтри</button>
-        </div>
-
-        <div id="filterOptions">
-            <input type="checkbox" id="classA" value="A" class="car-filter" />
-            <label for="classA">A CLASS</label>
-
-            <input type="checkbox" id="classQ" value="Q" class="car-filter" />
-            <label for="classQ">Q CLASS</label>
-
-            <input type="checkbox" id="classRS" value="RS" class="car-filter" />
-            <label for="classRS">R CLASS</label>
-
-            <div style="margin-top: 12px;">
-                <label>Ціна від:
-                    <input type="number" id="priceMin" min="0" placeholder="0 €">
-                </label>
-                <label style="margin-left: 10px;">
-                    до:
-                    <input type="number" id="priceMax" min="0" placeholder="100000 €">
-                </label>
+        <div class="filters-container">
+            <div class="filters-wrapper">
+                <button id="filterToggle">Фільтри</button>
             </div>
 
-            <button id="clearFilters">Очистити фільтри</button>
+            <div id="filterOptions">
+                <input type="checkbox" id="classA" value="A" class="car-filter" />
+                <label for="classA">A CLASS</label>
+
+                <input type="checkbox" id="classQ" value="Q" class="car-filter" />
+                <label for="classQ">Q CLASS</label>
+
+                <input type="checkbox" id="classRS" value="RS" class="car-filter" />
+                <label for="classRS">R CLASS</label>
+
+                <div style="margin-top: 12px;">
+                    <label>Ціна від:
+                        <input type="number" id="priceMin" min="0" placeholder="0 €">
+                    </label>
+                    <label style="margin-left: 10px;">
+                        до:
+                        <input type="number" id="priceMax" min="0" placeholder="100000 €">
+                    </label>
+                </div>
+
+                <button id="clearFilters">Очистити фільтри</button>
+            </div>
         </div>
+
 
         <div id="carContainer" class="cars"></div>
     </div>

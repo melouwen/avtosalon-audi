@@ -176,12 +176,10 @@ window.addEventListener("load", () => {
 });
 
 document.addEventListener("click", function (e) {
-    const filterWrapper = document.querySelector(".filters-wrapper");
+    const filterArea = document.querySelector(".filters-container");
     const filterOptions = document.getElementById("filterOptions");
-    const filterArrow = document.getElementById("filterArrow");
 
-    if (!filterWrapper.contains(e.target)) {
+    if (!filterArea.contains(e.target)) {
         filterOptions.classList.remove("show");
-        if (filterArrow) filterArrow.textContent = "⬇";
     }
 });
