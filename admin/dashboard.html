@@ -57,9 +57,11 @@
   const carList = document.getElementById("carList");
   const editIndex = document.getElementById("editIndex");
 
+  let cars = []; // зберігаємо список машин з сервера
+
   async function loadCars() {
     const res = await fetch("/api/cars");
-    const cars = await res.json();
+    cars = await res.json();
 
     carList.innerHTML = "";
     if (cars.length === 0) {
@@ -67,23 +69,24 @@
       return;
     }
 
-    cars.forEach((car, index) => {
+    cars.forEach((car) => {
       const div = document.createElement("div");
       div.className = "car-list-item";
+      div.dataset.id = car.id;
+
       div.innerHTML = `
         <strong>${car.name}</strong> — ${car.price} €<br>
         <img src="${car.image}" width="120"><br>
-        <button onclick="editCar(${index})">✏️ Редагувати</button>
-        <button onclick="deleteCar(${index})">❌ Видалити</button>
+        <button onclick="editCar(${car.id})">✏️ Редагувати</button>
+        <button onclick="deleteCar(${car.id})">❌ Видалити</button>
       `;
       carList.appendChild(div);
     });
   }
 
-  async function editCar(index) {
-    const res = await fetch("/api/cars");
-    const cars = await res.json();
-    const car = cars[index];
+  window.editCar = async function (id) {
+    const car = cars.find(c => c.id === id);
+    if (!car) return;
 
     const select = document.getElementById("carName");
     for (let i = 0; i < select.options.length; i++) {
@@ -95,13 +98,13 @@
 
     document.getElementById("carImage").value = car.image;
     document.getElementById("carPrice").value = car.price;
-    editIndex.value = index;
-  }
+    editIndex.value = id;
+  };
 
-  async function deleteCar(index) {
-    await fetch(`/api/cars/${index}`, { method: "DELETE" });
-    loadCars();
-  }
+  window.deleteCar = async function (id) {
+    await fetch(`/api/cars/${id}`, { method: "DELETE" });
+    await loadCars();
+  };
 
   carForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -114,8 +117,10 @@
       price: document.getElementById("carPrice").value.trim()
     };
 
-    if (editIndex.value !== "") {
-      await fetch(`/api/cars/${editIndex.value}`, {
+    const id = editIndex.value;
+
+    if (id) {
+      await fetch(`/api/cars/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(car)
@@ -130,7 +135,7 @@
     }
 
     carForm.reset();
-    loadCars();
+    await loadCars();
   });
 
   document.getElementById("logoutBtn").addEventListener("click", () => {
