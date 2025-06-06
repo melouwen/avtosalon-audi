@@ -57,7 +57,7 @@
   const carList = document.getElementById("carList");
   const editIndex = document.getElementById("editIndex");
 
-  let cars = []; // зберігаємо список машин з сервера
+  let cars = [];
 
   async function loadCars() {
     const res = await fetch("/api/cars");
@@ -75,14 +75,14 @@
       div.dataset.id = car.id;
 
       div.innerHTML = `
-      <strong>${car.name}</strong> — ${car.price} €<br>
-      <img src="${car.image}" width="120"><br>
-      <button onclick="editCar('${car.id}')">✏️ Редагувати</button>
-      <button onclick="deleteCar('${car.id}')">❌ Видалити</button>
-  `;
+        <strong>${car.name}</strong> — ${car.price} €<br>
+        <img src="${car.image}" width="120"><br>
+        <button onclick="editCar('${car.id}')">✏️ Редагувати</button>
+        <button onclick="deleteCar('${car.id}')">❌ Видалити</button>
+      `;
       carList.appendChild(div);
     });
-
+  }
 
   window.editCar = async function (id) {
     const car = cars.find(c => c.id === id);
@@ -145,5 +145,6 @@
 
   loadCars();
 </script>
+
 </body>
 </html>
