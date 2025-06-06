@@ -1,146 +1,115 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    const ADMIN_USER = "admin";
-    const ADMIN_PASS = "1234";
-
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-        localStorage.setItem("isAdmin", "true");
-        window.location.href = "dashboard.html";
-    } else {
-        document.getElementById("error").textContent = "Невірний логін або пароль";
+// 🔐 Перевірка авторизації
+fetch("/check-auth").then(res => {
+    if (!res.ok) {
+        window.location.href = "index.html";
     }
 });
 
-if (window.location.pathname.includes("dashboard.html")) {
-    const carForm = document.getElementById("carForm");
-    const carList = document.getElementById("carList");
+// 📦 Глобальні змінні
+const carForm = document.getElementById("carForm");
+const carList = document.getElementById("carList");
+const editIndex = document.getElementById("editIndex");
+let cars = [];
 
-    const loadCars = () => {
-        const cars = JSON.parse(localStorage.getItem("cars") || "[]");
+// 🚀 Завантаження машин
+async function loadCars() {
+    try {
+        const res = await fetch("/api/cars");
+        cars = await res.json();
+
         carList.innerHTML = "";
-        cars.forEach((car, index) => {
-            const item = document.createElement("div");
-            item.className = "car-list-item";
-            item.innerHTML = `<strong>${car.name}</strong><br><small>${car.description}</small><br><a href="${car.image}" target="_blank">Зображення</a>`;
-            carList.appendChild(item);
-        });
-    };
 
-    carForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const name = document.getElementById("carName").value.trim();
-        const image = document.getElementById("carImage").value.trim();
-        const description = document.getElementById("carDescription").value.trim();
+        if (cars.length === 0) {
+            carList.innerHTML = "<p>Каталог порожній.</p>";
+            return;
+        }
 
-        const cars = JSON.parse(localStorage.getItem("cars") || "[]");
-        cars.push({ name, image, description });
-        localStorage.setItem("cars", JSON.stringify(cars));
-
-        carForm.reset();
-        loadCars();
-    });
-
-    loadCars();
-}
-
-<script>
-    if (localStorage.getItem("isAdmin") !== "true") {
-    window.location.href = "index.html";
-}
-
-    const carForm = document.getElementById("carForm");
-    const carList = document.getElementById("carList");
-
-    function loadCars() {
-    const cars = JSON.parse(localStorage.getItem("cars") || "[]");
-    carList.innerHTML = "";
-
-    if (cars.length === 0) {
-    carList.innerHTML = "<p>Каталог порожній.</p>";
-    return;
-}
-
-    cars.forEach((car, index) => {
-    const div = document.createElement("div");
-    div.className = "car-list-item";
-    div.innerHTML = `
-        <strong>${car.name}</strong><br>
-        <img src="${car.image}" width="100"><br>
-        <small>${car.description}</small><br>
-        <strong>${car.price}</strong><br>
-        <button onclick="deleteCar(${index})">❌ Видалити</button>
+        cars.forEach((car) => {
+            const div = document.createElement("div");
+            div.className = "car-list-item";
+            div.innerHTML = `
+        <strong>${car.name}</strong> — ${car.price} €<br>
+        <img src="${car.image}" width="120"><br>
+        <button onclick="editCar('${car.id}')">✏️ Редагувати</button>
+        <button onclick="deleteCar('${car.id}')">❌ Видалити</button>
       `;
-    carList.appendChild(div);
-});
+            carList.appendChild(div);
+        });
+    } catch (err) {
+        console.error("Помилка при завантаженні:", err);
+    }
 }
 
-    function deleteCar(index) {
-    const cars = JSON.parse(localStorage.getItem("cars") || "[]");
-    cars.splice(index, 1);
-    localStorage.setItem("cars", JSON.stringify(cars));
-    loadCars();
-}
+// ✏️ Редагування машини
+window.editCar = function (id) {
+    const car = cars.find(c => c.id === id);
+    if (!car) return;
 
-    carForm.addEventListener("submit", function (e) {
+    const select = document.getElementById("carName");
+    for (let i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === car.page) {
+            select.selectedIndex = i;
+            break;
+        }
+    }
+
+    document.getElementById("carImage").value = car.image;
+    document.getElementById("carPrice").value = car.price;
+    editIndex.value = car.id;
+};
+
+// ❌ Видалення машини
+window.deleteCar = async function (id) {
+    try {
+        await fetch(`/api/cars/${id}`, { method: "DELETE" });
+        loadCars();
+    } catch (err) {
+        console.error("Помилка при видаленні:", err);
+    }
+};
+
+// ✅ Надсилання форми (додавання/оновлення)
+carForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const nameSelect = document.getElementById("carName");
-    const selectedText = nameSelect.options[nameSelect.selectedIndex].text;
-    const selectedPage = nameSelect.value;
-
     const car = {
-    name: selectedText,
-    page: selectedPage,
-    image: document.getElementById("carImage").value.trim(),
-    price: document.getElementById("carPrice").value.trim(),
-};
+        name: nameSelect.options[nameSelect.selectedIndex].text,
+        page: nameSelect.value,
+        image: document.getElementById("carImage").value.trim(),
+        price: document.getElementById("carPrice").value.trim()
+    };
 
+    const id = editIndex.value;
 
-    const cars = JSON.parse(localStorage.getItem("cars") || "[]");
-    cars.push(car);
-    localStorage.setItem("cars", JSON.stringify(cars));
+    try {
+        if (id) {
+            await fetch(`/api/cars/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(car)
+            });
+            editIndex.value = "";
+        } else {
+            await fetch("/api/cars", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(car)
+            });
+        }
 
-    carForm.reset();
-    loadCars();
+        carForm.reset();
+        loadCars();
+    } catch (err) {
+        console.error("Помилка при збереженні:", err);
+    }
 });
 
-    loadCars();
-</script>
-
-document.getElementById('carForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const model = document.getElementById('model').value;
-    const image = document.getElementById('image').value;
-    const price = document.getElementById('price').value;
-
-    const html = `
-    <div class="car-card" onclick="showOrderInfo()">
-      <img src="${image}" alt="${model}">
-      <h3>${model}</h3>
-      <p>${desc}</p>
-      <ul>
-        <li><strong>Ціна:</strong> ${price} €</li>
-      </ul>
-    </div>
-  `;
-
-    document.getElementById('carCatalog').insertAdjacentHTML('beforeend', html);
-    this.reset();
+// 🚪 Вихід з акаунту
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    await fetch("/logout", { method: "POST" });
+    window.location.href = "index.html";
 });
 
-function showOrderInfo() {
-    document.getElementById('modal').style.display = 'flex';
-}
-
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-}
-
-function logout() {
-    window.location.href = '../index.html';
-}
+// ⏳ Початкове завантаження
+loadCars();

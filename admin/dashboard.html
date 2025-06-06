@@ -49,9 +49,12 @@
 </div>
 
 <script>
-  if (localStorage.getItem("isAdmin") !== "true") {
-    window.location.href = "index.html";
-  }
+  fetch("/api/check-auth")
+          .then(res => {
+            if (!res.ok) {
+              window.location.href = "index.html";
+            }
+          });
 
   const carForm = document.getElementById("carForm");
   const carList = document.getElementById("carList");

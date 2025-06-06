@@ -1,14 +1,11 @@
 const pool = require('./db');
 const fs = require('fs');
 
-// Створення таблиці з полем page замість model
 const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS cars (
-                                        id TEXT PRIMARY KEY,
-                                        name TEXT NOT NULL,
-                                        page TEXT NOT NULL,
-                                        price TEXT NOT NULL,
-                                        image TEXT NOT NULL
+    CREATE TABLE IF NOT EXISTS admins (
+                                          id SERIAL PRIMARY KEY,
+                                          username TEXT UNIQUE NOT NULL,
+                                          password TEXT NOT NULL
     )
 `;
 
@@ -43,3 +40,7 @@ async function init() {
 }
 
 init();
+
+const { createAdmin } = require('./auth');
+
+createAdmin('admin', '19076');
