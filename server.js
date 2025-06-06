@@ -2,17 +2,15 @@ require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const pool = require('./db');
-const { checkAdmin } = require('./auth'); // ✅ Імпортуємо логіку перевірки адміна
+const { checkAdmin, createAdmin } = require('./auth'); // ✅ підключаємо обидві функції
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.static(__dirname)); // фронтенд
 
-// ====== Статичні файли (frontend) ======
-app.use(express.static(__dirname));
-
-// ====== АВТОРИЗАЦІЯ ======
+// =============== ✅ АВТОРИЗАЦІЯ =================
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -30,7 +28,11 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// ====== API: МАШИНИ ======
+// (Опціонально: створити адміна один раз)
+// createAdmin("admin", "1234"); // ⚠️ розкоментуй, якщо хочеш створити вручну
+
+// =============== 🚗 API: МАШИНИ =================
+
 app.get("/api/cars", async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM cars ORDER BY name');
@@ -89,7 +91,7 @@ app.delete("/api/cars/:id", async (req, res) => {
     }
 });
 
-// ====== Перевірка з'єднання з БД ======
+// =============== 🔌 Перевірка БД =================
 pool.query('SELECT NOW()', (err, result) => {
     if (err) {
         console.error('❌ Не вдалося підключитись до БД:', err);
@@ -98,7 +100,7 @@ pool.query('SELECT NOW()', (err, result) => {
     }
 });
 
-// ====== Запуск сервера ======
+// =============== 🚀 Запуск ========================
 app.listen(PORT, () => {
     console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
 });

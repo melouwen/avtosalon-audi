@@ -38,20 +38,29 @@
 </div>
 
 <script>
-  const ADMIN_USER = "admin";
-  const ADMIN_PASS = "1234";
-
-  document.getElementById("loginForm").addEventListener("submit", function (e) {
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
     const error = document.getElementById("error");
 
-    if (username === ADMIN_USER && password === ADMIN_PASS) {
-      localStorage.setItem("isAdmin", "true");
-      window.location.href = "./dashboard.html";
-    } else {
-      error.textContent = "Неправильний логін або пароль";
+    try {
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (res.ok) {
+        // Авторизовано — можеш зберегти щось в localStorage або просто перейти
+        localStorage.setItem("isAdmin", "true"); // не обов'язково, тільки для UI
+        window.location.href = "dashboard.html";
+      } else {
+        error.textContent = "Невірний логін або пароль";
+      }
+    } catch (err) {
+      console.error("Помилка логіну:", err);
+      error.textContent = "Сервер недоступний";
     }
   });
 </script>
