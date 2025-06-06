@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Audi A5",
+    "page": "a5.html",
+    "image": "https://images7.alphacoders.com/905/thumb-1920-905397.jpg",
+    "price": "43,000"
+  },
+  {
+    "name": "Audi A6",
+    "page": "a6.html",
+    "image": "https://images.hdqwalls.com/download/audi-a6-e-tron-concept-2021-8k-le-1920x1080.jpg",
+    "price": "50,000"
+  },
+  {
+    "name": "Audi A7",
+    "page": "a7.html",
+    "image": "https://images.hdqwalls.com/download/audi-a7-sportback-34-1920x1080.jpg",
+    "price": "60,000"
+  },
+  {
+    "name": "Audi A7L",
+    "page": "a7l.html",
+    "image": "https://images.hdqwalls.com/download/audi-a7l-55-tfsi-quattro-s-line-4k-qq-1920x1080.jpg",
+    "price": "65,000"
+  },
+  {
+    "name": "Audi A8",
+    "page": "a8.html",
+    "image": "https://images2.alphacoders.com/123/thumb-1920-1232832.jpg",
+    "price": "80,000"
+  },
+  {
+    "name": "Audi A8L",
+    "page": "a8l.html",
+    "image": "https://images8.alphacoders.com/123/thumb-1920-1232831.jpg",
+    "price": "90,000"
+  },
+  {
+    "name": "Audi Q5",
+    "page": "q5.html",
+    "image": "https://img2.akspic.ru/crops/7/2/2/6/36227/36227-audi-audi_a7-audi_q5-audi_q7-semejnyj_avtomobil-1920x1080.jpg",
+    "price": "45,000"
+  },
+  {
+    "name": "Audi Q7",
+    "page": "q7.html",
+    "image": "https://images5.alphacoders.com/101/thumb-1920-1013072.jpg",
+    "price": "65,000"
+  },
+  {
+    "name": "Audi Q8",
+    "page": "q8.html",
+    "image": "https://images.hdqwalls.com/download/audi-rsq8-vossen-satin-black-8k-ej-1920x1080.jpg",
+    "price": "75,000"
+  },
+  {
+    "name": "Audi Q8 RS",
+    "page": "q8rs.html",
+    "image": "https://images4.alphacoders.com/138/thumb-1920-1383561.jpg",
+    "price": "120,000"
+  },
+  {
+    "name": "Audi R8",
+    "page": "r8.html",
+    "image": "https://images8.alphacoders.com/129/thumb-1920-1295601.jpg",
+    "price": "150,000"
+  },
+  {
+    "name": "Audi RS6",
+    "page": "rs6.html",
+    "image": "https://images.hdqwalls.com/download/2022-audi-abt-rs6-r-pa-1920x1080.jpg",
+    "price": "115,000"
+  },
+  {
+    "name": "Audi RS7",
+    "page": "rs7.html",
+    "image": "https://images5.alphacoders.com/129/thumb-1920-1291192.jpg",
+    "price": "125,000"
+  },
+  {
+    "name": "Audi SQ7",
+    "page": "sq7.html",
+    "image": "https://images.alphacoders.com/117/thumb-1920-1174073.jpg",
+    "price": "75,000"
+  }
+]
