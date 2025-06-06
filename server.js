@@ -11,9 +11,29 @@ app.use(express.json());
 // Статичні файли (frontend)
 app.use(express.static(__dirname));
 
+// ====== АВТОРИЗАЦІЯ ======
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const result = await pool.query(
+            'SELECT * FROM admins WHERE username = $1 AND password = $2',
+            [username, password]
+        );
+
+        if (result.rows.length > 0) {
+            res.status(200).json({ success: true });
+        } else {
+            res.status(401).json({ error: "Невірний логін або пароль" });
+        }
+    } catch (err) {
+        console.error("❌ Помилка при логіні:", err);
+        res.status(500).json({ error: "Помилка сервера" });
+    }
+});
+
 // ====== API: МАШИНИ ======
 
-// Отримати всі машини
 app.get("/api/cars", async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM cars ORDER BY name');
@@ -24,7 +44,6 @@ app.get("/api/cars", async (req, res) => {
     }
 });
 
-// Додати нову машину
 app.post("/api/cars", async (req, res) => {
     const { name, page, image, price } = req.body;
     const id = name.toLowerCase().replace(/\s+/g, '-');
@@ -34,7 +53,7 @@ app.post("/api/cars", async (req, res) => {
         await pool.query(
             `INSERT INTO cars (id, name, model, price, image)
              VALUES ($1, $2, $3, $4, $5)
-             ON CONFLICT (id) DO UPDATE SET name=$2, model=$3, price=$4, image=$5`,
+                 ON CONFLICT (id) DO UPDATE SET name=$2, model=$3, price=$4, image=$5`,
             [id, name, model, price, image]
         );
         res.json({ message: "✅ Машина збережена" });
@@ -44,7 +63,6 @@ app.post("/api/cars", async (req, res) => {
     }
 });
 
-// Оновити машину
 app.put("/api/cars/:id", async (req, res) => {
     const id = req.params.id;
     const { name, page, image, price } = req.body;
@@ -62,7 +80,6 @@ app.put("/api/cars/:id", async (req, res) => {
     }
 });
 
-// Видалити машину
 app.delete("/api/cars/:id", async (req, res) => {
     const id = req.params.id;
 
@@ -84,7 +101,6 @@ pool.query('SELECT NOW()', (err, result) => {
     }
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`🚀 Сервер працює на http://localhost:${PORT}`);
 });
