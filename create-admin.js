@@ -12,4 +12,5 @@ async function createAdmin(username, password) {
     process.exit();
 }
 
-createAdmin("boss", "12345");
+
+createAdmin("admin", "12345");
