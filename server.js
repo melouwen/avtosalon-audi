@@ -1,15 +1,14 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-const Database = require('better-sqlite3');
-const db = new Database('admin.db');
+const Database = require("better-sqlite3");
 const path = require("path");
 
+const db = new Database("admin.db");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = new sqlite3.Database("admin.db");
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(session({
@@ -22,19 +21,18 @@ app.use(session({
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
-    db.get("SELECT * FROM admins WHERE username = ? AND password = ?", [username, password], (err, row) => {
-        if (err) {
-            console.error("DB error:", err);
-            return res.status(500).json({ error: "DB error" });
-        }
-
+    try {
+        const row = db.prepare("SELECT * FROM admins WHERE username = ? AND password = ?").get(username, password);
         if (!row) {
             return res.status(401).json({ error: "Неправильний логін або пароль" });
         }
 
         req.session.isAdmin = true;
         res.json({ success: true });
-    });
+    } catch (err) {
+        console.error("DB error:", err);
+        res.status(500).json({ error: "DB error" });
+    }
 });
 
 // Захист адмінки
