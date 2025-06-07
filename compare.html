@@ -25,6 +25,11 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
 
         .logo {
@@ -50,7 +55,13 @@
 
         main {
             flex: 1;
-            padding: 40px 20px;
+            padding: 100px 20px 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
         }
 
         .compare-grid {
@@ -58,77 +69,91 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
+            margin-bottom: 40px;
         }
 
         .compare-slot {
-            background: #1e1e1e;
-            border-radius: 12px;
+            background: #1c1c1c;
+            border-radius: 14px;
             padding: 20px;
             width: 280px;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .compare-slot:hover {
+            transform: translateY(-4px);
         }
 
         .compare-slot select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-radius: 6px;
             background: #333;
             color: white;
             font-weight: bold;
+            border: none;
         }
 
         .compare-slot img {
-            max-width: 100%;
-            height: 140px;
-            object-fit: contain;
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
             margin-bottom: 10px;
         }
 
         .view-btn, .remove-btn {
-            margin: 6px 5px;
+            margin: 6px 4px;
             padding: 8px 14px;
-            border: none;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .view-btn {
             background: #007aff;
             color: white;
+            border: none;
         }
 
         .remove-btn {
-            background: #ff3c3c;
+            background: #ff3b3b;
             color: white;
+            border: none;
         }
 
         .comparison-table-wrapper {
-            margin-top: 40px;
             overflow-x: auto;
+            margin-top: 40px;
         }
 
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            min-width: 700px;
+            font-size: 16px;
         }
 
         .comparison-table th,
         .comparison-table td {
             border: 1px solid #444;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
         }
 
         .comparison-table th {
             background: #222;
+            font-weight: 600;
         }
 
         canvas {
-            margin-top: 30px;
-            max-width: 100%;
+            margin: 50px auto 20px;
+            display: block;
+            max-width: 95%;
         }
 
         footer {
@@ -196,14 +221,12 @@
 </header>
 
 <main>
-    <h1 style="text-align:center;">Порівняння моделей Audi</h1>
+    <h1>Порівняння моделей Audi</h1>
     <div class="compare-grid" id="slots"></div>
 
     <div class="comparison-table-wrapper">
         <table class="comparison-table" id="comparisonTable" style="display:none;">
-            <thead>
-            <tr id="comparisonHeader"></tr>
-            </thead>
+            <thead><tr id="comparisonHeader"></tr></thead>
             <tbody id="comparisonBody"></tbody>
         </table>
     </div>
@@ -211,35 +234,30 @@
     <canvas id="chartCanvas" style="display:none;"></canvas>
 </main>
 
-<footer class="audi-footer">
+<footer>
     <div class="footer-top">
-        <div class="footer-logo">
-            <img src="media/icons/audi-logo-white.png" alt="Audi Logo">
-        </div>
-
-        <nav class="footer-nav center-nav">
+        <div><img src="media/icons/audi-logo-white.png" alt="Audi Logo" height="40"></div>
+        <nav class="footer-nav">
             <ul>
-                <li><a href="https://www.audi.ua/audi-models">Моделі</a></li>
-                <li><a href="https://www.audi.ua/service-and-accessories/about">Сервіс</a></li>
-                <li><a href="https://www.audi.ua/finance/pfg-financing">Фінансування</a></li>
-                <li><a href="https://www.audi.ua/audi-welt/audi-welt">Світ Audi</a></li>
-                <li><a href="https://www.audi.ua/contacts">Контакти</a></li>
+                <li><a href="#">Моделі</a></li>
+                <li><a href="#">Сервіс</a></li>
+                <li><a href="#">Фінансування</a></li>
+                <li><a href="#">Світ Audi</a></li>
+                <li><a href="#">Контакти</a></li>
             </ul>
         </nav>
-
         <div class="footer-social">
-            <a href="https://www.facebook.com/AudiUkraine/"><img src="media/icons/facebook.png" alt="Facebook"></a>
-            <a href="https://www.instagram.com/audi/"><img src="media/icons/instagram.png" alt="Instagram"></a>
-            <a href="https://www.youtube.com/audi"><img src="media/icons/youtube.png" alt="YouTube"></a>
+            <a href="#"><img src="media/icons/facebook.png" alt="FB"></a>
+            <a href="#"><img src="media/icons/instagram.png" alt="IG"></a>
+            <a href="#"><img src="media/icons/youtube.png" alt="YT"></a>
         </div>
     </div>
-
     <div class="footer-bottom">
         <p>© 2025 Audi Україна. Всі права захищені.</p>
         <ul class="legal-links">
-            <li><a href="https://www.audi.ua/contacts#lightbox=1c8d5847-994b-48a7-82c6-95e1e3a3d53c">Юридична інформація</a></li>
-            <li><a href="https://www.audi.ua/contacts#lightbox=de7a7f1b-acf5-4f99-bc3d-211f2cfa7e25">Файли cookie</a></li>
-            <li><a href="https://www.audi.ua/privacy/copyright">Політика конфіденційності</a></li>
+            <li><a href="#">Юридична інформація</a></li>
+            <li><a href="#">Файли cookie</a></li>
+            <li><a href="#">Політика конфіденційності</a></li>
         </ul>
     </div>
 </footer>
@@ -284,35 +302,24 @@
             slot.appendChild(select);
 
             if (car) {
-                const img = document.createElement("img");
-                img.src = car.image;
-                img.alt = car.name;
-
-                const h3 = document.createElement("h3");
-                h3.textContent = car.name;
-
-                const p = document.createElement("p");
-                p.textContent = car.price + " €";
-
-                const viewBtn = document.createElement("button");
-                viewBtn.textContent = "Переглянути";
-                viewBtn.className = "view-btn";
-                viewBtn.onclick = () => location.href = `models/${car.page}`;
-
-                const removeBtn = document.createElement("button");
-                removeBtn.textContent = "Видалити";
-                removeBtn.className = "remove-btn";
-                removeBtn.onclick = () => {
-                    selectedCars[i] = null;
-                    renderSlots();
-                    renderComparison();
-                };
-
-                slot.append(img, h3, p, viewBtn, removeBtn);
+                slot.innerHTML += `
+          <img src="${car.image}" alt="${car.name}">
+          <h3>${car.name}</h3>
+          <p>${car.price} €</p>
+          <button class="view-btn" onclick="location.href='models/${car.page}'">Переглянути</button>
+          <button class="remove-btn" onclick="removeCar(${i})">Видалити</button>
+        `;
+                slot.prepend(select);
             }
 
             container.appendChild(slot);
         }
+    }
+
+    function removeCar(index) {
+        selectedCars[index] = null;
+        renderSlots();
+        renderComparison();
     }
 
     function renderComparison() {
