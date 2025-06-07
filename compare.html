@@ -276,8 +276,16 @@
             acceleration: car.acceleration || (Math.random() * 1.5 + 4).toFixed(1),
             topSpeed: car.topSpeed || Math.floor(Math.random() * 40 + 230)
         }));
+
+        const saved = JSON.parse(localStorage.getItem("selectedCars") || "[]");
+        selectedCars = saved.map(id => allCars.find(c => c?.id === id) || null);
+
         renderSlots();
         renderComparison();
+    }
+
+    function saveToStorage() {
+        localStorage.setItem("selectedCars", JSON.stringify(selectedCars.map(c => c?.id || null)));
     }
 
     function renderSlots() {
@@ -288,6 +296,21 @@
             const car = selectedCars[i];
             const slot = document.createElement("div");
             slot.className = "compare-slot";
+            slot.setAttribute("draggable", true);
+            slot.setAttribute("data-index", i);
+
+            slot.ondragstart = (e) => e.dataTransfer.setData("text/plain", i.toString());
+            slot.ondragover = (e) => { e.preventDefault(); slot.style.outline = "2px dashed #555"; };
+            slot.ondragleave = () => slot.style.outline = "none";
+            slot.ondrop = (e) => {
+                e.preventDefault();
+                slot.style.outline = "none";
+                const fromIndex = parseInt(e.dataTransfer.getData("text/plain"));
+                [selectedCars[fromIndex], selectedCars[i]] = [selectedCars[i], selectedCars[fromIndex]];
+                renderSlots();
+                renderComparison();
+                saveToStorage();
+            };
 
             const select = document.createElement("select");
             select.innerHTML = '<option value="">Виберіть модель</option>' + allCars.map(c =>
@@ -297,18 +320,19 @@
                 selectedCars[i] = allCars.find(c => c.id === e.target.value) || null;
                 renderSlots();
                 renderComparison();
+                saveToStorage();
             };
 
             slot.appendChild(select);
 
             if (car) {
                 slot.innerHTML += `
-          <img src="${car.image}" alt="${car.name}">
-          <h3>${car.name}</h3>
-          <p>${car.price} €</p>
-          <button class="view-btn" onclick="location.href='models/${car.page}'">Переглянути</button>
-          <button class="remove-btn" onclick="removeCar(${i})">Видалити</button>
-        `;
+        <img src="${car.image}" alt="${car.name}">
+        <h3>${car.name}</h3>
+        <p>${car.price} €</p>
+        <button class="view-btn" onclick="location.href='models/${car.page}'">Переглянути</button>
+        <button class="remove-btn" onclick="removeCar(${i})">Видалити</button>
+      `;
                 slot.prepend(select);
             }
 
@@ -320,6 +344,7 @@
         selectedCars[index] = null;
         renderSlots();
         renderComparison();
+        saveToStorage();
     }
 
     function renderComparison() {
