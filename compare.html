@@ -70,7 +70,7 @@
     let selectedCars = [null, null, null];
 
     function generateSpecs(car) {
-        const id = car.id.toLowerCase();
+        const id = (car.id || "").toLowerCase();
 
         if (!car.engine) {
             if (id.includes("r8")) car.engine = "5.2L V10 FSI";
@@ -109,11 +109,20 @@
     }
 
     async function fetchCars() {
-        const res = await fetch("/api/cars");
-        const rawCars = await res.json();
-        allCars = rawCars.map(generateSpecs);
-        renderSlots();
-        renderComparison();
+        try {
+            const res = await fetch("/api/cars");
+            const rawCars = await res.json();
+            console.log("✅ Отримано машини:", rawCars);
+            if (!Array.isArray(rawCars)) {
+                console.error("❌ /api/cars не повернув масив!");
+                return;
+            }
+            allCars = rawCars.map(generateSpecs);
+            renderSlots();
+            renderComparison();
+        } catch (err) {
+            console.error("❌ Помилка при завантаженні машин:", err);
+        }
     }
 
     function renderSlots() {
@@ -131,7 +140,9 @@
 
             select.addEventListener("change", e => {
                 const id = e.target.value;
-                selectedCars[i] = allCars.find(c => c.id === id) || null;
+                const found = allCars.find(c => c.id === id);
+                console.log(`🔽 Вибрано в слот ${i}:`, id, found);
+                selectedCars[i] = found || null;
                 renderSlots();
                 renderComparison();
             });
