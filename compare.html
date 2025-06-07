@@ -2,209 +2,122 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Порівняння Audi</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Порівняння моделей Audi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { box-sizing: border-box; }
-
         body {
-            margin: 0;
-            background: #111;
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            margin:0; padding:0;
+            font-family:'Montserrat', sans-serif;
+            background:#111;
+            color:#fff;
+            display:flex;
+            flex-direction:column;
+            min-height:100vh;
         }
-
         header {
-            background: linear-gradient(to right, #1f2c2d, #2f2f2f);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            position:fixed; top:0; left:0; right:0;
+            background:rgba(0,0,0,0.8);
+            display:flex; justify-content:space-between;
+            align-items:center; padding:15px 40px;
+            z-index:1000; backdrop-filter:blur(10px);
         }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
+        header .logo { font-size:1.8rem; font-weight:700; color:#fff; }
+        header nav button {
+            margin-left:15px; padding:8px 16px;
+            border:none; border-radius:20px;
+            cursor:pointer; font-weight:bold;
+            background:#007aff; color:#fff;
+            transition:background .3s;
         }
-
-        nav button {
-            margin-left: 10px;
-            background: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        nav .active {
-            background: #007aff;
-            color: white;
-        }
-
+        header nav button:hover { background:#005bb5; }
         main {
-            flex: 1;
-            padding: 100px 20px 40px;
+            flex:1;
+            padding:100px 20px 40px;
+            max-width:1200px;
+            margin:auto;
         }
+        .slot-container {
+            display:flex; justify-content:center;
+            gap:20px; flex-wrap:wrap;
+        }
+        .car-slot {
+            background:#1c1c1c;
+            padding:15px;
+            border-radius:12px;
+            width:300px;
+            min-height:400px;
+            position:relative;
+            display:flex; flex-direction:column;
+            align-items:center;
+            transition:background .3s, transform .3s;
+        }
+        .car-slot.dragging { opacity:0.7; transform:scale(1.02); }
+        .car-slot select {
+            width:100%;
+            padding:8px;
+            border:none;
+            border-radius:6px;
+            margin-bottom:10px;
+            background:#333;
+            color:#fff;
+            font-weight:bold;
+        }
+        .car-slot img {
+            width:100%;
+            height:auto;
+            border-radius:6px;
+            margin-bottom:10px;
+        }
+        .car-slot h3 { margin:10px 0 4px; }
+        .car-slot p { margin:4px 0; }
+        .btn-view {
+            background:#007aff; color:#fff;
+            padding:8px 16px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            margin-top:8px;
+            transition:background .3s;
+        }
+        .btn-view:hover { background:#005bb5; }
+        .btn-del {
+            background:#e00; color:#fff;
+            padding:8px 16px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            margin-top:4px;
+            transition:background .3s;
+        }
+        .btn-del:hover { background:#c00; }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 32px;
+        .compare-table {
+            width:100%;
+            border-collapse:collapse;
+            margin-top:40px;
         }
-
-        .compare-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 40px;
+        .compare-table th, td {
+            border:1px solid #444;
+            padding:12px;
+            text-align:center;
         }
-
-        .compare-slot {
-            background: #1c1c1c;
-            border-radius: 14px;
-            padding: 20px;
-            width: 280px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+        .compare-table th {
+            background:#222;
         }
-
-        .compare-slot:hover {
-            transform: translateY(-4px);
-        }
-
-        .compare-slot select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            background: #333;
-            color: white;
-            font-weight: bold;
-            border: none;
-        }
-
-        .compare-slot img {
-            width: 100%;
-            max-height: 150px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .view-btn, .remove-btn {
-            margin: 6px 4px;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .view-btn {
-            background: #007aff;
-            color: white;
-            border: none;
-        }
-
-        .remove-btn {
-            background: #ff3b3b;
-            color: white;
-            border: none;
-        }
-
-        .comparison-table-wrapper {
-            overflow-x: auto;
-            margin-top: 40px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 700px;
-            font-size: 16px;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            border: 1px solid #444;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .comparison-table th {
-            background: #222;
-            font-weight: 600;
-        }
-
-        canvas {
-            margin: 50px auto 20px;
-            display: block;
-            max-width: 95%;
-        }
+        canvas { margin-top:20px; }
 
         footer {
-            background: #000;
-            color: #ccc;
-            padding: 40px 20px;
-            margin-top: auto;
+            background:#1c1c1c;
+            text-align:center;
+            padding:20px;
+            font-size:14px;
+            margin-top:auto;
         }
 
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .footer-nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            padding: 0;
-        }
-
-        .footer-nav a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .footer-social a img {
-            width: 28px;
-            margin-left: 10px;
-        }
-
-        .footer-bottom {
-            margin-top: 20px;
-            border-top: 1px solid #333;
-            padding-top: 10px;
-            font-size: 14px;
-        }
-
-        .legal-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            padding: 0;
-            margin-top: 10px;
-        }
-
-        .legal-links a {
-            color: #aaa;
-            text-decoration: none;
+        @media(max-width:980px){
+            .slot-container { flex-direction:column; align-items:center; }
+            .car-slot { width:90%; }
         }
     </style>
 </head>
@@ -213,207 +126,161 @@
 <header>
     <div class="logo">Audi</div>
     <nav>
-        <a href="index.html"><button>Повернутися до головної</button></a>
-        <a href="compare.html"><button class="active">Порівняння</button></a>
-        <button onclick="scrollToSection('about')">Про нас</button>
-        <button onclick="scrollToSection('catalog')">Каталог</button>
+        <button onclick="location.href='index.html'">← Повернутися до головної</button>
+        <button onclick="location.reload()">Порівняння</button>
+        <button onclick="location.href='index.html#about'">Про нас</button>
+        <button onclick="location.href='index.html#catalog'">Каталог</button>
     </nav>
 </header>
 
 <main>
-    <h1>Порівняння моделей Audi</h1>
-    <div class="compare-grid" id="slots"></div>
+    <h1 style="text-align:center">Порівняння моделей Audi</h1>
+    <div class="slot-container" id="slots"></div>
 
-    <div class="comparison-table-wrapper">
-        <table class="comparison-table" id="comparisonTable" style="display:none;">
-            <thead><tr id="comparisonHeader"></tr></thead>
-            <tbody id="comparisonBody"></tbody>
-        </table>
-    </div>
+    <table id="comparisonTable" class="compare-table">
+        <thead id="comparisonHeader"></thead>
+        <tbody id="comparisonBody"></tbody>
+    </table>
 
-    <canvas id="chartCanvas" style="display:none;"></canvas>
+    <canvas id="chartCanvas"></canvas>
 </main>
 
 <footer>
-    <div class="footer-top">
-        <div><img src="media/icons/audi-logo-white.png" alt="Audi Logo" height="40"></div>
-        <nav class="footer-nav">
-            <ul>
-                <li><a href="#">Моделі</a></li>
-                <li><a href="#">Сервіс</a></li>
-                <li><a href="#">Фінансування</a></li>
-                <li><a href="#">Світ Audi</a></li>
-                <li><a href="#">Контакти</a></li>
-            </ul>
-        </nav>
-        <div class="footer-social">
-            <a href="#"><img src="media/icons/facebook.png" alt="FB"></a>
-            <a href="#"><img src="media/icons/instagram.png" alt="IG"></a>
-            <a href="#"><img src="media/icons/youtube.png" alt="YT"></a>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 Audi Україна. Всі права захищені.</p>
-        <ul class="legal-links">
-            <li><a href="#">Юридична інформація</a></li>
-            <li><a href="#">Файли cookie</a></li>
-            <li><a href="#">Політика конфіденційності</a></li>
-        </ul>
-    </div>
+    © 2025 Audi Україна. Всі права захищені.
 </footer>
 
 <script>
-    let allCars = [];
-    let selectedCars = [null, null, null];
+    let allCars = [], selected = [null, null, null];
+    const STORE = 'compare-cars';
+    let chartObj = null;
 
-    async function fetchCars() {
-        const res = await fetch("/api/cars");
-        const data = await res.json();
-        allCars = data.map(car => ({
-            ...car,
-            engine: car.engine || "2.0L TFSI",
-            transmission: car.transmission || "Automatic",
-            acceleration: car.acceleration || (Math.random() * 1.5 + 4).toFixed(1),
-            topSpeed: car.topSpeed || Math.floor(Math.random() * 40 + 230)
-        }));
-
-        const saved = JSON.parse(localStorage.getItem("selectedCars") || "[]");
-        selectedCars = saved.map(id => allCars.find(c => c?.id === id) || null);
-
-        renderSlots();
-        renderComparison();
+    // drag/drop
+    function saveAndRerender(){
+        localStorage.setItem(STORE, JSON.stringify(selected.map(c=>c?.id||null)));
+        renderSlots(); renderComparison();
     }
 
-    function saveToStorage() {
-        localStorage.setItem("selectedCars", JSON.stringify(selectedCars.map(c => c?.id || null)));
+    async function fetchCars(){
+        const res = await fetch('/api/cars');
+        allCars = await res.json();
+        // Добавляємо дані якщо нема
+        allCars.forEach(c=> {
+            c.engine  ||= c.model.match(/rs/i)?'4.0L V8 Biturbo':'2.0L TFSI Quattro';
+            c.transmission ||= 'Automatic';
+            c.acceleration ||= (Math.random()*3.5+3.5).toFixed(1);
+            c.topSpeed     ||= '' + (Math.floor(Math.random()*60+240));
+        });
+        // збереження з localStorage
+        const fromStore = JSON.parse(localStorage.getItem(STORE)||'[null,null,null]');
+        selected = fromStore.map(id => allCars.find(c=>c.id===id) || null);
+        renderSlots(); renderComparison();
     }
 
-    function renderSlots() {
-        const container = document.getElementById("slots");
-        container.innerHTML = "";
+    function renderSlots(){
+        const container = document.getElementById('slots');
+        container.innerHTML = '';
+        selected.forEach((car, i)=>{
+            const slot = document.createElement('div');
+            slot.className = 'car-slot';
+            slot.setAttribute('draggable','true');
+            slot.dataset.index = i;
 
-        for (let i = 0; i < 3; i++) {
-            const car = selectedCars[i];
-            const slot = document.createElement("div");
-            slot.className = "compare-slot";
-            slot.setAttribute("draggable", true);
-            slot.setAttribute("data-index", i);
-
-            slot.ondragstart = (e) => e.dataTransfer.setData("text/plain", i.toString());
-            slot.ondragover = (e) => { e.preventDefault(); slot.style.outline = "2px dashed #555"; };
-            slot.ondragleave = () => slot.style.outline = "none";
-            slot.ondrop = (e) => {
-                e.preventDefault();
-                slot.style.outline = "none";
-                const fromIndex = parseInt(e.dataTransfer.getData("text/plain"));
-                [selectedCars[fromIndex], selectedCars[i]] = [selectedCars[i], selectedCars[fromIndex]];
-                renderSlots();
-                renderComparison();
-                saveToStorage();
+            slot.ondragstart = e => {
+                e.dataTransfer.setData('text/plain', i);
+                slot.classList.add('dragging');
+            };
+            slot.ondragend = e => slot.classList.remove('dragging');
+            slot.ondragover = e => e.preventDefault();
+            slot.ondrop = e => {
+                const src = +e.dataTransfer.getData('text');
+                [selected[src], selected[i]] = [selected[i], selected[src]];
+                saveAndRerender();
             };
 
-            const select = document.createElement("select");
-            select.innerHTML = '<option value="">Виберіть модель</option>' + allCars.map(c =>
-                `<option value="${c.id}">${c.name}</option>`).join('');
-            select.value = car?.id || "";
-            select.onchange = e => {
-                selectedCars[i] = allCars.find(c => c.id === e.target.value) || null;
-                renderSlots();
-                renderComparison();
-                saveToStorage();
+            const sel = document.createElement('select');
+            sel.innerHTML = '<option value="">– Виберіть модель –</option>' +
+                allCars.map(c=>`<option value="${c.id}" ${car?.id===c.id?'selected':''}>${c.name}</option>`).join('');
+            sel.onchange = () => {
+                const v = sel.value;
+                selected[i] = allCars.find(c=>c.id===v) || null;
+                saveAndRerender();
             };
+            slot.append(sel);
 
-            slot.appendChild(select);
-
-            if (car) {
-                slot.innerHTML += `
-        <img src="${car.image}" alt="${car.name}">
-        <h3>${car.name}</h3>
-        <p>${car.price} €</p>
-        <button class="view-btn" onclick="location.href='models/${car.page}'">Переглянути</button>
-        <button class="remove-btn" onclick="removeCar(${i})">Видалити</button>
-      `;
-                slot.prepend(select);
+            if(car){
+                const img = document.createElement('img');
+                img.src = car.image; img.alt=car.name;
+                slot.append(img);
+                const h3 = document.createElement('h3');
+                h3.textContent = car.name;
+                const p = document.createElement('p');
+                p.textContent = car.price + ' €';
+                slot.append(h3, p);
+                const btnV = document.createElement('button');
+                btnV.textContent = 'Переглянути';
+                btnV.className='btn-view';
+                btnV.onclick = ()=> location.href=`models/${car.page}`;
+                const btnD = document.createElement('button');
+                btnD.textContent='Видалити';
+                btnD.className='btn-del';
+                btnD.onclick = ()=>{
+                    selected[i] = null;
+                    saveAndRerender();
+                };
+                slot.append(btnV, btnD);
             }
 
-            container.appendChild(slot);
-        }
+            container.append(slot);
+        });
     }
 
-    function removeCar(index) {
-        selectedCars[index] = null;
-        renderSlots();
-        renderComparison();
-        saveToStorage();
-    }
-
-    function renderComparison() {
-        const cars = selectedCars.filter(Boolean);
-        const table = document.getElementById("comparisonTable");
-        const head = document.getElementById("comparisonHeader");
-        const body = document.getElementById("comparisonBody");
-        const canvas = document.getElementById("chartCanvas");
-
-        if (!cars.length) {
-            table.style.display = canvas.style.display = "none";
-            return;
-        }
-
-        table.style.display = "table";
-        canvas.style.display = "block";
-
-        head.innerHTML = `<th>Параметр</th>` + cars.map(c => `<th>${c.name}</th>`).join("");
+    function renderComparison(){
+        const H = document.getElementById('comparisonHeader');
+        const B = document.getElementById('comparisonBody');
+        H.innerHTML = `<tr><th>Параметр</th>` +
+            selected.map(c=>`<th>${c?.name||'-'}</th>`).join('') + `</tr>`;
         const rows = [
-            ["Ціна", ...cars.map(c => c.price + " €")],
-            ["Двигун", ...cars.map(c => c.engine)],
-            ["Коробка", ...cars.map(c => c.transmission)],
-            ["Розгін 0-100", ...cars.map(c => c.acceleration + " сек")],
-            ["Макс. швидкість", ...cars.map(c => c.topSpeed + " км/г")]
+            ['Ціна', selected.map(c=> c?.price ? c.price+' €':'-')],
+            ['Двигун', selected.map(c=> c?.engine || '-')],
+            ['Коробка', selected.map(c=> c?.transmission || '-')],
+            ['Розгін 0‑100', selected.map(c=> c?.acceleration ? c.acceleration+' сек':'-')],
+            ['Макс. швидкість', selected.map(c=> c?.topSpeed ? c.topSpeed+' км/г':'-')],
         ];
-        body.innerHTML = rows.map(row =>
-            `<tr><th>${row[0]}</th>` + row.slice(1).map(val => `<td>${val}</td>`).join("") + "</tr>"
-        ).join("");
-
-        drawChart(cars);
+        B.innerHTML = rows.map(r=>
+            `<tr><th>${r[0]}</th>` +
+            r[1].map(v=>`<td>${v}</td>`).join('')+
+            `</tr>`).join('');
+        drawChart(selected.filter(c=>c));
     }
 
-    function drawChart(cars) {
-        const ctx = document.getElementById("chartCanvas").getContext("2d");
-        if (window.chart) window.chart.destroy();
-        window.chart = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: cars.map(c => c.name),
-                datasets: [
-                    {
-                        label: "Макс. швидкість (км/г)",
-                        data: cars.map(c => c.topSpeed),
-                        backgroundColor: "rgba(255, 99, 132, 0.7)"
-                    },
-                    {
-                        label: "Розгін 0-100 (сек)",
-                        data: cars.map(c => parseFloat(c.acceleration)),
-                        backgroundColor: "rgba(54, 162, 235, 0.7)"
-                    }
+    function drawChart(cars){
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        if(chartObj) chartObj.destroy();
+        const labels = cars.map(c=>c.name);
+        const speeds = cars.map(c=>parseInt(c.topSpeed)||0);
+        const accels = cars.map(c=>parseFloat(c.acceleration)||0);
+
+        chartObj = new Chart(ctx, {
+            type:'bar',
+            data:{
+                labels,
+                datasets:[
+                    { label:'Макс. швидкість', data:speeds, backgroundColor:'rgba(255,99,132,0.7)' },
+                    { label:'Розгін 0‑100', data:accels, backgroundColor:'rgba(54,162,235,0.7)' }
                 ]
             },
-            options: {
-                plugins: { legend: { labels: { color: "#fff" } } },
-                scales: {
-                    x: { ticks: { color: "#fff" } },
-                    y: { ticks: { color: "#fff" }, beginAtZero: true }
+            options:{
+                responsive:true,
+                plugins:{ legend:{ labels:{ color:'#fff' } } },
+                scales:{
+                    x:{ ticks:{ color:'#fff' } },
+                    y:{ beginAtZero:true, ticks:{ color:'#fff' } }
                 }
             }
         });
     }
 
-    function scrollToSection(id) {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-    }
-
-    window.addEventListener("DOMContentLoaded", fetchCars);
+    window.addEventListener('DOMContentLoaded',fetchCars);
 </script>
-
 </body>
 </html>
