@@ -1,63 +1,80 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Порівняння моделей Audi</title>
-    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { padding: 100px 20px; background: #111; color: white; font-family: 'Segoe UI', sans-serif; }
-        .slot-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        body {
+            background: #111;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 80px 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .slot-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
         .car-slot {
-            background: #1c1c1c;
+            background: #1e1e1e;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 12px;
-            width: 300px;
-            min-height: 420px;
+            width: 280px;
+            min-height: 400px;
             text-align: center;
         }
-        select {
-            padding: 10px;
-            width: 100%;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            background: #333;
-            color: white;
-            font-weight: bold;
-        }
         .car-slot img {
-            width: 100%;
+            max-width: 100%;
             max-height: 150px;
             object-fit: contain;
             margin-bottom: 15px;
         }
-        .compare-table {
+        select {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 60px;
+            padding: 10px;
+            border-radius: 6px;
+            background: #333;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        .compare-table th, .compare-table td {
-            border: 1px solid #555;
-            padding: 12px;
-            text-align: center;
-        }
-        .compare-table th { background: #222; }
         .view-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
             background: #007aff;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            margin-top: 10px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
         }
-        canvas { max-width: 100%; margin-top: 40px; }
+        .compare-table {
+            width: 100%;
+            margin-top: 50px;
+            border-collapse: collapse;
+        }
+        .compare-table th, .compare-table td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+        }
+        .compare-table th {
+            background: #222;
+        }
+        canvas {
+            margin-top: 40px;
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
 
-<h1 style="text-align:center;">Порівняння моделей Audi</h1>
+<h1>Порівняння моделей Audi</h1>
 <div class="slot-container" id="slots"></div>
 
 <div id="comparisonArea">
@@ -111,17 +128,12 @@
     async function fetchCars() {
         try {
             const res = await fetch("/api/cars");
-            const rawCars = await res.json();
-            console.log("✅ Отримано машини:", rawCars);
-            if (!Array.isArray(rawCars)) {
-                console.error("❌ /api/cars не повернув масив!");
-                return;
-            }
-            allCars = rawCars.map(generateSpecs);
+            const raw = await res.json();
+            allCars = raw.map(generateSpecs);
             renderSlots();
             renderComparison();
-        } catch (err) {
-            console.error("❌ Помилка при завантаженні машин:", err);
+        } catch (e) {
+            console.error("❌ Error fetching cars:", e);
         }
     }
 
@@ -134,16 +146,14 @@
             slot.className = "car-slot";
 
             const select = document.createElement("select");
-            select.innerHTML = `<option value="">Виберіть модель</option>` + allCars.map(car =>
-                `<option value="${car.id}">${car.name}</option>`).join('');
-            select.value = selectedCars[i]?.id || "";
+            select.innerHTML = `<option value="">Виберіть модель</option>` +
+                allCars.map(car => `<option value="${car.id}">${car.name}</option>`).join("");
 
-            select.addEventListener("change", e => {
+            select.value = selectedCars[i]?.id || "";
+            select.addEventListener("change", (e) => {
                 const id = e.target.value;
-                const found = allCars.find(c => c.id === id);
-                console.log(`🔽 Вибрано в слот ${i}:`, id, found);
-                selectedCars[i] = found || null;
-                renderSlots();
+                selectedCars[i] = allCars.find(c => c.id === id) || null;
+                renderSlots(); // 🔁 оновити після вибору
                 renderComparison();
             });
 
@@ -151,15 +161,32 @@
 
             if (selectedCars[i]) {
                 const car = selectedCars[i];
-                slot.innerHTML += `
-          <img src="${car.image}" alt="${car.name}">
-          <h3>${car.name}</h3>
-          <p>${car.price} €</p>
-          <button class="view-btn" onclick="alert('Перегляд ${car.name}')">Переглянути</button>
-        `;
-                slot.prepend(select);
+                slot.appendChild(document.createElement("br"));
+
+                const img = document.createElement("img");
+                img.src = car.image;
+                img.alt = car.name;
+                slot.appendChild(img);
+
+                const title = document.createElement("h3");
+                title.textContent = car.name;
+                slot.appendChild(title);
+
+                const price = document.createElement("p");
+                price.textContent = car.price + " €";
+                slot.appendChild(price);
+
+                const btn = document.createElement("button");
+                btn.className = "view-btn";
+                btn.textContent = "Переглянути";
+                btn.onclick = () => window.location.href = `models/${car.page || car.id}.html`;
+                slot.appendChild(btn);
             } else {
-                slot.innerHTML += `<p style="opacity:0.5; margin-top:50px;">Слот ${i + 1}</p>`;
+                const empty = document.createElement("p");
+                empty.textContent = `Слот ${i + 1}`;
+                empty.style.opacity = 0.4;
+                empty.style.marginTop = "50px";
+                slot.appendChild(empty);
             }
 
             container.appendChild(slot);
@@ -168,64 +195,56 @@
 
     function renderComparison() {
         const table = document.getElementById("comparisonTable");
-        const chart = document.getElementById("chartCanvas");
-        const filtered = selectedCars.filter(Boolean);
-
-        if (filtered.length === 0) {
-            table.style.display = "none";
-            chart.style.display = "none";
+        const canvas = document.getElementById("chartCanvas");
+        const cars = selectedCars.filter(Boolean);
+        if (cars.length === 0) {
+            table.style.display = canvas.style.display = "none";
             return;
         }
 
         table.style.display = "table";
-        chart.style.display = "block";
+        canvas.style.display = "block";
         table.innerHTML = "";
 
         const rows = [
-            ["Назва", ...filtered.map(c => c.name)],
-            ["Ціна", ...filtered.map(c => c.price + " €")],
-            ["Двигун", ...filtered.map(c => c.engine)],
-            ["Коробка", ...filtered.map(c => c.transmission)],
-            ["Розгін 0-100 км/г", ...filtered.map(c => c.acceleration + " сек")],
-            ["Макс. швидкість", ...filtered.map(c => c.topSpeed + " км/г")],
+            ["Назва", ...cars.map(c => c.name)],
+            ["Ціна", ...cars.map(c => c.price + " €")],
+            ["Двигун", ...cars.map(c => c.engine)],
+            ["Коробка", ...cars.map(c => c.transmission)],
+            ["Розгін 0-100", ...cars.map(c => c.acceleration + " сек")],
+            ["Макс. швидкість", ...cars.map(c => c.topSpeed + " км/г")]
         ];
 
-        rows.forEach(r => {
+        for (const row of rows) {
             const tr = document.createElement("tr");
-            tr.innerHTML = `<th>${r[0]}</th>` + r.slice(1).map(v => `<td>${v}</td>`).join("");
+            tr.innerHTML = `<th>${row[0]}</th>` + row.slice(1).map(val => `<td>${val}</td>`).join("");
             table.appendChild(tr);
-        });
+        }
 
-        drawChart(filtered);
+        drawChart(cars);
     }
 
     function drawChart(cars) {
         const ctx = document.getElementById("chartCanvas").getContext("2d");
         if (window.chart) window.chart.destroy();
-
-        const names = cars.map(c => c.name);
-        const speeds = cars.map(c => parseInt(c.topSpeed));
-        const accels = cars.map(c => parseFloat(c.acceleration));
-
         window.chart = new Chart(ctx, {
-            type: "bar",
+            type: 'bar',
             data: {
-                labels: names,
+                labels: cars.map(c => c.name),
                 datasets: [
                     {
-                        label: "Макс. швидкість (км/г)",
-                        data: speeds,
-                        backgroundColor: "rgba(255, 99, 132, 0.7)"
+                        label: 'Макс. швидкість (км/г)',
+                        data: cars.map(c => parseInt(c.topSpeed)),
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
                     },
                     {
-                        label: "Розгін 0-100 (сек)",
-                        data: accels,
-                        backgroundColor: "rgba(54, 162, 235, 0.7)"
+                        label: 'Розгін 0-100 (сек)',
+                        data: cars.map(c => parseFloat(c.acceleration)),
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
                     }
                 ]
             },
             options: {
-                responsive: true,
                 plugins: {
                     legend: { labels: { color: "#fff" } }
                 },
