@@ -119,7 +119,7 @@
             if (!car.acceleration) {
                 car.acceleration = (Math.random() * 3.5 + 3.5).toFixed(1); // 3.5 - 7.0 сек
             }
-            
+
             if (!car.topSpeed) {
                 car.topSpeed = Math.floor(Math.random() * 60 + 240).toString(); // 240 - 300 км/г
             }
@@ -145,8 +145,8 @@
             select.value = selectedCars[i]?.id || "";
 
             select.addEventListener("change", (e) => {
-                const id = parseInt(e.target.value);
-                selectedCars[i] = allCars.find(c => c.id === id) || null;
+                const id = e.target.value;
+                selectedCars[i] = allCars.find(c => c.id == id) || null;
                 renderSlots();
                 renderComparison();
             });
