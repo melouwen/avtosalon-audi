@@ -7,53 +7,57 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        * { box-sizing: border-box; }
+
         body {
+            margin: 0;
             background: #111;
             color: white;
             font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
+            background: linear-gradient(to right, #1f2c2d, #2f2f2f);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to right, #1f2c2d, #2f2f2f);
-            padding: 15px 20px;
+            padding: 16px 20px;
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: white;
         }
 
         nav button {
+            margin-left: 10px;
             background: white;
             border: none;
-            margin-left: 10px;
-            padding: 6px 16px;
-            font-weight: 600;
+            padding: 8px 14px;
             border-radius: 20px;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        nav button.active {
+        nav .active {
             background: #007aff;
             color: white;
         }
 
         main {
-            padding: 30px 20px;
+            flex: 1;
+            padding: 40px 20px;
         }
 
         .compare-grid {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 30px;
-            justify-content: center;
-            margin-bottom: 50px;
         }
 
         .compare-slot {
@@ -64,24 +68,25 @@
             text-align: center;
         }
 
-        select {
+        .compare-slot select {
             width: 100%;
             padding: 10px;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            border-radius: 6px;
             background: #333;
             color: white;
             font-weight: bold;
-            margin-bottom: 15px;
         }
 
         .compare-slot img {
             max-width: 100%;
-            max-height: 140px;
+            height: 140px;
             object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .view-btn, .remove-btn {
-            margin: 8px 5px;
+            margin: 6px 5px;
             padding: 8px 14px;
             border: none;
             border-radius: 6px;
@@ -100,8 +105,8 @@
         }
 
         .comparison-table-wrapper {
+            margin-top: 40px;
             overflow-x: auto;
-            margin-top: 20px;
         }
 
         .comparison-table {
@@ -110,7 +115,8 @@
             min-width: 600px;
         }
 
-        .comparison-table th, .comparison-table td {
+        .comparison-table th,
+        .comparison-table td {
             border: 1px solid #444;
             padding: 10px;
             text-align: center;
@@ -129,34 +135,31 @@
             background: #000;
             color: #ccc;
             padding: 40px 20px;
-            margin-top: 60px;
+            margin-top: auto;
         }
 
         .footer-top {
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .footer-nav ul {
             list-style: none;
-            padding: 0;
             display: flex;
             gap: 20px;
-            flex-wrap: wrap;
+            padding: 0;
         }
 
         .footer-nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
         }
 
         .footer-social a img {
             width: 28px;
-            margin-left: 12px;
+            margin-left: 10px;
         }
 
         .footer-bottom {
@@ -167,12 +170,11 @@
         }
 
         .legal-links {
-            list-style: none;
-            padding: 0;
             display: flex;
             gap: 20px;
+            list-style: none;
+            padding: 0;
             margin-top: 10px;
-            flex-wrap: wrap;
         }
 
         .legal-links a {
@@ -187,163 +189,27 @@
     <div class="logo">Audi</div>
     <nav>
         <a href="index.html"><button>Повернутися до головної</button></a>
+        <a href="compare.html"><button class="active">Порівняння</button></a>
+        <button onclick="scrollToSection('about')">Про нас</button>
+        <button onclick="scrollToSection('catalog')">Каталог</button>
     </nav>
 </header>
 
 <main>
     <h1 style="text-align:center;">Порівняння моделей Audi</h1>
-
     <div class="compare-grid" id="slots"></div>
 
     <div class="comparison-table-wrapper">
         <table class="comparison-table" id="comparisonTable" style="display:none;">
             <thead>
-            <tr>
-                <th>Назва</th>
-                <th>Ціна</th>
-                <th>Двигун</th>
-                <th>Коробка</th>
-                <th>Розгін 0-100</th>
-                <th>Макс. швидкість</th>
-            </tr>
+            <tr id="comparisonHeader"></tr>
             </thead>
-            <tbody id="comparisonData"></tbody>
+            <tbody id="comparisonBody"></tbody>
         </table>
     </div>
 
     <canvas id="chartCanvas" style="display:none;"></canvas>
 </main>
-
-
-
-<script>
-    let allCars = [];
-    let selectedCars = [null, null, null];
-
-    async function fetchCars() {
-        const res = await fetch("/api/cars");
-        const data = await res.json();
-        allCars = data.map(car => ({
-            ...car,
-            engine: car.engine || "2.0L TFSI",
-            transmission: car.transmission || "Automatic",
-            acceleration: car.acceleration || (Math.random() * 1.5 + 4).toFixed(1),
-            topSpeed: car.topSpeed || Math.floor(Math.random() * 40 + 230)
-        }));
-        renderSlots();
-        renderComparison();
-    }
-
-    function renderSlots() {
-        const container = document.getElementById("slots");
-        container.innerHTML = "";
-
-        for (let i = 0; i < 3; i++) {
-            const slot = document.createElement("div");
-            slot.className = "compare-slot";
-
-            const select = document.createElement("select");
-            select.innerHTML = `<option value="">Виберіть модель</option>` +
-                allCars.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
-            select.value = selectedCars[i]?.id || "";
-            select.onchange = (e) => {
-                const id = e.target.value;
-                selectedCars[i] = allCars.find(c => c.id === id) || null;
-                renderSlots();
-                renderComparison();
-            };
-            slot.appendChild(select);
-
-            if (selectedCars[i]) {
-                const car = selectedCars[i];
-                slot.innerHTML += `
-          <img src="${car.image}" alt="${car.name}">
-          <h3>${car.name}</h3>
-          <p>${car.price} €</p>
-          <button class="view-btn" onclick="location.href='models/${car.page}'">Переглянути</button>
-          <button class="remove-btn" onclick="removeCar(${i})">Видалити</button>
-        `;
-                slot.prepend(select);
-            }
-
-            container.appendChild(slot);
-        }
-    }
-
-    function removeCar(index) {
-        selectedCars[index] = null;
-        renderSlots();
-        renderComparison();
-    }
-
-    function renderComparison() {
-        const cars = selectedCars.filter(Boolean);
-        const table = document.getElementById("comparisonTable");
-        const tbody = document.getElementById("comparisonData");
-        const canvas = document.getElementById("chartCanvas");
-
-        if (!cars.length) {
-            table.style.display = canvas.style.display = "none";
-            return;
-        }
-
-        tbody.innerHTML = "";
-        table.style.display = "table";
-
-        const rows = [
-            ["Назва", ...cars.map(c => c.name)],
-            ["Ціна", ...cars.map(c => c.price + " €")],
-            ["Двигун", ...cars.map(c => c.engine)],
-            ["Коробка", ...cars.map(c => c.transmission)],
-            ["Розгін 0-100", ...cars.map(c => c.acceleration + " сек")],
-            ["Макс. швидкість", ...cars.map(c => c.topSpeed + " км/г")]
-        ];
-
-        for (const row of rows) {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `<th>${row[0]}</th>` + row.slice(1).map(val => `<td>${val}</td>`).join('');
-            tbody.appendChild(tr);
-        }
-
-        drawChart(cars);
-    }
-
-    function drawChart(cars) {
-        const ctx = document.getElementById("chartCanvas").getContext("2d");
-        if (window.chart) window.chart.destroy();
-        window.chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: cars.map(c => c.name),
-                datasets: [
-                    {
-                        label: 'Макс. швидкість (км/г)',
-                        data: cars.map(c => c.topSpeed),
-                        backgroundColor: 'rgba(255, 99, 132, 0.6)'
-                    },
-                    {
-                        label: 'Розгін 0-100 (сек)',
-                        data: cars.map(c => parseFloat(c.acceleration)),
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { labels: { color: '#fff' } }
-                },
-                scales: {
-                    x: { ticks: { color: '#fff' } },
-                    y: { ticks: { color: '#fff' }, beginAtZero: true }
-                }
-            }
-        });
-        document.getElementById("chartCanvas").style.display = "block";
-    }
-
-    window.addEventListener("DOMContentLoaded", fetchCars);
-</script>
 
 <footer class="audi-footer">
     <div class="footer-top">
@@ -377,5 +243,145 @@
         </ul>
     </div>
 </footer>
+
+<script>
+    let allCars = [];
+    let selectedCars = [null, null, null];
+
+    async function fetchCars() {
+        const res = await fetch("/api/cars");
+        const data = await res.json();
+        allCars = data.map(car => ({
+            ...car,
+            engine: car.engine || "2.0L TFSI",
+            transmission: car.transmission || "Automatic",
+            acceleration: car.acceleration || (Math.random() * 1.5 + 4).toFixed(1),
+            topSpeed: car.topSpeed || Math.floor(Math.random() * 40 + 230)
+        }));
+        renderSlots();
+        renderComparison();
+    }
+
+    function renderSlots() {
+        const container = document.getElementById("slots");
+        container.innerHTML = "";
+
+        for (let i = 0; i < 3; i++) {
+            const car = selectedCars[i];
+            const slot = document.createElement("div");
+            slot.className = "compare-slot";
+
+            const select = document.createElement("select");
+            select.innerHTML = '<option value="">Виберіть модель</option>' + allCars.map(c =>
+                `<option value="${c.id}">${c.name}</option>`).join('');
+            select.value = car?.id || "";
+            select.onchange = e => {
+                selectedCars[i] = allCars.find(c => c.id === e.target.value) || null;
+                renderSlots();
+                renderComparison();
+            };
+
+            slot.appendChild(select);
+
+            if (car) {
+                const img = document.createElement("img");
+                img.src = car.image;
+                img.alt = car.name;
+
+                const h3 = document.createElement("h3");
+                h3.textContent = car.name;
+
+                const p = document.createElement("p");
+                p.textContent = car.price + " €";
+
+                const viewBtn = document.createElement("button");
+                viewBtn.textContent = "Переглянути";
+                viewBtn.className = "view-btn";
+                viewBtn.onclick = () => location.href = `models/${car.page}`;
+
+                const removeBtn = document.createElement("button");
+                removeBtn.textContent = "Видалити";
+                removeBtn.className = "remove-btn";
+                removeBtn.onclick = () => {
+                    selectedCars[i] = null;
+                    renderSlots();
+                    renderComparison();
+                };
+
+                slot.append(img, h3, p, viewBtn, removeBtn);
+            }
+
+            container.appendChild(slot);
+        }
+    }
+
+    function renderComparison() {
+        const cars = selectedCars.filter(Boolean);
+        const table = document.getElementById("comparisonTable");
+        const head = document.getElementById("comparisonHeader");
+        const body = document.getElementById("comparisonBody");
+        const canvas = document.getElementById("chartCanvas");
+
+        if (!cars.length) {
+            table.style.display = canvas.style.display = "none";
+            return;
+        }
+
+        table.style.display = "table";
+        canvas.style.display = "block";
+
+        head.innerHTML = `<th>Параметр</th>` + cars.map(c => `<th>${c.name}</th>`).join("");
+        const rows = [
+            ["Ціна", ...cars.map(c => c.price + " €")],
+            ["Двигун", ...cars.map(c => c.engine)],
+            ["Коробка", ...cars.map(c => c.transmission)],
+            ["Розгін 0-100", ...cars.map(c => c.acceleration + " сек")],
+            ["Макс. швидкість", ...cars.map(c => c.topSpeed + " км/г")]
+        ];
+        body.innerHTML = rows.map(row =>
+            `<tr><th>${row[0]}</th>` + row.slice(1).map(val => `<td>${val}</td>`).join("") + "</tr>"
+        ).join("");
+
+        drawChart(cars);
+    }
+
+    function drawChart(cars) {
+        const ctx = document.getElementById("chartCanvas").getContext("2d");
+        if (window.chart) window.chart.destroy();
+        window.chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: cars.map(c => c.name),
+                datasets: [
+                    {
+                        label: "Макс. швидкість (км/г)",
+                        data: cars.map(c => c.topSpeed),
+                        backgroundColor: "rgba(255, 99, 132, 0.7)"
+                    },
+                    {
+                        label: "Розгін 0-100 (сек)",
+                        data: cars.map(c => parseFloat(c.acceleration)),
+                        backgroundColor: "rgba(54, 162, 235, 0.7)"
+                    }
+                ]
+            },
+            options: {
+                plugins: { legend: { labels: { color: "#fff" } } },
+                scales: {
+                    x: { ticks: { color: "#fff" } },
+                    y: { ticks: { color: "#fff" }, beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    window.addEventListener("DOMContentLoaded", fetchCars);
+</script>
+
 </body>
 </html>
