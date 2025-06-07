@@ -27,10 +27,10 @@
             margin-left:15px; padding:8px 16px;
             border:none; border-radius:20px;
             cursor:pointer; font-weight:bold;
-            background:#007aff; color:#fff;
+            background: #ffffff; color:#fff;
             transition:background .3s;
         }
-        header nav button:hover { background:#005bb5; }
+        header nav button:hover { background: #ffffff; }
         main {
             flex:1;
             padding:100px 20px 40px;
@@ -126,10 +126,8 @@
 <header>
     <div class="logo">Audi</div>
     <nav>
-        <button onclick="location.href='index.html'">← Повернутися до головної</button>
+        <button onclick="location.href='index.html'">Повернутися до головної</button>
         <button onclick="location.reload()">Порівняння</button>
-        <button onclick="location.href='index.html#about'">Про нас</button>
-        <button onclick="location.href='index.html#catalog'">Каталог</button>
     </nav>
 </header>
 
@@ -145,8 +143,37 @@
     <canvas id="chartCanvas"></canvas>
 </main>
 
-<footer>
-    © 2025 Audi Україна. Всі права захищені.
+<footer class="audi-footer">
+    <div class="footer-top">
+        <div class="footer-logo">
+            <img src="media/icons/audi-logo-white.png" alt="Audi Logo">
+        </div>
+
+        <nav class="footer-nav center-nav">
+            <ul>
+                <li><a href="https://www.audi.ua/audi-models">Моделі</a></li>
+                <li><a href="https://www.audi.ua/service-and-accessories/about">Сервіс</a></li>
+                <li><a href="https://www.audi.ua/finance/pfg-financing">Фінансування</a></li>
+                <li><a href="https://www.audi.ua/audi-welt/audi-welt">Світ Audi</a></li>
+                <li><a href="https://www.audi.ua/contacts">Контакти</a></li>
+            </ul>
+        </nav>
+
+        <div class="footer-social">
+            <a href="https://www.facebook.com/AudiUkraine/"><img src="media/icons/facebook.png" alt="Facebook"></a>
+            <a href="https://www.instagram.com/audi/"><img src="media/icons/instagram.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/audi"><img src="media/icons/youtube.png" alt="YouTube"></a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 Audi Україна. Всі права захищені.</p>
+        <ul class="legal-links">
+            <li><a href="https://www.audi.ua/contacts#lightbox=1c8d5847-994b-48a7-82c6-95e1e3a3d53c">Юридична інформація</a></li>
+            <li><a href="https://www.audi.ua/contacts#lightbox=de7a7f1b-acf5-4f99-bc3d-211f2cfa7e25">Файли cookie</a></li>
+            <li><a href="https://www.audi.ua/privacy/copyright">Політика конфіденційності</a></li>
+        </ul>
+    </div>
 </footer>
 
 <script>
