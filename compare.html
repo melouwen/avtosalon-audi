@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Порівняння авто - Audi</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .compare-section {
+            padding: 100px 40px;
+            background: linear-gradient(to bottom, #111, #1c1c1c);
+            color: white;
+            text-align: center;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .compare-table th,
+        .compare-table td {
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: center;
+        }
+        .compare-table th {
+            background: #222;
+            font-weight: bold;
+        }
+        .compare-img {
+            max-width: 160px;
+            border-radius: 12px;
+        }
+        .remove-btn {
+            background: crimson;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .remove-btn:hover {
+            background: #ff4d4d;
+        }
+        canvas {
+            margin-top: 50px;
+            max-width: 100%;
+        }
+        .clear-all-btn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #222;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .clear-all-btn:hover {
+            background: crimson;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">Audi</div>
+    <nav>
+        <a href="index.html"><button>← Назад</button></a>
+    </nav>
+</header>
+
+<section class="compare-section">
+    <h1>Порівняння автомобілів</h1>
+    <div id="comparisonTableContainer">Завантаження...</div>
+    <canvas id="speedChart"></canvas>
+    <button class="clear-all-btn" onclick="clearComparison()">Очистити порівняння</button>
+</section>
+
+<script>
+    async function loadComparison() {
+        const container = document.getElementById('comparisonTableContainer');
+        const compareIds = JSON.parse(localStorage.getItem('compareCars')) || [];
+
+        if (compareIds.length === 0) {
+            container.innerHTML = "<p>Ви ще не додали машини до порівняння.</p>";
+            document.getElementById('speedChart').style.display = 'none';
+            return;
+        }
+
+        const res = await fetch('/api/cars');
+        const allCars = await res.json();
+        const cars = allCars.filter(car => compareIds.includes(car.id));
+
+        if (cars.length === 0) {
+            container.innerHTML = "<p>Машини не знайдено.</p>";
+            return;
+        }
+
+        const headers = ["Зображення", "Назва", "Ціна", "Двигун", "Коробка", "Розгін", "Макс. швидкість", "Дія"];
+        const table = document.createElement("table");
+        table.className = "compare-table";
+
+        const thead = document.createElement("thead");
+        const headRow = document.createElement("tr");
+        headRow.innerHTML = "<th>Параметр</th>" + cars.map(car => `<th>${car.name}</th>`).join('');
+        thead.appendChild(headRow);
+
+        const tbody = document.createElement("tbody");
+
+        const rows = [
+            ["Зображення", ...cars.map(car => `<img src="${car.image}" class="compare-img">`)],
+            ["Назва", ...cars.map(car => car.name)],
+            ["Ціна", ...cars.map(car => car.price)],
+            ["Двигун", ...cars.map(car => car.engine || "—")],
+            ["Коробка", ...cars.map(car => car.transmission || "—")],
+            ["Розгін", ...cars.map(car => car.acceleration || "—")],
+            ["Макс. швидкість", ...cars.map(car => car.topSpeed || "—")],
+            ["", ...cars.map(car => `<button class="remove-btn" onclick="removeCar(${car.id})">🗑️</button>`)]
+        ];
+
+        rows.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<th>${row[0]}</th>` + row.slice(1).map(cell => `<td>${cell}</td>`).join('');
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        container.innerHTML = "";
+        container.appendChild(table);
+
+        drawChart(cars);
+    }
+
+    function removeCar(id) {
+        let compareList = JSON.parse(localStorage.getItem("compareCars")) || [];
+        compareList = compareList.filter(c => c !== id);
+        localStorage.setItem("compareCars", JSON.stringify(compareList));
+        loadComparison();
+    }
+
+    function clearComparison() {
+        localStorage.removeItem("compareCars");
+        loadComparison();
+    }
+
+    function drawChart(cars) {
+        const labels = cars.map(car => car.name);
+        const speeds = cars.map(car => parseInt(car.topSpeed) || 0);
+        const accelerations = cars.map(car => parseFloat(car.acceleration) || 0);
+
+        const ctx = document.getElementById("speedChart").getContext("2d");
+        if (window.chart) window.chart.destroy(); // Remove previous chart
+
+        window.chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: "Макс. швидкість (км/г)",
+                        data: speeds,
+                        backgroundColor: "rgba(255, 99, 132, 0.6)"
+                    },
+                    {
+                        label: "Розгін 0-100 (сек)",
+                        data: accelerations,
+                        backgroundColor: "rgba(54, 162, 235, 0.6)"
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: "#fff"
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y}`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: "#fff" }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: "#fff" }
+                    }
+                }
+            }
+        });
+    }
+
+    loadComparison();
+</script>
+</body>
+</html>

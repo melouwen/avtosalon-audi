@@ -85,13 +85,16 @@ async function renderCars() {
         const card = document.createElement("div");
         card.className = "car-showcase-card";
         card.dataset.index = i;
+
         card.innerHTML = `
-            <img src="${car.image}" alt="${car.name}">
-            <div class="car-title-overlay car-flex-title">
-                <span class="left">${car.name}</span>
-                <span class="right">${car.price ? car.price + ' €' : ''}</span>
-            </div>
-        `;
+        <img src="${car.image}" alt="${car.name}">
+        <div class="car-title-overlay car-flex-title">
+            <span class="left">${car.name}</span>
+            <span class="right">${car.price ? car.price + ' €' : ''}</span>
+        </div>
+        <button onclick="addToCompare(event, ${car.id})" class="fancy-btn alt" style="position:absolute; top:10px; right:10px;">+ Порівняти</button>
+    `;
+
         card.addEventListener("click", () => {
             if (car.page) {
                 localStorage.setItem("selectedCarIndex", i);
@@ -100,6 +103,7 @@ async function renderCars() {
                 alert("Немає сторінки для цього авто");
             }
         });
+
         track.appendChild(card);
     });
 
@@ -183,3 +187,15 @@ document.addEventListener("click", function (e) {
         filterOptions.classList.remove("show");
     }
 });
+
+function addToCompare(e, id) {
+    e.stopPropagation();
+    let compareList = JSON.parse(localStorage.getItem("compareCars")) || [];
+    if (!compareList.includes(id)) {
+        compareList.push(id);
+        localStorage.setItem("compareCars", JSON.stringify(compareList));
+        alert("Додано до порівняння!");
+    } else {
+        alert("Ця модель вже у списку порівняння.");
+    }
+}
