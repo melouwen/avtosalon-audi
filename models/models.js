@@ -18,3 +18,10 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.section').forEach(section => {
     observer.observe(section);
 });
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+        setTimeout(() => loader.classList.add('fade-out'), 500);
+    }
+});

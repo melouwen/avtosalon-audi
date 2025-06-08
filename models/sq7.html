@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi SQ7 (2025)</title>
+  <title>Audi SQ7 – Потужність та елегантність</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi SQ7</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi SQ7 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-sq7.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent), url('../media/sq7-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi SQ7</h1>
+</section>
 
-  <div class="description">
-    <p>Audi SQ7 2025 року — це високопродуктивний 7-місний SUV, який поєднує в собі потужність, розкіш і передові технології. Завдяки 4.0-літровому V8 бітурбо двигуну, системі повного приводу quattro® і адаптивній пневматичній підвісці, SQ7 забезпечує динамічну їзду та комфорт для всіх пасажирів.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/sq7-exterior.jpg" alt="SQ7 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Преміум SUV зі спортивною ДНК</h2>
+      <p>
+        Audi SQ7 — це поєднання потужності, розкоші та інновацій. Завдяки агресивному дизайну з елементами S-line, цей SUV вражає як зовнішнім виглядом, так і динамікою.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>4.0L TFSI® V8 бітурбо</p>
+  <section class="section">
+    <img src="../media/sq7-interior.jpg" alt="SQ7 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Комфорт в кожній деталі</h2>
+      <p>
+        Салон Audi SQ7 вражає цифровими технологіями, преміум-оздобленням та простором для 7 пасажирів. Audi virtual cockpit, MMI Navigation plus та спортивні сидіння — частина стандарту.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>500 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/sq7-performance.jpg" alt="SQ7 Performance" class="section-img">
+    <div class="section-text">
+      <h2>4.0L V8 Biturbo — 507 к.с.</h2>
+      <p>
+        Потужність у дії: Audi SQ7 має 770 Нм крутного моменту, повний привід quattro, розгін 0-100 км/год — 4.1 с. Адаптивна пневмопідвіска і динамічне рульове керування забезпечують неперевершений контроль.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>770 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>4.3 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Місткість багажника</h3>
-      <p>14.2 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>7</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -96,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

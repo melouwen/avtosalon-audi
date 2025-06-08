@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <script src="models.js"></script>
-  <link rel="stylesheet" href="models.css">
   <meta charset="UTF-8" />
   <title>Audi Q6 e-tron – Простір для нових ідей</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="q6-style.css">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
-
+<div id="loader">
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
+</div>
 <div id="scrollProgress"></div>
 
 <header>
@@ -17,25 +19,39 @@
   <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<section class="hero">
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/q6-hero.jpg') center center / cover no-repeat;">
   <h1>Audi Q6 e-tron</h1>
 </section>
 
 <main class="content">
   <section class="section">
-    <h2>Простір для нових ідей</h2>
-    <p>Audi Q6 e-tron — це перша модель на новій платформі Premium Platform Electric (PPE)...</p>
-    <img src="../media/q6-space.jpg" alt="Q6 Space">
+    <img src="../media/q6-space.jpg" alt="Q6 Space" class="section-img">
+    <div class="section-text">
+      <h2>Простір для нових ідей</h2>
+      <p>
+        Audi Q6 e-tron — це перша модель на новій платформі Premium Platform Electric (PPE), яка була розроблена спільно з Porsche. Вона символізує наступний етап електрифікації Audi та відкриває нові горизонти в дизайні, інтер’єрі та технологіях.
+      </p>
+    </div>
   </section>
+
   <section class="section">
-    <h2>Розумне рішення</h2>
-    <p>Завдяки новітній технології OLED в задніх ліхтарях...</p>
-    <img src="../media/q6-oled.jpg" alt="OLED Rear Lights">
+    <img src="../media/q6-oled.jpg" alt="OLED Rear Lights" class="section-img">
+    <div class="section-text">
+      <h2>Розумне рішення</h2>
+      <p>
+        Завдяки новітній технології OLED в задніх ліхтарях та цифровому кокпіту, Audi Q6 e-tron демонструє інноваційний підхід до освітлення, інтерфейсів та комфорту. Світлодіодні панелі адаптуються до умов руху та створюють унікальну візуальну ідентичність.
+      </p>
+    </div>
   </section>
+
   <section class="section">
-    <h2>Враження від водіння</h2>
-    <p>Завдяки високій продуктивності зарядки до 270 кВт...</p>
-    <img src="../media/q6-drive.jpg" alt="Q6 Driving Experience">
+    <img src="../media/q6-drive.jpg" alt="Q6 Driving Experience" class="section-img">
+    <div class="section-text">
+      <h2>Враження від водіння</h2>
+      <p>
+        Завдяки високій продуктивності зарядки (до 270 кВт) та запасу ходу до 600 км (WLTP), Audi Q6 e-tron гарантує не лише емоції, але й функціональність. Розгін 0–100 км/год за 4.5 секунди у версії quattro перетворює кожну поїздку на драйвовий досвід.
+      </p>
+    </div>
   </section>
 </main>
 
@@ -71,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

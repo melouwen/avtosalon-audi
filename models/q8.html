@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi Q8 (2025)</title>
+  <title>Audi Q8 – Впевненість у новому вимірі</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi Q8</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi Q8 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-q8.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/q8-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi Q8</h1>
+</section>
 
-  <div class="description">
-    <p>Audi Q8 — це флагманський SUV-купе від Audi, який поєднує елегантний дизайн із вражаючими динамічними характеристиками. Просторий, технологічно просунутий салон, quattro® привід і пневматична підвіска — усе це забезпечує максимум комфорту та драйву. Q8 вирізняється фірмовим стилем Audi з гексагональною решіткою радіатора та динамічним профілем купе.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/q8-exterior.jpg" alt="Q8 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Престиж і атлетизм</h2>
+      <p>
+        Audi Q8 поєднує в собі елегантність купе та функціональність SUV. Його широка решітка, потужна лінія плечей і купеподібний дах створюють стильний і впевнений образ.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>3.0L TFSI® V6</p>
+  <section class="section">
+    <img src="../media/q8-interior.jpg" alt="Q8 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Цифровий комфорт</h2>
+      <p>
+        Інтер'єр Q8 — це технологічна платформа з подвійними сенсорними дисплеями, Audi virtual cockpit, натуральною шкірою та декоративними вставками. Вишуканість у кожній деталі.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>335 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/q8-performance.jpg" alt="Q8 Performance" class="section-img">
+    <div class="section-text">
+      <h2>Сила та контроль</h2>
+      <p>
+        Завдяки системі quattro, активному пневмопідвішуванню та потужним TFSI двигунам, Audi Q8 забезпечує виняткову динаміку й комфорт у будь-яких дорожніх умовах.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>500 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>5.6 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Багажник</h3>
-      <p>30.5 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -96,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

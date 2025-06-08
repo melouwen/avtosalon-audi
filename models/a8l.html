@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
+  <meta charset="UTF-8" />
+  <title>Audi A8L – Розкіш в кожній деталі</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="models.css">
-  <meta charset="UTF-8" />
-  <title>Audi A8L (2025)</title>
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi A8L</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi A8L (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-a8l.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/a8l-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi A8L</h1>
+</section>
 
-  <div class="description">
-    <p>Audi A8 2025 року — це флагманський седан, який поєднує в собі розкіш, передові технології та динамічні характеристики. Завдяки системі повного приводу quattro® та адаптивній підвісці, A8 забезпечує впевнену та комфортну їзду в будь-яких умовах. Інтер'єр вражає високоякісними матеріалами, сучасною мультимедійною системою та простором для всіх пасажирів.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/a8l-interior.jpg" alt="A8L Rear" class="section-img">
+    <div class="section-text">
+      <h2>Продовжений комфорт</h2>
+      <p>
+        Audi A8L — це подовжена версія флагмана, яка забезпечує ще більше простору на задньому ряду. Ідеальний вибір для тих, хто подорожує з шофером.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>3.0L TFSI® V6</p>
+  <section class="section">
+    <img src="../media/a8l-exterior.jpg" alt="A8L Seats" class="section-img">
+    <div class="section-text">
+      <h2>Бізнес-клас у кожній поїздці</h2>
+      <p>
+        Повнорозмірні сидіння з функціями масажу, підігріву та охолодження, відкидні спинки, екрани для пасажирів і розсувні шторки — це комфорт нового рівня.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>335 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/a8l-drive.jpg" alt="A8L Experience" class="section-img">
+    <div class="section-text">
+      <h2>Враження, які залишаються</h2>
+      <p>
+        Тиша, плавність ходу, інноваційна підвіска та електроніка Audi A8L дарують неймовірні емоції. Це не просто транспорт — це статус.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>500 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>5.6 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® (повний)</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Місткість багажника</h3>
-      <p>12.5 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">

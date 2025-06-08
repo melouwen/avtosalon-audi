@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi A7L (2025)</title>
+  <title>Audi A7L – Простір, розкіш, прогрес</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi A7L</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/a7l-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi A7L</h1>
+</section>
 
-<div class="container">
-  <h1>Audi A7L (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-a7l.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<main class="content">
+  <section class="section">
+    <img src="../media/a7l-exterior.jpg" alt="A7L Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Стиль та елегантність</h2>
+      <p>
+        Audi A7L — це подовжена версія A7 Sportback, розроблена спеціально для вимог китайського ринку. Вона пропонує ще більше простору на задніх сидіннях, не жертвуючи спортивністю силуету.
+      </p>
+    </div>
+  </section>
 
-  <div class="description">
-    <p>Audi A7L 2025 року — це елегантний седан бізнес-класу з подовженою колісною базою, який поєднує в собі розкіш, передові технології та динамічні характеристики. Завдяки системі повного приводу quattro® та адаптивній підвісці, A7L забезпечує впевнену та комфортну їзду в будь-яких умовах. Інтер'єр вражає високоякісними матеріалами, сучасною мультимедійною системою та простором, особливо для пасажирів заднього ряду.</p>
-  </div>
+  <section class="section">
+    <img src="../media/a7l-interior.jpg" alt="A7L Interior" class="section-img">
+    <div class="section-text">
+      <h2>Розкіш для всіх пасажирів</h2>
+      <p>
+        Просторий салон з ексклюзивними матеріалами, масажними сидіннями, багатозонним клімат-контролем та преміум-аудіо Bang & Olufsen — усе це створює атмосферу бізнес-класу в кожній поїздці.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>3.0L TFSI® V6</p>
+  <section class="section">
+    <img src="../media/a7l-performance.jpg" alt="A7L Performance" class="section-img">
+    <div class="section-text">
+      <h2>Технології та динаміка</h2>
+      <p>
+        A7L оснащується потужними двигунами 3.0 TFSI з м’яким гібридом та повним приводом quattro. Адаптивна пневматична підвіска, повнокероване шасі та інтелектуальні асистенти створюють новий рівень керованості.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>335 к.с.</p>
-    </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>500 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>5.2 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® (повний)</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Місткість багажника</h3>
-      <p>24.9 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -97,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

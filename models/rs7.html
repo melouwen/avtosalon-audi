@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi RS 7 Sportback Performance (2025)</title>
+  <title>Audi RS 7 – Виразність у кожній лінії</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi RS 7</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi RS 7 Sportback Performance (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-rs7.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/rs7-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi RS 7 Sportback</h1>
+</section>
 
-  <div class="description">
-    <p>Audi RS 7 Sportback Performance 2025 року — це поєднання елегантного дизайну та неймовірної потужності. Оснащений 4.0-літровим V8 бітурбо двигуном потужністю 621 к.с., цей спортивний хетчбек забезпечує розгін до 100 км/год за 3.3 секунди. Система повного приводу quattro®, адаптивна пневматична підвіска та спортивний задній диференціал гарантують неймовірну керованість та комфорт. Інтер'єр вражає високоякісними матеріалами, цифровою панеллю приладів Virtual Cockpit та спортивними сидіннями, що забезпечують максимальний комфорт і контроль.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/rs7-exterior.jpg" alt="RS 7 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Скульптурна динаміка</h2>
+      <p>
+        RS 7 — це поєднання динамічного дизайну й практичності. Широка задня частина, чіткі контури і низький профіль роблять його справжнім хижаком на дорозі.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>4.0L V8 бітурбо</p>
+  <section class="section">
+    <img src="../media/rs7-interior.jpg" alt="RS 7 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Інтер'єр без компромісів</h2>
+      <p>
+        Всередині — простір майбутнього: спортивні RS-сидіння, кермо з плоским низом, Audi MMI та інтуїтивні елементи керування з високоякісних матеріалів.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>621 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/rs7-performance.jpg" alt="RS 7 Performance" class="section-img">
+    <div class="section-text">
+      <h2>Потужність, яку відчуваєш</h2>
+      <p>
+        Під капотом — 4.0L V8 TFSI з 600 к.с. та mild-hybrid. quattro, адаптивна підвіска та динамічне кермування забезпечують неперевершене водіння щодня.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>850 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>3.3 с</p>
-    </div>
-    <div class="spec">
-      <h3>Максимальна швидкість</h3>
-      <p>305 км/год</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична RS</p>
-    </div>
-    <div class="spec">
-      <h3>Гальма</h3>
-      <p>Керамічні</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -100,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

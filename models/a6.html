@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8" />
-    <title>Audi A6 (2025)</title>
+    <title>Audi A6 – Інтелект. Динаміка. Комфорт.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="models.css">
+    <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-    <div class="spinner"></div>
+    <div class="glow-ring"></div>
+    <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-    <div class="logo">Audi</div>
-    <div class="header-right">
-        <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-    </div>
+    <span>Audi A6</span>
+    <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-    <h1>Audi A6 (2025)</h1>
-    <video class="car-image" autoplay muted loop playsinline>
-        <source src="../media/audi-a6.mp4" type="video/mp4" />
-        Ваш браузер не підтримує відео.
-    </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/a6-hero.jpg') center center / cover no-repeat;">
+    <h1>Audi A6</h1>
+</section>
 
-    <div class="description">
-        <p>Audi A6 2025 року — це елегантний седан бізнес-класу, який поєднує в собі передові технології, комфорт та динамічні характеристики. Завдяки системі повного приводу quattro® та адаптивній пневматичній підвісці, A6 забезпечує впевнену та комфортну їзду в будь-яких умовах. Інтер'єр вражає високоякісними матеріалами, сучасною мультимедійною системою та просторим салоном для всіх пасажирів.</p>
-    </div>
+<main class="content">
+    <section class="section">
+        <img src="../media/a6-exterior.jpg" alt="A6 Exterior" class="section-img">
+        <div class="section-text">
+            <h2>Бізнес-клас у дії</h2>
+            <p>
+                Audi A6 — це ідеальний вибір для тих, хто поєднує престиж, комфорт та інновації. Її елегантні лінії кузова, технології підвищеної безпеки та інтелектуальна навігація створюють справжній досвід преміального водіння.
+            </p>
+        </div>
+    </section>
 
-    <div class="specs">
-        <div class="spec">
-            <h3>Двигун</h3>
-            <p>2.0L TFSI® I4 або 3.0L V6</p>
+    <section class="section">
+        <img src="../media/a6-interior.jpg" alt="A6 Interior" class="section-img">
+        <div class="section-text">
+            <h2>Інтер'єр майбутнього</h2>
+            <p>
+                Високоякісні матеріали, MMI touch response, Audi virtual cockpit і динамічне підсвічування інтер’єру виводять A6 на новий рівень преміуму. Все створено для максимального комфорту водія і пасажирів.
+            </p>
         </div>
-        <div class="spec">
-            <h3>Потужність</h3>
-            <p>261 к.с. (I4) / 335 к.с. (V6)</p>
+    </section>
+
+    <section class="section">
+        <img src="../media/a6-drive.jpg" alt="A6 Driving" class="section-img">
+        <div class="section-text">
+            <h2>Сила quattro®</h2>
+            <p>
+                З потужними двигунами TFSI® та м’якою гібридною технологією, A6 поєднує ефективність із динамікою. quattro® забезпечує надійність у будь-яких умовах, а розгін 0–100 км/год можливий менш ніж за 5,1 с.
+            </p>
         </div>
-        <div class="spec">
-            <h3>Крутний момент</h3>
-            <p>370 Нм (I4) / 500 Нм (V6)</p>
-        </div>
-        <div class="spec">
-            <h3>Розгін 0-100 км/год</h3>
-            <p>6.7 с (V6)</p>
-        </div>
-        <div class="spec">
-            <h3>Привід</h3>
-            <p>quattro® (повний)</p>
-        </div>
-        <div class="spec">
-            <h3>Підвіска</h3>
-            <p>Адаптивна пневматична</p>
-        </div>
-        <div class="spec">
-            <h3>Місткість багажника</h3>
-            <p>13.7 куб. футів</p>
-        </div>
-        <div class="spec">
-            <h3>Кількість місць</h3>
-            <p>5</p>
-        </div>
-    </div>
-</div>
+    </section>
+</main>
+
 <footer class="audi-footer">
     <div class="footer-top">
         <div class="footer-logo">
@@ -96,5 +87,6 @@
         </ul>
     </div>
 </footer>
+
 </body>
 </html>

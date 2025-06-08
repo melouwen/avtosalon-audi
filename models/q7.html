@@ -1,68 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi Q7 (2025)</title>
+  <title>Audi Q7 – Велич і технології</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi Q7</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
-<div class="container">
-  <h1>Audi Q7 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-q7.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
 
-  <div class="description">
-    <p>Audi Q7 — це розкішний 7-місний SUV, що поєднує в собі елегантність, простір та передові технології. З системою повного приводу quattro® і пневматичною підвіскою, Q7 дарує комфортну їзду незалежно від дорожніх умов. Його інтер'єр вражає увагою до деталей, високоякісними матеріалами та цифровими дисплеями нового покоління.</p>
-  </div>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/q7-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi Q7</h1>
+</section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>2.0L I4 / 3.0L V6 TFSI®</p>
+<main class="content">
+  <section class="section">
+    <img src="../media/q7-exterior.jpg" alt="Q7 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Виразний і потужний</h2>
+      <p>
+        Audi Q7 поєднує в собі величний SUV-дизайн з інженерною досконалістю. Його атлетична решітка, вишукані світлодіодні фари та плавні лінії демонструють міць і елегантність.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>261 або 335 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/q7-interior.jpg" alt="Q7 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Преміальний простір</h2>
+      <p>
+        Інтер'єр Q7 вражає простором для 7 пасажирів, високоякісними матеріалами, сенсорними дисплеями та системою Bang & Olufsen. Це мобільний лаунж-клас.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>370–500 Нм</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/q7-drive.jpg" alt="Q7 Driving" class="section-img">
+    <div class="section-text">
+      <h2>Динаміка без меж</h2>
+      <p>
+        Двигуни TFSI, quattro® AWD, динамічне кермо та адаптивна підвіска забезпечують легкість керування та впевненість у будь-яких умовах. Audi Q7 — потужність і контроль.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>6.7 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Багажник</h3>
-      <p>до 69.6 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>7</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -95,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

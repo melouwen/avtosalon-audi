@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi R8 V10 Performance (2025)</title>
+  <title>Audi R8 – Суперкар майбутнього</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi R8</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi R8 V10 Performance (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-r8.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/r8-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi R8</h1>
+</section>
 
-  <div class="description">
-    <p>Audi R8 V10 Performance 2025 року — це втілення інженерної досконалості та естетичної витонченості. Оснащений атмосферним 5.2-літровим V10 двигуном, цей суперкар забезпечує неймовірну потужність і захоплюючу динаміку. Завдяки системі повного приводу quattro® та семиступеневій коробці передач S tronic®, R8 гарантує неперевершене зчеплення та миттєве перемикання передач. Інтер'єр вражає високоякісними матеріалами, цифровою панеллю приладів Virtual Cockpit та спортивними сидіннями, що забезпечують максимальний комфорт і контроль.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/r8-exterior.jpg" alt="R8 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Естетика швидкості</h2>
+      <p>
+        Audi R8 — це симбіоз гоночної ДНК і дизайну майбутнього. Його аеродинамічний профіль, широкі повітрозабірники і чіткі лінії створюють образ справжнього суперкара.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>5.2L V10 FSI</p>
+  <section class="section">
+    <img src="../media/r8-interior.jpg" alt="R8 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Салон без компромісів</h2>
+      <p>
+        Кокпіт Audi R8 орієнтований виключно на водія. Високоякісні матеріали, RS-кермо, карбон і Audi virtual cockpit створюють відчуття справжнього боліда.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>602 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/r8-performance.jpg" alt="R8 Performance" class="section-img">
+    <div class="section-text">
+      <h2>V10 — легенда під капотом</h2>
+      <p>
+        Центрально розташований 5.2L V10 FSI розвиває до 620 к.с., розганяючи Audi R8 до 100 км/год за 3.1 секунди. Повний привід quattro і подвійне зчеплення — максимум зчеплення, максимум драйву.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>560 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>3.2 с</p>
-    </div>
-    <div class="spec">
-      <h3>Максимальна швидкість</h3>
-      <p>330 км/год</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Трансмісія</h3>
-      <p>7-ступенева S tronic®</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>2</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -96,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

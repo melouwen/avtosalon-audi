@@ -1,61 +1,62 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi A5 (2025)</title>
+  <title>Audi A5 – Спорт. Елегантність. Технології.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+
+
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi A5</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi A5 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-a5.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/a5-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi A5</h1>
+</section>
 
-  <div class="description">
-    <p>Audi A5 2025 року — це елегантний та динамічний автомобіль, який поєднує в собі сучасний дизайн, передові технології та потужні характеристики. Завдяки системі повного приводу quattro® та адаптивній підвісці, A5 забезпечує комфортну та динамічну їзду на будь-яких дорогах. Інтер'єр вражає високоякісними матеріалами, сучасною мультимедійною системою та простором для всіх пасажирів.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/a5-exterior.jpg" alt="A5 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Елегантність у русі</h2>
+      <p>
+        Audi A5 — це витончений спортивний купе, що поєднує динамічні лінії кузова з потужними технологіями. Від фірмових світлодіодних фар до чітких контурів профілю — кожен елемент A5 випромінює впевненість.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>2.0L TFSI® I4</p>
+  <section class="section">
+    <img src="../media/a5-interior.jpg" alt="A5 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Цифрова інтелігентність</h2>
+      <p>
+        Audi virtual cockpit, інтуїтивна MMI-навігація та преміум акустика Bang & Olufsen створюють досконале цифрове середовище всередині Audi A5. Адаптивний круїз-контроль та система розпізнавання дорожніх знаків — частина стандарту.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>261 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/a5-drive.jpg" alt="A5 Driving" class="section-img">
+    <div class="section-text">
+      <h2>Потужність і точність</h2>
+      <p>
+        Завдяки двигунам TFSI® і повному приводу quattro®, Audi A5 забезпечує спортивну динаміку та комфорт. 0–100 км/год за 5.6 секунди, адаптивна підвіска та аеродинаміка роблять його ідеальним як для міста, так і для траси.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>273 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>5.4 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® (повний)</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -88,5 +89,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

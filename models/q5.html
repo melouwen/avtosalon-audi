@@ -1,69 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi Q5 (2025)</title>
+  <title>Audi Q5 – Баланс стилю та динаміки</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi Q5</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi Q5 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-q5.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/q5-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi Q5</h1>
+</section>
 
-  <div class="description">
-    <p>Audi Q5 2025 року — це компактний преміум SUV, який поєднує ефективність, комфорт і технологічність. Завдяки системі повного приводу quattro®, комфортній підвісці та модернізованому інтер'єру, він залишається одним із найпопулярніших автомобілів у своєму класі.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/q5-design.jpg" alt="Q5 Design" class="section-img">
+    <div class="section-text">
+      <h2>Ідеальна форма та функція</h2>
+      <p>
+        Audi Q5 — це гармонія дизайну та інженерної досконалості. Його виразна решітка Singleframe, світлодіодна оптика та аеродинамічний силует дарують стиль та впевненість.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>2.0L TFSI® I4</p>
+  <section class="section">
+    <img src="../media/q5-interior.jpg" alt="Q5 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Інтелектуальний простір</h2>
+      <p>
+        Цифрова панель приладів Audi virtual cockpit, навігація MMI touch, адаптивний круїз та бездротова зарядка — все це створено для комфорту водія і пасажирів.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>261 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/q5-performance.jpg" alt="Q5 Performance" class="section-img">
+    <div class="section-text">
+      <h2>Потужність у русі</h2>
+      <p>
+        Q5 оснащується гібридними та TFSI двигунами, quattro повним приводом, адаптивною підвіскою та численними системами безпеки — для плавної, динамічної їзди.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>370 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>6.1 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® (повний)</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Комфортна незалежна</p>
-    </div>
-    <div class="spec">
-      <h3>Місткість багажника</h3>
-      <p>25.8 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -96,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

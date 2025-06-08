@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi RS 6 Avant Performance (2025)</title>
+  <title>Audi RS 6 – Спортівний Avant майбутнього</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi RS 6</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi RS 6 Avant Performance (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-rs6.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.6), transparent), url('../media/rs6-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi RS 6 Avant</h1>
+</section>
 
-  <div class="description">
-    <p>Audi RS 6 Avant Performance 2025 року — це втілення спортивної динаміки та практичності. Оснащений 4.0-літровим V8 бітурбо двигуном потужністю 621 к.с., цей універсал забезпечує розгін до 100 км/год за 3.4 секунди. Система повного приводу quattro®, адаптивна пневматична підвіска та спортивний задній диференціал гарантують неймовірну керованість та комфорт. Інтер'єр вражає високоякісними матеріалами, цифровою панеллю приладів Virtual Cockpit та спортивними сидіннями, що забезпечують максимальний комфорт і контроль.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/rs6-exterior.jpg" alt="RS 6 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Стиль, що випереджає час</h2>
+      <p>
+        Audi RS 6 Avant — це втілення потужності у формі сімейного універсалу. Широка решітка Singleframe, масивні повітрозабірники та подовжена лінія даху — все для максимального ефекту.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>4.0L V8 бітурбо</p>
+  <section class="section">
+    <img src="../media/rs6-interior.jpg" alt="RS 6 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Салон для водія і сім’ї</h2>
+      <p>
+        Високоякісні матеріали, RS-кермо з перемикачами та Audi MMI touch response. 5 посадочних місць, просторий багажник і преміум комфорт — усе це в одному автомобілі.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>621 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/rs6-performance.jpg" alt="RS 6 Performance" class="section-img">
+    <div class="section-text">
+      <h2>4.0 TFSI — це не жарти</h2>
+      <p>
+        Під капотом Audi RS 6 — 600 к.с., quattro, 800 Нм моменту і розгін до 100 км/год за 3.6 секунди. Пневматична підвіска та RS-режими дають відчуття справжнього боліда у кузові сімейного авто.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>850 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>3.4 с</p>
-    </div>
-    <div class="spec">
-      <h3>Максимальна швидкість</h3>
-      <p>305 км/год</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична RS</p>
-    </div>
-    <div class="spec">
-      <h3>Гальма</h3>
-      <p>Керамічні</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -100,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

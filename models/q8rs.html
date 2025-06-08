@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <title>Audi RS Q8 Performance (2025)</title>
+  <title>Audi RS Q8 – Абсолютна потужність у формі SUV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi RS Q8</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi RS Q8 Performance (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-q8rs.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/q8rs-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi RS Q8</h1>
+</section>
 
-  <div class="description">
-    <p>Audi RS Q8 Performance 2025 року — це найпотужніший серійний бензиновий SUV від Audi, який поєднує в собі розкіш, інновації та вражаючу динаміку. Завдяки 4.0-літровому V8 бітурбо двигуну, системі повного приводу quattro® та адаптивній пневматичній підвісці, RS Q8 забезпечує неймовірну продуктивність і комфорт.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/q8rs-exterior.jpg" alt="RS Q8 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Дизайн, що викликає адреналін</h2>
+      <p>
+        RS Q8 — це вершина модельної лінійки SUV Audi. Масивна решітка Singleframe, агресивні бампери, розширені колісні арки та матричні фари створюють вражаючий вигляд справжнього суперкара.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>4.0L TFSI® V8 бітурбо</p>
+  <section class="section">
+    <img src="../media/q8rs-interior.jpg" alt="RS Q8 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Салон з гоночною ДНК</h2>
+      <p>
+        Усередині — спортивні сидіння RS, карбонова оздоба, червона прострочка та RS-дисплей у Audi virtual cockpit. Водій повністю контролює ситуацію в умовах динамічного водіння.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>631 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/q8rs-drive.jpg" alt="RS Q8 Performance" class="section-img">
+    <div class="section-text">
+      <h2>600 к.с. адреналіну</h2>
+      <p>
+        4.0L V8 TFSI з двома турбінами, 600 к.с. і 800 Нм, розгін до 100 км/год за 3.8 с. Система quattro, активний стабілізатор і повнокероване шасі перетворюють RS Q8 на справжній трековий інструмент у тілі SUV.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>850 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>3.6 с</p>
-    </div>
-    <div class="spec">
-      <h3>Максимальна швидкість</h3>
-      <p>305 км/год</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® AWD</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична RS</p>
-    </div>
-    <div class="spec">
-      <h3>Гальма</h3>
-      <p>Керамічні</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -100,5 +87,6 @@
     </ul>
   </div>
 </footer>
+
 </body>
 </html>

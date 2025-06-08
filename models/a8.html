@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="uk">
-<link rel="stylesheet" href="models.css">
-<script src="models.js"></script>
 <head>
+  <meta charset="UTF-8"/>
+  <title>Audi A8 – Високий стандарт</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8" />
-  <title>Audi A8 (2025)</title>
+  <link rel="stylesheet" href="models.css">
+  <script src="models.js" defer></script>
 </head>
 <body>
 <div id="loader">
-  <div class="spinner"></div>
+  <div class="glow-ring"></div>
+  <div class="loading-text">Завантаження...</div>
 </div>
+<div id="scrollProgress"></div>
+
 <header>
-  <div class="logo">Audi</div>
-  <div class="header-right">
-    <a href="../index.html#catalog" class="back-link">Повернутися до каталогу</a>
-  </div>
+  <span>Audi A8</span>
+  <a href="../index.html#catalog" class="return-btn">Повернутися до каталогу</a>
 </header>
 
-<div class="container">
-  <h1>Audi A8 (2025)</h1>
-  <video class="car-image" autoplay muted loop playsinline>
-    <source src="../media/audi-a8.mp4" type="video/mp4" />
-    Ваш браузер не підтримує відео.
-  </video>
+<section class="hero"
+         style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent), url('../media/a8-hero.jpg') center center / cover no-repeat;">
+  <h1>Audi A8</h1>
+</section>
 
-  <div class="description">
-    <p>Audi A7L 2025 року — це елегантний седан бізнес-класу з подовженою колісною базою, який поєднує в собі розкіш, передові технології та динамічні характеристики. Завдяки системі повного приводу quattro® та адаптивній підвісці, A7L забезпечує впевнену та комфортну їзду в будь-яких умовах. Інтер'єр вражає високоякісними матеріалами, сучасною мультимедійною системою та простором, особливо для пасажирів заднього ряду.</p>
-  </div>
+<main class="content">
+  <section class="section">
+    <img src="../media/a8-exterior.jpg" alt="A8 Exterior" class="section-img">
+    <div class="section-text">
+      <h2>Ікона елегантності</h2>
+      <p>
+        Audi A8 — це еталон сучасного бізнес-седану. Його стриманий, але розкішний дизайн поєднує в собі
+        технологічну довершеність з бездоганною естетикою.
+      </p>
+    </div>
+  </section>
 
-  <div class="specs">
-    <div class="spec">
-      <h3>Двигун</h3>
-      <p>3.0L TFSI® V6</p>
+  <section class="section">
+    <img src="../media/a8-interior.jpg" alt="A8 Interior" class="section-img">
+    <div class="section-text">
+      <h2>Розкіш без компромісів</h2>
+      <p>
+        Інтер’єр A8 — це сучасна філософія преміуму: шкіра Valcona, сенсорні панелі, контурне освітлення та
+        система масажу сидінь — усе для вашого комфорту.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Потужність</h3>
-      <p>335 к.с.</p>
+  </section>
+
+  <section class="section">
+    <img src="../media/a8-tech.jpg" alt="A8 Technology" class="section-img">
+    <div class="section-text">
+      <h2>Інтелектуальні інновації</h2>
+      <p>
+        Audi AI, повнокероване шасі, гібридна система з 48В, активна підвіска та численні асистенти водія — це
+        новий рівень керованості та безпеки.
+      </p>
     </div>
-    <div class="spec">
-      <h3>Крутний момент</h3>
-      <p>500 Нм</p>
-    </div>
-    <div class="spec">
-      <h3>Розгін 0-100 км/год</h3>
-      <p>5.2 с</p>
-    </div>
-    <div class="spec">
-      <h3>Привід</h3>
-      <p>quattro® (повний)</p>
-    </div>
-    <div class="spec">
-      <h3>Підвіска</h3>
-      <p>Адаптивна пневматична</p>
-    </div>
-    <div class="spec">
-      <h3>Місткість багажника</h3>
-      <p>24.9 куб. футів</p>
-    </div>
-    <div class="spec">
-      <h3>Кількість місць</h3>
-      <p>5</p>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
+
 <footer class="audi-footer">
   <div class="footer-top">
     <div class="footer-logo">
@@ -90,11 +85,14 @@
   <div class="footer-bottom">
     <p>© 2025 Audi Україна. Всі права захищені.</p>
     <ul class="legal-links">
-      <li><a href="https://www.audi.ua/contacts#lightbox=1c8d5847-994b-48a7-82c6-95e1e3a3d53c">Юридична інформація</a></li>
-      <li><a href="https://www.audi.ua/contacts#lightbox=de7a7f1b-acf5-4f99-bc3d-211f2cfa7e25">Файли cookie</a></li>
+      <li><a href="https://www.audi.ua/contacts#lightbox=1c8d5847-994b-48a7-82c6-95e1e3a3d53c">Юридична
+        інформація</a></li>
+      <li><a href="https://www.audi.ua/contacts#lightbox=de7a7f1b-acf5-4f99-bc3d-211f2cfa7e25">Файли cookie</a>
+      </li>
       <li><a href="https://www.audi.ua/privacy/copyright">Політика конфіденційності</a></li>
     </ul>
   </div>
 </footer>
+
 </body>
 </html>
