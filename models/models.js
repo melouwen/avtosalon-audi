@@ -1,11 +1,20 @@
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loader = document.getElementById('loader');
-        const content = document.getElementById('content');
+// Прогрес бар
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('scrollProgress').style.width = progress + '%';
+});
 
-        loader.classList.add('hidden');
-        content.classList.add('visible');
+// Анімація появи секцій
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
 
-        setTimeout(() => loader.style.display = 'none', 600);
-    }, 600);
+document.querySelectorAll('.section').forEach(section => {
+    observer.observe(section);
 });
