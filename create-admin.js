@@ -12,4 +12,4 @@ async function createAdmin(username, password) {
 }
 
 
-createAdmin("yarikpidor", "228");
+createAdmin("tape", "12345");

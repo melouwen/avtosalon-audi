@@ -1,4 +1,3 @@
-// Прогрес бар
 window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -6,7 +5,6 @@ window.addEventListener('scroll', () => {
     document.getElementById('scrollProgress').style.width = progress + '%';
 });
 
-// Анімація появи секцій
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
