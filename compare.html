@@ -93,7 +93,7 @@
 
         .car-slot img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 10px;
@@ -136,7 +136,7 @@
             border: 1px solid #444;
             padding: 12px;
             text-align: center;
-            width: 25%; /* 1/4 = 1 колонка параметрів + 3 колонки авто */
+            width: 25%;
             min-width: 140px;
             word-wrap: break-word;
             transition: background 0.3s, color 0.3s;
@@ -460,7 +460,7 @@
         const titles = selected.map(c => c?.name || '—');
         while (titles.length < 3) titles.push('—');
 
-        H.innerHTML = `<tr><th>Параметр</th>` +
+        H.innerHTML = `<tr><th>Модель</th>` +
             titles.map(name => `<th>${name}</th>`).join('') + `</tr>`;
 
         const rows = [
@@ -470,8 +470,7 @@
             ['Розгін 0‑100', selected.map(c => c?.acceleration ? c.acceleration + ' сек' : '—')],
             ['Макс. швидкість', selected.map(c => c?.topSpeed ? c.topSpeed + ' км/г' : '—')]
         ];
-
-        // доповнюємо до 3 колонок
+        
         rows.forEach(row => {
             while (row[1].length < 3) row[1].push('—');
         });

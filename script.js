@@ -87,13 +87,13 @@ async function renderCars() {
         card.dataset.index = i;
 
         card.innerHTML = `
-        <img src="${car.image}" alt="${car.name}">
-        <div class="car-title-overlay car-flex-title">
-            <span class="left">${car.name}</span>
-            <span class="right">${car.price ? car.price + ' €' : ''}</span>
-        </div>
-        <button onclick="addToCompare(event, ${car.id})" class="fancy-btn alt" style="position:absolute; top:10px; right:10px;">+ Порівняти</button>
-    `;
+    <img src="${car.image}" alt="${car.name}">
+    <div class="car-title-overlay car-flex-title">
+        <span class="left">${car.name}</span>
+        <span class="right">${car.price ? car.price + ' €' : ''}</span>
+    </div>
+`;
+
 
         card.addEventListener("click", () => {
             if (car.page) {
