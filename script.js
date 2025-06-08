@@ -199,3 +199,11 @@ function addToCompare(e, id) {
         alert("Ця модель вже у списку порівняння.");
     }
 }
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById('scrollProgressBar').style.width = scrollPercent + '%';
+});
+

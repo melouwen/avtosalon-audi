@@ -1012,3 +1012,14 @@ html {
     background: #ff4040;
 }
 
+#scrollProgressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00a6ff, #ffffff);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.15s ease-out;
+}
+

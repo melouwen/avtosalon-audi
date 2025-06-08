@@ -204,4 +204,84 @@ header a:hover {
         -webkit-tap-highlight-color: transparent;
         outline: none;
     }
+
+    .audi-footer {
+        background-color: #1c1c1c;
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 20px 40px;
+    }
+
+    .footer-top {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #333;
+        padding-bottom: 20px;
+    }
+
+    .footer-logo img {
+        max-width: 120px;
+        height: auto;
+    }
+
+    .footer-nav.center-nav {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer-nav.center-nav ul {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-nav.center-nav li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .footer-nav.center-nav li a:hover {
+        text-decoration: underline;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 15px;
+    }
+
+    .footer-social a img {
+        width: 26px;
+        height: 26px;
+        opacity: 0.6;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-social a img:hover {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+        font-size: 13px;
+        color: #ccc;
+    }
+
+    .footer-bottom p {
+        margin: 0;
+    }
 }
+
