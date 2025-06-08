@@ -125,18 +125,42 @@
         .btn-del:hover { background:#c00; }
 
         .compare-table {
-            width:100%;
-            border-collapse:collapse;
-            margin-top:40px;
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-top: 40px;
         }
-        .compare-table th, td {
-            border:1px solid #444;
-            padding:12px;
-            text-align:center;
+
+        .compare-table th,
+        .compare-table td {
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: center;
+            width: 25%; /* 1/4 = 1 колонка параметрів + 3 колонки авто */
+            min-width: 140px;
+            word-wrap: break-word;
+            transition: background 0.3s, color 0.3s;
         }
+
         .compare-table th {
-            background:#222;
+            background: #222;
+            font-weight: 700;
+            color: #fff;
         }
+
+        .compare-table td {
+            background: #111;
+            color: #eee;
+        }
+
+        @media (max-width: 768px) {
+            .compare-table th,
+            .compare-table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
         canvas { margin-top:20px; }
 
         .audi-footer {
@@ -432,18 +456,31 @@
     function renderComparison(){
         const H = document.getElementById('comparisonHeader');
         const B = document.getElementById('comparisonBody');
+
+        const titles = selected.map(c => c?.name || '—');
+        while (titles.length < 3) titles.push('—');
+
         H.innerHTML = `<tr><th>Параметр</th>` +
-            selected.map(c=>`<th>${c?.name||'-'}</th>`).join('') + `</tr>`;
+            titles.map(name => `<th>${name}</th>`).join('') + `</tr>`;
+
         const rows = [
-            ['Ціна', selected.map(c=> c?.price ? c.price+' €':'-')],
-            ['Двигун', selected.map(c=> c?.engine || '-')],
-            ['Коробка', selected.map(c=> c?.transmission || '-')],
-            ['Розгін 0‑100', selected.map(c=> c?.acceleration ? c.acceleration+' сек':'-')],
-            ['Макс. швидкість', selected.map(c=> c?.topSpeed ? c.topSpeed+' км/г':'-')],
+            ['Ціна', selected.map(c => c?.price ? c.price + ' €' : '—')],
+            ['Двигун', selected.map(c => c?.engine || '—')],
+            ['Коробка', selected.map(c => c?.transmission || '—')],
+            ['Розгін 0‑100', selected.map(c => c?.acceleration ? c.acceleration + ' сек' : '—')],
+            ['Макс. швидкість', selected.map(c => c?.topSpeed ? c.topSpeed + ' км/г' : '—')]
         ];
-        B.innerHTML = rows.map(r=>
-            `<tr><th>${r[0]}</th>` + r[1].map(v=>`<td>${v}</td>`).join('')+ `</tr>`).join('');
-        drawChart(selected.filter(c=>c));
+
+        // доповнюємо до 3 колонок
+        rows.forEach(row => {
+            while (row[1].length < 3) row[1].push('—');
+        });
+
+        B.innerHTML = rows.map(([label, values]) =>
+            `<tr><th>${label}</th>` + values.map(val => `<td>${val}</td>`).join('') + `</tr>`
+        ).join('');
+
+        drawChart(selected.filter(c => c));
     }
 
     function drawChart(cars){
