@@ -148,7 +148,6 @@ function addToCompare(e, id) {
 }
 
 function acceptIpNotice() {
-    localStorage.setItem('ipNoticeAccepted', 'true');
     document.getElementById('ipNotice').style.display = 'none';
 }
 
@@ -184,12 +183,10 @@ window.addEventListener("load", () => {
 window.addEventListener("DOMContentLoaded", () => {
     renderCars();
     cycleVideos();
-
-    // IP notice
-    if (!localStorage.getItem('ipNoticeAccepted')) {
+    
         const notice = document.getElementById('ipNotice');
         if (notice) notice.style.display = 'flex';
-    }
+
 
     // Log IP
     fetch('/api/log-ip', { method: 'POST' });
