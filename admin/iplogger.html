@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Logger</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="topbar">
+  <span>IP Logger</span>
+  <div class="topbar-links">
+    <a href="dashboard.html">Адмін-панель</a>
+  </div>
+</div>
+
+<div class="dashboard-wrapper">
+  <h2>Збережені IP Адреси</h2>
+  <ul id="ipList"></ul>
+</div>
+
+<script>
+  fetch('/api/get-ips')
+          .then(res => res.json())
+          .then(data => {
+            const list = document.getElementById('ipList');
+            data.forEach(ip => {
+              const li = document.createElement('li');
+              li.textContent = `${ip.ip_address} — ${new Date(ip.timestamp).toLocaleString()}`;
+              list.appendChild(li);
+            });
+          });
+</script>
+</body>
+</html>

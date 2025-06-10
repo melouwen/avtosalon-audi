@@ -127,3 +127,25 @@ pool.query('SELECT NOW()', (err, result) => {
 app.listen(PORT, () => {
     console.log(`Сервер працює на http://localhost:${PORT}`);
 });
+
+app.post("/api/log-ip", async (req, res) => {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    try {
+        await pool.query('INSERT INTO ip_logs (ip_address) VALUES ($1)', [ip]);
+        res.json({ message: "IP збережено" });
+    } catch (err) {
+        console.error("Помилка при збереженні IP:", err);
+        res.status(500).json({ error: "Помилка збереження" });
+    }
+});
+
+
+app.get("/api/get-ips", async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM ip_logs ORDER BY timestamp DESC');
+        res.json(result.rows);
+    } catch (err) {
+        console.error("Помилка при отриманні IP:", err);
+        res.status(500).json({ error: "Помилка отримання" });
+    }
+});
