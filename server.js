@@ -31,7 +31,6 @@ app.get("/api/check-auth", (req, res) => {
     }
 });
 
-// 🔐 Логін
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
@@ -50,7 +49,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// 🚪 Вихід
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.sendStatus(200);
@@ -148,7 +146,6 @@ app.delete('/api/clear-ips', async (req, res) => {
     }
 });
 
-// Видалити один лог
 app.delete('/api/delete-ip/:id', async (req, res) => {
     try {
         await pool.query('DELETE FROM ip_logs WHERE id = $1', [req.params.id]);

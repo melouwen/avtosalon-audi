@@ -183,15 +183,13 @@ window.addEventListener("load", () => {
 window.addEventListener("DOMContentLoaded", () => {
     renderCars();
     cycleVideos();
-    
+
         const notice = document.getElementById('ipNotice');
         if (notice) notice.style.display = 'flex';
 
 
-    // Log IP
     fetch('/api/log-ip', { method: 'POST' });
 
-    // Filters
     const filterToggle = document.getElementById("filterToggle");
     const filterOptions = document.getElementById("filterOptions");
     if (filterToggle && filterOptions) {
