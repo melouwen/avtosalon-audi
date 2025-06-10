@@ -91,7 +91,7 @@
       list.appendChild(li);
     });
   }
-  
+
   function clearLogs() {
     fetch('/api/clear-ips', { method: 'DELETE' })
             .then(() => loadLogs());

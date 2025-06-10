@@ -195,11 +195,3 @@ app.get("/api/get-ips", async (req, res) => {
         res.status(500).json({ error: "Помилка отримання" });
     }
 });
-
-        res.json(enrichedData);
-    } catch (err) {
-        console.error("Помилка при отриманні IP:", err);
-        res.status(500).json({ error: "Помилка отримання" });
-    }
-});
-
