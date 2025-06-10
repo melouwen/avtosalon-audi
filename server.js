@@ -171,23 +171,30 @@ app.get("/api/get-ips", async (req, res) => {
                 const city = data.city || 'Місто невідоме';
                 const country = data.country || 'Країна невідома';
                 const isp = data.connection?.isp || 'Провайдер невідомий';
-                const flag = data.flag?.emoji || '';
+                const flagImg = data.flag?.img || '';
 
                 return {
                     ...row,
                     location: data.success ? `${city}, ${country}` : 'Локацію не вдалося отримати',
                     isp,
-                    flag
+                    flagImg
                 };
             } catch {
                 return {
                     ...row,
                     location: 'Помилка отримання локації',
                     isp: '---',
-                    flag: ''
+                    flagImg: ''
                 };
             }
         }));
+
+        res.json(enrichedData);
+    } catch (err) {
+        console.error("Помилка при отриманні IP:", err);
+        res.status(500).json({ error: "Помилка отримання" });
+    }
+});
 
         res.json(enrichedData);
     } catch (err) {

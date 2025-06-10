@@ -79,20 +79,19 @@
     data.forEach(ip => {
       const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
       const providerInfo = ip.isp ? ` | ${ip.isp}` : '';
-      const flag = ip.flag || '';
+      const flagHTML = ip.flagImg ? `<img src="${ip.flagImg}" alt="flag" style="height: 14px; vertical-align: middle;">` : '';
 
       const li = document.createElement('li');
       li.innerHTML = `
         <strong>${ip.ip_address}</strong><br>
         ${time}<br>
-        <span class="location">${ip.location}${providerInfo} ${flag}</span><br>
+        <span class="location">${ip.location}${providerInfo} ${flagHTML}</span><br>
         <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
       `;
       list.appendChild(li);
     });
   }
-
-
+  
   function clearLogs() {
     fetch('/api/clear-ips', { method: 'DELETE' })
             .then(() => loadLogs());
