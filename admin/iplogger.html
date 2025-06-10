@@ -4,6 +4,38 @@
   <meta charset="UTF-8">
   <title>IP Logger</title>
   <link rel="stylesheet" href="admin.css">
+  <style>
+    .clear-btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .clear-btn:hover {
+      background-color: #dc2626;
+    }
+
+    ul#ipList {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul#ipList li {
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+  </style>
 </head>
 <body>
 <div class="topbar">
@@ -15,17 +47,15 @@
 
 <div class="dashboard-wrapper">
   <h2>Збережені IP Адреси</h2>
+  <button class="clear-btn" onclick="clearLogs()">Очистити логи</button>
   <ul id="ipList"></ul>
 </div>
 
-<button onclick="clearLogs()">Очистити логи</button>
-<ul id="ipList"></ul>
-
 <script>
-  // Запис IP
+  // Запис IP при вході
   fetch('/api/log-ip', { method: 'POST' });
 
-  // Вивід IP
+  // Завантаження логів
   function loadLogs() {
     fetch('/api/get-ips')
             .then(res => res.json())
@@ -34,20 +64,20 @@
               list.innerHTML = '';
               data.forEach(ip => {
                 const li = document.createElement('li');
-                const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA') : 'Час невідомий';
+                const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
                 li.textContent = `${ip.ip_address} — ${time}`;
                 list.appendChild(li);
               });
             });
   }
 
-  loadLogs();
-
-  // Очистка логів
+  // Очищення логів
   function clearLogs() {
     fetch('/api/clear-ips', { method: 'DELETE' })
             .then(() => loadLogs());
   }
+
+  loadLogs();
 </script>
 
 </body>

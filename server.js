@@ -147,3 +147,13 @@ app.get("/api/get-ips", async (req, res) => {
         res.status(500).json({ error: "Помилка отримання" });
     }
 });
+
+app.delete('/api/clear-ips', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM ip_logs');
+        res.json({ message: "Всі IP логи очищено" });
+    } catch (err) {
+        console.error("Помилка при очищенні IP:", err);
+        res.status(500).json({ error: "Помилка очищення" });
+    }
+});
