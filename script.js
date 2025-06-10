@@ -218,3 +218,7 @@ function acceptIpNotice() {
     localStorage.setItem('ipNoticeAccepted', 'true');
     document.getElementById('ipNotice').style.display = 'none';
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    fetch('/api/log-ip', { method: 'POST' });
+});
