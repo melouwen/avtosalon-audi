@@ -74,6 +74,34 @@
 </div>
 
 <script>
+  function checkAuth() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      window.location.href = 'login.html';
+    }
+  }
+
+  window.onload = checkAuth;
+
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'login.html';
+  }
+
+  function clearLogs() {
+    document.getElementById('ip-list').innerHTML = '';
+    alert('Логи очищено!');
+  }
+
+  function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  }
+  
+  if (isMobileDevice()) {
+    document.body.style.padding = '10px';
+    document.querySelector('.container').style.maxWidth = '100%';
+  }
+
   fetch('/api/log-ip', { method: 'POST' });
 
   async function deleteOne(id) {
