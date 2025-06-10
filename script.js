@@ -207,3 +207,14 @@ window.addEventListener('scroll', () => {
     document.getElementById('scrollProgressBar').style.width = scrollPercent + '%';
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+    // IP notice
+    if (!localStorage.getItem('ipNoticeAccepted')) {
+        document.getElementById('ipNotice').style.display = 'flex';
+    }
+});
+
+function acceptIpNotice() {
+    localStorage.setItem('ipNoticeAccepted', 'true');
+    document.getElementById('ipNotice').style.display = 'none';
+}
