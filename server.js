@@ -175,14 +175,15 @@ app.get("/api/get-ips", async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM ip_logs ORDER BY timestamp DESC');
 
-        // додаємо локацію для кожного IP
         const enrichedData = await Promise.all(result.rows.map(async (row) => {
             try {
                 const response = await fetch(`http://ipwho.is/${row.ip_address}`);
                 const data = await response.json();
+                const city = data.city || 'Місто невідоме';
+                const country = data.country || 'Країна невідома';
                 return {
                     ...row,
-                    location: data.success ? `${data.city}, ${data.country}` : 'Локацію не вдалося отримати'
+                    location: data.success ? `${city}, ${country}` : 'Локацію не вдалося отримати'
                 };
             } catch {
                 return { ...row, location: 'Помилка отримання локації' };
