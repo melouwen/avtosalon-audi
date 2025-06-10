@@ -77,17 +77,21 @@
     list.innerHTML = '';
 
     data.forEach(ip => {
-      const li = document.createElement('li');
       const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
+      const providerInfo = ip.isp ? ` | ${ip.isp}` : '';
+      const flag = ip.flag || '';
+
+      const li = document.createElement('li');
       li.innerHTML = `
-          <strong>${ip.ip_address}</strong><br>
-          ${time}<br>
-          <span class="location">${ip.location}</span><br>
-          <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
-        `;
+        <strong>${ip.ip_address}</strong><br>
+        ${time}<br>
+        <span class="location">${ip.location}${providerInfo} ${flag}</span><br>
+        <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
+      `;
       list.appendChild(li);
     });
   }
+
 
   function clearLogs() {
     fetch('/api/clear-ips', { method: 'DELETE' })

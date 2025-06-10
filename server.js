@@ -167,14 +167,25 @@ app.get("/api/get-ips", async (req, res) => {
             try {
                 const response = await fetch(`http://ipwho.is/${row.ip_address}`);
                 const data = await response.json();
+
                 const city = data.city || 'Місто невідоме';
                 const country = data.country || 'Країна невідома';
+                const isp = data.connection?.isp || 'Провайдер невідомий';
+                const flag = data.flag?.emoji || '';
+
                 return {
                     ...row,
-                    location: data.success ? `${city}, ${country}` : 'Локацію не вдалося отримати'
+                    location: data.success ? `${city}, ${country}` : 'Локацію не вдалося отримати',
+                    isp,
+                    flag
                 };
             } catch {
-                return { ...row, location: 'Помилка отримання локації' };
+                return {
+                    ...row,
+                    location: 'Помилка отримання локації',
+                    isp: '---',
+                    flag: ''
+                };
             }
         }));
 
@@ -184,3 +195,4 @@ app.get("/api/get-ips", async (req, res) => {
         res.status(500).json({ error: "Помилка отримання" });
     }
 });
+
