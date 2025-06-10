@@ -19,16 +19,20 @@
 </div>
 
 <script>
-  fetch('/api/get-ips')
-          .then(res => res.json())
-          .then(data => {
-            const list = document.getElementById('ipList');
-            data.forEach(ip => {
-              const li = document.createElement('li');
-              li.textContent = `${ip.ip_address} — ${new Date(ip.timestamp).toLocaleString()}`;
-              list.appendChild(li);
-            });
-          });
+    // Автоматичний запис IP при завантаженні сторінки:
+    fetch('/api/log-ip', { method: 'POST' });
+
+    // Отримання IP для виведення:
+    fetch('/api/get-ips')
+    .then(res => res.json())
+    .then(data => {
+    const list = document.getElementById('ipList');
+    data.forEach(ip => {
+    const li = document.createElement('li');
+    li.textContent = `${ip.ip_address} — ${new Date(ip.timestamp).toLocaleString()}`;
+    list.appendChild(li);
+  });
+  });
 </script>
 </body>
 </html>

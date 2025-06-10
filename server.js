@@ -123,13 +123,12 @@ pool.query('SELECT NOW()', (err, result) => {
     }
 });
 
-// Запуск сервера
 app.listen(PORT, () => {
     console.log(`Сервер працює на http://localhost:${PORT}`);
 });
 
 app.post("/api/log-ip", async (req, res) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
     try {
         await pool.query('INSERT INTO ip_logs (ip_address) VALUES ($1)', [ip]);
         res.json({ message: "IP збережено" });
@@ -138,7 +137,6 @@ app.post("/api/log-ip", async (req, res) => {
         res.status(500).json({ error: "Помилка збереження" });
     }
 });
-
 
 app.get("/api/get-ips", async (req, res) => {
     try {
