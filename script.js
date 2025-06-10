@@ -53,12 +53,8 @@ async function renderCars() {
             const modelName = name.replace(/^AUDI\s+/i, "").trim();
 
             const matchClass = selectedFilters.length === 0 || selectedFilters.some(filter => {
-                if (filter === "RS") {
-                    return modelName.startsWith("RS") || modelName.startsWith("R");
-                }
-                if (filter === "Q") {
-                    return modelName.startsWith("Q") || modelName.startsWith("SQ");
-                }
+                if (filter === "RS") return modelName.startsWith("RS") || modelName.startsWith("R");
+                if (filter === "Q") return modelName.startsWith("Q") || modelName.startsWith("SQ");
                 return modelName.startsWith(filter);
             });
 
@@ -87,13 +83,12 @@ async function renderCars() {
         card.dataset.index = i;
 
         card.innerHTML = `
-    <img src="${car.image}" alt="${car.name}">
-    <div class="car-title-overlay car-flex-title">
-        <span class="left">${car.name}</span>
-        <span class="right">${car.price ? car.price + ' €' : ''}</span>
-    </div>
-`;
-
+            <img src="${car.image}" alt="${car.name}">
+            <div class="car-title-overlay car-flex-title">
+                <span class="left">${car.name}</span>
+                <span class="right">${car.price ? car.price + ' €' : ''}</span>
+            </div>
+        `;
 
         card.addEventListener("click", () => {
             if (car.page) {
@@ -140,17 +135,68 @@ async function renderCars() {
     localStorage.removeItem("selectedCarIndex");
 }
 
+function addToCompare(e, id) {
+    e.stopPropagation();
+    let compareList = JSON.parse(localStorage.getItem("compareCars")) || [];
+    if (!compareList.includes(id)) {
+        compareList.push(id);
+        localStorage.setItem("compareCars", JSON.stringify(compareList));
+        alert("Додано до порівняння!");
+    } else {
+        alert("Ця модель вже у списку порівняння.");
+    }
+}
+
+function acceptIpNotice() {
+    localStorage.setItem('ipNoticeAccepted', 'true');
+    document.getElementById('ipNotice').style.display = 'none';
+}
+
 document.getElementById("secret-admin-access")?.addEventListener("click", () => {
     window.location.href = "admin/index.html";
+});
+
+document.addEventListener("click", function (e) {
+    const filterArea = document.querySelector(".filters-container");
+    const filterOptions = document.getElementById("filterOptions");
+    if (filterArea && filterOptions && !filterArea.contains(e.target)) {
+        filterOptions.classList.remove("show");
+    }
+});
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById('scrollProgressBar').style.width = scrollPercent + '%';
+});
+
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add("fade-out");
+            setTimeout(() => loader.remove(), 700);
+        }, 700);
+    }
 });
 
 window.addEventListener("DOMContentLoaded", () => {
     renderCars();
     cycleVideos();
 
+    // IP notice
+    if (!localStorage.getItem('ipNoticeAccepted')) {
+        const notice = document.getElementById('ipNotice');
+        if (notice) notice.style.display = 'flex';
+    }
+
+    // Log IP
+    fetch('/api/log-ip', { method: 'POST' });
+
+    // Filters
     const filterToggle = document.getElementById("filterToggle");
     const filterOptions = document.getElementById("filterOptions");
-
     if (filterToggle && filterOptions) {
         filterToggle.addEventListener("click", () => {
             filterOptions.classList.toggle("show");
@@ -167,58 +213,4 @@ window.addEventListener("DOMContentLoaded", () => {
         document.getElementById("priceMax").value = "";
         renderCars();
     });
-});
-
-window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
-    if (loader) {
-        setTimeout(() => {
-            loader.classList.add("fade-out");
-            setTimeout(() => loader.remove(), 700);
-        }, 700);
-    }
-});
-
-document.addEventListener("click", function (e) {
-    const filterArea = document.querySelector(".filters-container");
-    const filterOptions = document.getElementById("filterOptions");
-
-    if (!filterArea.contains(e.target)) {
-        filterOptions.classList.remove("show");
-    }
-});
-
-function addToCompare(e, id) {
-    e.stopPropagation();
-    let compareList = JSON.parse(localStorage.getItem("compareCars")) || [];
-    if (!compareList.includes(id)) {
-        compareList.push(id);
-        localStorage.setItem("compareCars", JSON.stringify(compareList));
-        alert("Додано до порівняння!");
-    } else {
-        alert("Ця модель вже у списку порівняння.");
-    }
-}
-
-window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    document.getElementById('scrollProgressBar').style.width = scrollPercent + '%';
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-    // IP notice
-    if (!localStorage.getItem('ipNoticeAccepted')) {
-        document.getElementById('ipNotice').style.display = 'flex';
-    }
-});
-
-function acceptIpNotice() {
-    localStorage.setItem('ipNoticeAccepted', 'true');
-    document.getElementById('ipNotice').style.display = 'none';
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-    fetch('/api/log-ip', { method: 'POST' });
 });
