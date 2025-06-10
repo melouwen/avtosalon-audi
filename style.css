@@ -132,24 +132,153 @@ nav button:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
+    min-height: 100vh;
+    padding: 0 20px;
 }
 
 .home .overlay {
-    background: rgba(0, 0, 0, 0.6);
-    width: 100%;
-    height: 100%;
-    padding: 100px 20px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(10, 10, 20, 0.5));
+    backdrop-filter: blur(5px);
+    border-radius: 25px;
+    padding: 40px 60px;
+    display: inline-block;
+    margin: 20px auto;
+    max-width: 700px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1.5s ease-out;
 }
 
 .home .content {
-    max-width: 800px;
+    max-width: 100%;
     color: #fff;
-    animation: fadeInUp 1.2s ease-out;
 }
+
+.home .content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #fff, #d3d3d3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.home .content .lead {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.home .content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 30px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.cta-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fancy-btn {
+    background: linear-gradient(90deg, #1e90ff, #00b7eb);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+}
+
+.fancy-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.fancy-btn.alt {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.fancy-btn.alt:hover {
+    background: #fff;
+    color: #1e90ff;
+    border-color: #1e90ff;
+}
+
+@media (max-width: 768px) {
+    .home .overlay {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+
+    .home .content h1 {
+        font-size: 2rem;
+    }
+
+    .home .content .lead {
+        font-size: 1.1rem;
+    }
+
+    .home .content p {
+        font-size: 1rem;
+    }
+
+    .fancy-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    0% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.4; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes floatParticle {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    50% { transform: translate(50vw, 50vh) scale(1.5); opacity: 0.3; }
+    100% { transform: translate(100vw, 100vh) scale(1); opacity: 0; }
+}
+
 
 .improved-about {
     background: linear-gradient(to bottom right, #111, #1b1b1b);
@@ -1040,7 +1169,7 @@ html {
 }
 
 .ip-notice-box {
-    background: #fff;
+    background: #2b2a2a;
     color: #222;
     padding: 30px 40px;
     border-radius: 16px;
@@ -1064,19 +1193,19 @@ html {
 .ip-notice-box h3 {
     margin-top: 0;
     font-size: 1.5rem;
-    color: #333;
+    color: #ffffff;
 }
 
 .ip-notice-box p {
     font-size: 1rem;
-    color: #555;
+    color: #787878;
     margin: 15px 0;
 }
 
 .ip-notice-box button {
     margin-top: 20px;
     padding: 10px 20px;
-    background: #1d4ed8;
+    background: #e6e6e6;
     color: white;
     border: none;
     border-radius: 10px;
@@ -1087,7 +1216,7 @@ html {
 }
 
 .ip-notice-box button:hover {
-    background: #2563eb;
+    background: #cccccc;
 }
 
 .ip-notice-buttons {
@@ -1098,8 +1227,8 @@ html {
 }
 
 .ip-notice-buttons .fancy-btn {
-    background: #1d4ed8;
-    color: #ffffff;
+    background: #ffffff;
+    color: #000000;
     padding: 12px 24px;
     border-radius: 12px;
     font-size: 1rem;
@@ -1110,7 +1239,7 @@ html {
 }
 
 .ip-notice-buttons .fancy-btn:hover {
-    background: #2563eb;
+    background: #7a7a7a;
     transform: scale(1.05);
 }
 
