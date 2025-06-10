@@ -138,16 +138,6 @@ app.post("/api/log-ip", async (req, res) => {
     }
 });
 
-app.get("/api/get-ips", async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM ip_logs ORDER BY timestamp DESC');
-        res.json(result.rows);
-    } catch (err) {
-        console.error("Помилка при отриманні IP:", err);
-        res.status(500).json({ error: "Помилка отримання" });
-    }
-});
-
 app.delete('/api/clear-ips', async (req, res) => {
     try {
         await pool.query('DELETE FROM ip_logs');
@@ -168,8 +158,6 @@ app.delete('/api/delete-ip/:id', async (req, res) => {
         res.status(500).json({ error: 'Помилка видалення' });
     }
 });
-
-const fetch = require('node-fetch');
 
 app.get("/api/get-ips", async (req, res) => {
     try {
