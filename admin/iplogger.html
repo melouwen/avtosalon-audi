@@ -77,7 +77,7 @@
   function checkAuth() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (!isLoggedIn) {
-      window.location.href = 'login.html';
+      window.location.href = 'index.html';
     }
   }
 
@@ -85,7 +85,7 @@
 
   function logout() {
     localStorage.removeItem('isLoggedIn');
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
   }
 
   function clearLogs() {
@@ -96,7 +96,7 @@
   function isMobileDevice() {
     return /Mobi|Android/i.test(navigator.userAgent);
   }
-  
+
   if (isMobileDevice()) {
     document.body.style.padding = '10px';
     document.querySelector('.container').style.maxWidth = '100%';
