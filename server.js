@@ -168,3 +168,30 @@ app.delete('/api/delete-ip/:id', async (req, res) => {
         res.status(500).json({ error: 'Помилка видалення' });
     }
 });
+
+const fetch = require('node-fetch');
+
+app.get("/api/get-ips", async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM ip_logs ORDER BY timestamp DESC');
+
+        // додаємо локацію для кожного IP
+        const enrichedData = await Promise.all(result.rows.map(async (row) => {
+            try {
+                const response = await fetch(`http://ipwho.is/${row.ip_address}`);
+                const data = await response.json();
+                return {
+                    ...row,
+                    location: data.success ? `${data.city}, ${data.country}` : 'Локацію не вдалося отримати'
+                };
+            } catch {
+                return { ...row, location: 'Помилка отримання локації' };
+            }
+        }));
+
+        res.json(enrichedData);
+    } catch (err) {
+        console.error("Помилка при отриманні IP:", err);
+        res.status(500).json({ error: "Помилка отримання" });
+    }
+});

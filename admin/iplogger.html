@@ -30,15 +30,13 @@
       border-radius: 6px;
       margin-bottom: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
-    li .info {
-      flex: 1;
+    .location {
+      font-size: 0.9rem;
+      color: #555;
     }
-    li button.delete-btn {
-      margin-left: 12px;
+    .delete-btn {
+      margin-top: 5px;
       padding: 6px 12px;
       background: #ef4444;
       color: white;
@@ -47,11 +45,7 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-    li button.delete-btn:hover { background: #dc2626; }
-    .location {
-      font-size: 0.9rem;
-      color: #555;
-    }
+    .delete-btn:hover { background: #dc2626; }
   </style>
 </head>
 <body>
@@ -82,35 +76,17 @@
     const list = document.getElementById('ipList');
     list.innerHTML = '';
 
-    for (const ip of data) {
+    data.forEach(ip => {
       const li = document.createElement('li');
+      const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
       li.innerHTML = `
-          <div class="info">
-            <strong>${ip.ip_address}</strong><br>
-            ${ ip.timestamp
-              ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' })
-              : 'Час невідомий' }<br>
-            <span class="location">Завантаження місцеположення…</span>
-          </div>
+          <strong>${ip.ip_address}</strong><br>
+          ${time}<br>
+          <span class="location">${ip.location}</span><br>
           <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
         `;
       list.appendChild(li);
-
-      // fetch гео-локацію
-      fetch(`http://ipwho.is/${ip.ip_address}`)
-              .then(r => r.json())
-              .then(j => {
-                if (j.success) {
-                  li.querySelector('.location').textContent =
-                          `${j.city}, ${j.country}`;
-                } else {
-                  li.querySelector('.location').textContent = 'Локація відсутня';
-                }
-              })
-              .catch(() => {
-                li.querySelector('.location').textContent = 'Локацію не вдалося отримати';
-              });
-    }
+    });
   }
 
   function clearLogs() {
@@ -120,5 +96,6 @@
 
   loadLogs();
 </script>
+
 </body>
 </html>
