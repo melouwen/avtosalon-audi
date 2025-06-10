@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+  <audio id="logSound" src="audio/notify.mp3" preload="auto"></audio>
   <meta charset="UTF-8">
   <title>IP Logger</title>
   <link rel="stylesheet" href="admin.css">
@@ -46,6 +47,15 @@
       transition: background 0.3s ease;
     }
     .delete-btn:hover { background: #dc2626; }
+
+    .ip-new {
+      animation: highlight-fade 1.5s ease-out;
+    }
+
+    @keyframes highlight-fade {
+      0% { background-color: #d1fae5; }
+      100% { background-color: #f9fafb; }
+    }
   </style>
 </head>
 <body>
@@ -70,12 +80,18 @@
     loadLogs();
   }
 
+  let lastLogId = null;
+
   async function loadLogs() {
     const res = await fetch('/api/get-ips');
     const data = await res.json();
     const list = document.getElementById('ipList');
-    list.innerHTML = '';
 
+    // check if new log added
+    const isNew = lastLogId && data.length > 0 && data[0].id !== lastLogId;
+    lastLogId = data.length > 0 ? data[0].id : null;
+
+    list.innerHTML = '';
     data.forEach(ip => {
       const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
       const providerInfo = ip.isp ? ` | ${ip.isp}` : '';
@@ -83,11 +99,18 @@
 
       const li = document.createElement('li');
       li.innerHTML = `
-        <strong>${ip.ip_address}</strong><br>
-        ${time}<br>
-        <span class="location">${ip.location}${providerInfo} ${flagHTML}</span><br>
-        <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
-      `;
+      <strong>${ip.ip_address}</strong><br>
+      ${time}<br>
+      <span class="location">${ip.location}${providerInfo} ${flagHTML}</span><br>
+      <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
+    `;
+
+      // 🎉 Highlight and sound for new entries
+      if (isNew && ip.id === lastLogId) {
+        li.classList.add('ip-new');
+        document.getElementById('logSound').play().catch(() => {});
+      }
+
       list.appendChild(li);
     });
   }
