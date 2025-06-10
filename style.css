@@ -1089,3 +1089,40 @@ html {
 .ip-notice-box button:hover {
     background: #2563eb;
 }
+
+.ip-notice-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.ip-notice-buttons .fancy-btn {
+    background: #1d4ed8;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.ip-notice-buttons .fancy-btn:hover {
+    background: #2563eb;
+    transform: scale(1.05);
+}
+
+.ip-notice-buttons .fancy-btn.alt {
+    background: transparent;
+    border: 2px solid #dc2626;
+    color: #dc2626;
+    padding: 10px 22px;
+}
+
+.ip-notice-buttons .fancy-btn.alt:hover {
+    background: #dc2626;
+    color: #ffffff;
+    transform: scale(1.05);
+}

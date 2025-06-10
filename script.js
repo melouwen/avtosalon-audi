@@ -47,7 +47,7 @@ async function renderCars() {
 
     let filteredCars = allCars;
 
-    if (selectedFilters.length > 0 || minPrice > 0 || maxPrice < Infinity) {
+    if (selectedFilters.length > 0 || minPrice > 0 || minPrice < Infinity) {
         filteredCars = allCars.filter(car => {
             const name = car.name.toUpperCase();
             const modelName = name.replace(/^AUDI\s+/i, "").trim();
@@ -159,7 +159,7 @@ function acceptIpNotice() {
 }
 
 function declineIpNotice() {
-    document.getElementById('ipNotice').style.display = 'none';
+    window.location.href = 'https://www.google.com';
 }
 
 document.getElementById("secret-admin-access")?.addEventListener("click", () => {
