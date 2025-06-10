@@ -155,10 +155,12 @@ function acceptIpNotice() {
             }
         })
         .catch(error => console.error("Помилка при відправці IP:", error));
+    sessionStorage.setItem('ipNoticeChoice', 'accepted');
     document.getElementById('ipNotice').style.display = 'none';
 }
 
 function declineIpNotice() {
+    sessionStorage.setItem('ipNoticeChoice', 'declined');
     window.location.href = 'https://www.google.com';
 }
 
@@ -196,7 +198,9 @@ window.addEventListener("DOMContentLoaded", () => {
     cycleVideos();
 
     const notice = document.getElementById('ipNotice');
-    if (notice) notice.style.display = 'flex';
+    if (notice && !sessionStorage.getItem('ipNoticeChoice')) {
+        notice.style.display = 'flex';
+    }
 
     const filterToggle = document.getElementById("filterToggle");
     const filterOptions = document.getElementById("filterOptions");
