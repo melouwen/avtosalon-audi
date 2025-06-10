@@ -7,7 +7,7 @@
   <style>
     .clear-btn {
       display: inline-block;
-      margin: 20px auto;
+      margin: 10px 0;
       padding: 10px 20px;
       background-color: #ef4444;
       color: white;
@@ -18,22 +18,39 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
-    .clear-btn:hover {
-      background-color: #dc2626;
-    }
+    .clear-btn:hover { background-color: #dc2626; }
 
     ul#ipList {
       list-style: none;
       padding: 0;
     }
-
     ul#ipList li {
       background: #f9fafb;
       padding: 10px;
       border-radius: 6px;
       margin-bottom: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li .info {
+      flex: 1;
+    }
+    li button.delete-btn {
+      margin-left: 12px;
+      padding: 6px 12px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    li button.delete-btn:hover { background: #dc2626; }
+    .location {
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
@@ -41,7 +58,7 @@
 <div class="topbar">
   <span>IP Logger</span>
   <div class="topbar-links">
-    <a href="dashboard.html">Адмін-панель</a>
+    <a href="dashboard.html">Адмін‑панель</a>
   </div>
 </div>
 
@@ -52,26 +69,50 @@
 </div>
 
 <script>
-  // Запис IP при вході
   fetch('/api/log-ip', { method: 'POST' });
 
-  // Завантаження логів
-  function loadLogs() {
-    fetch('/api/get-ips')
-            .then(res => res.json())
-            .then(data => {
-              const list = document.getElementById('ipList');
-              list.innerHTML = '';
-              data.forEach(ip => {
-                const li = document.createElement('li');
-                const time = ip.timestamp ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' }) : 'Час невідомий';
-                li.textContent = `${ip.ip_address} — ${time}`;
-                list.appendChild(li);
-              });
-            });
+  async function deleteOne(id) {
+    await fetch(`/api/delete-ip/${id}`, { method: 'DELETE' });
+    loadLogs();
   }
 
-  // Очищення логів
+  async function loadLogs() {
+    const res = await fetch('/api/get-ips');
+    const data = await res.json();
+    const list = document.getElementById('ipList');
+    list.innerHTML = '';
+
+    for (const ip of data) {
+      const li = document.createElement('li');
+      li.innerHTML = `
+          <div class="info">
+            <strong>${ip.ip_address}</strong><br>
+            ${ ip.timestamp
+              ? new Date(ip.timestamp).toLocaleString('uk-UA', { timeZone: 'Europe/Kiev' })
+              : 'Час невідомий' }<br>
+            <span class="location">Завантаження місцеположення…</span>
+          </div>
+          <button class="delete-btn" onclick="deleteOne(${ip.id})">Видалити</button>
+        `;
+      list.appendChild(li);
+
+      // fetch гео-локацію
+      fetch(`http://ipwho.is/${ip.ip_address}`)
+              .then(r => r.json())
+              .then(j => {
+                if (j.success) {
+                  li.querySelector('.location').textContent =
+                          `${j.city}, ${j.country}`;
+                } else {
+                  li.querySelector('.location').textContent = 'Локація відсутня';
+                }
+              })
+              .catch(() => {
+                li.querySelector('.location').textContent = 'Локацію не вдалося отримати';
+              });
+    }
+  }
+
   function clearLogs() {
     fetch('/api/clear-ips', { method: 'DELETE' })
             .then(() => loadLogs());
@@ -79,6 +120,5 @@
 
   loadLogs();
 </script>
-
 </body>
 </html>

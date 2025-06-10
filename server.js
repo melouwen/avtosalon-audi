@@ -157,3 +157,14 @@ app.delete('/api/clear-ips', async (req, res) => {
         res.status(500).json({ error: "Помилка очищення" });
     }
 });
+
+// Видалити один лог
+app.delete('/api/delete-ip/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM ip_logs WHERE id = $1', [req.params.id]);
+        res.json({ message: 'Лог видалено' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Помилка видалення' });
+    }
+});
