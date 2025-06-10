@@ -63,7 +63,12 @@
 </div>
 
 <script>
-  fetch('/api/log-ip', { method: 'POST' });
+  const logged = localStorage.getItem("ipLogged");
+  if (!logged) {
+    fetch('/api/log-ip', { method: 'POST' }).then(() => {
+      localStorage.setItem("ipLogged", "true");
+    });
+  }
 
   async function deleteOne(id) {
     await fetch(`/api/delete-ip/${id}`, { method: 'DELETE' });
@@ -95,6 +100,7 @@
   }
 
   loadLogs();
+  setInterval(loadLogs, 500);
 </script>
 
 </body>
