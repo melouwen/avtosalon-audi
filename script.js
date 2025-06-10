@@ -148,6 +148,17 @@ function addToCompare(e, id) {
 }
 
 function acceptIpNotice() {
+    fetch('/api/log-ip', { method: 'POST' })
+        .then(response => {
+            if (!response.ok) {
+                console.error("Помилка при збереженні IP");
+            }
+        })
+        .catch(error => console.error("Помилка при відправці IP:", error));
+    document.getElementById('ipNotice').style.display = 'none';
+}
+
+function declineIpNotice() {
     document.getElementById('ipNotice').style.display = 'none';
 }
 
@@ -184,11 +195,8 @@ window.addEventListener("DOMContentLoaded", () => {
     renderCars();
     cycleVideos();
 
-        const notice = document.getElementById('ipNotice');
-        if (notice) notice.style.display = 'flex';
-
-
-    fetch('/api/log-ip', { method: 'POST' });
+    const notice = document.getElementById('ipNotice');
+    if (notice) notice.style.display = 'flex';
 
     const filterToggle = document.getElementById("filterToggle");
     const filterOptions = document.getElementById("filterOptions");

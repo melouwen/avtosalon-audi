@@ -8,12 +8,15 @@
     <title>Audi Autohouse</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<div id="ipNotice" class="ip-notice">
+<div class="ip-notice" id="ipNotice">
     <div class="ip-notice-box">
         <div class="ip-notice-icon">🔒</div>
         <h3>Зчитування IP</h3>
-        <p>Ваш IP-адрес зчитується для <strong>безпеки</strong> та <strong>аналітики</strong> сайту.</p>
-        <button onclick="acceptIpNotice()">Зрозуміло</button>
+        <p>Ваш IP-адрес зчитується для безпеки та аналітики сайту. Будь ласка, підтвердіть свою згоду.</p>
+        <div class="cta-buttons">
+            <button class="fancy-btn" onclick="acceptIpNotice()">Погоджуюсь</button>
+            <button class="fancy-btn alt" onclick="declineIpNotice()">Відмовлююсь</button>
+        </div>
     </div>
 </div>
 <body>
